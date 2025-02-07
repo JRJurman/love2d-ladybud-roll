@@ -1,3 +1,5 @@
+local PositionFunctions = require('../Functions/PositionFunctions')
+local RewardModal = require('../Components/RewardModal')
 local DiceTray = require('../Components/DiceTray')
 local FatRect = require('../Components/FatRect')
 local Button = require('../Components/Button')
@@ -271,17 +273,21 @@ end
 function GameScreen.draw()
 	if screen ~= GameScreen.screen then return end
 
-	-- draw the player / enemy
-	local characterBorder = selectedRow == 'characters' and {1,1,1} or {0.7, 0.7, 0.7}
-	FatRect.draw(100, 66, 620, 250, 3, characterBorder, {0,0,0})
+	-- most of the controls here should be the same width, and left-aligned
+	local width = 620
+	local x = PositionFunctions.getXForWidth(620)
+
+	FatRect.draw(x, 66, width, 250, 3, {1,1,1}, {0,0,0}, selectedRow == 'characters')
 	Player.draw(selectedRow == 'characters' and selectedCharacter == 'player', playerHP, playerBLK)
 	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
-	DiceTray.draw(100, 350, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil)
+	DiceTray.draw(x, 350, width, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	-- draw the confirmation button
-	Button.draw(100, 510, 620, 40, 3, {0.7, 0.7, 0.7}, {1,1,1}, selectedRow == 'confirm', 'Confirm')
+	Button.draw(x, 510, width, 40, 3, {1,1,1}, selectedRow == 'confirm', 'Confirm')
+
+	RewardModal.draw()
 end
 
 return GameScreen

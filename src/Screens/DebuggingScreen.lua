@@ -3,6 +3,16 @@ debugging = false
 points = {}
 local originPoint = nil
 
+local colors = {
+	{0, 0, 1},
+	{0, 1, 0},
+	{0, 1, 1},
+	{1, 0, 0},
+	{1, 0, 1},
+	{1, 1, 0},
+	{1, 1, 1},
+}
+
 function DebuggingScreen.update(dt)
 	if screen ~= DebuggingScreen.screen then return end
 end
@@ -51,10 +61,8 @@ function DebuggingScreen.draw()
 
 	-- draw all points that have been clicked on
 	for key, point in pairs(points) do
-		local r = (key * 12345 % 255) / 255
-    local g = (key * 54321 % 255) / 255
-    local b = (key * 67890 % 255) / 255
-		love.graphics.setColor(r, g, b)
+		local colorKey = (key - 1) % #colors + 1
+		love.graphics.setColor(unpack(colors[colorKey]))
 		local px, py = point[1], point[2]
 		love.graphics.print('point '..px..', '..py, 20, 580 - (key * 16))
 		love.graphics.circle('fill', px, py, 3)
