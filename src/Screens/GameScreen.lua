@@ -20,7 +20,7 @@ animationTimer = 0
 phase = 'rollingDice'
 
 -- initial character state
-playerHP = 20
+playerHP = 5 -- set to 10 for release
 playerBLK = 2
 
 enemyHP = nil
@@ -29,10 +29,19 @@ enemyActions = nil
 enemyConfig = nil
 round = 1
 
+-- other menus
+showReward = false
+
 -- starting dice
 diceBag = {
 	DieConfig.BlueDie,
 	DieConfig.BlueDie,
+	DieConfig.BlueDie,
+	DieConfig.BlueDie,
+	DieConfig.BlueDie,
+	DieConfig.RedDie,
+	DieConfig.RedDie,
+	DieConfig.RedDie,
 	DieConfig.RedDie,
 	DieConfig.RedDie,
 	DieConfig.Ladybug,
@@ -99,11 +108,15 @@ end
 
 function GameScreen.update(dt)
 	if screen ~= GameScreen.screen then return end
+	if phase == '' then
+		return
+	end
+
+	animationTimer = animationTimer + dt
 
 	-- if we are resolving an enemy attack, wait for the timer and then apply effects
 	if phase == 'resolvingEnemyAction' then
-		animationTimer = animationTimer + dt
-		if animationTimer > 0.3 then
+		if animationTimer > 0.6 then
 			local currentAction = table.remove(enemyActions, 1)
 			-- if the enemy is attacking
 			if currentAction.type == 'ATK' then
@@ -134,7 +147,6 @@ function GameScreen.update(dt)
 
 	-- if we are actively adding new dice, roll new ones
 	if phase == 'rollingDice' then
-		animationTimer = animationTimer + dt
 		if animationTimer > 0.3 then
 			-- draw the top die from our available dice and reset the timer
 			local newValue = rollDiceFromBag()
@@ -150,7 +162,6 @@ function GameScreen.update(dt)
 	if phase == 'removingDice' then
 		local assignedDice = getAssignedDiceIndexes(activeDice)
 
-		animationTimer = animationTimer + dt
 		if animationTimer > 0.3 then
 			local dieToRemove = activeDice[assignedDice[1]]
 			local diceConfig = diceBag[dieToRemove.diceBagIndex]
@@ -160,7 +171,7 @@ function GameScreen.update(dt)
 			if dieToRemove.assignment == 'ATK' then
 				-- we have enough damage to go through block
 				if totalValue - enemyBLK > 0 then
-					enemyHP = enemyHP - (totalValue - enemyBLK)
+					enemyHP = math.max(enemyHP - (totalValue - enemyBLK), 0)
 					enemyBLK = 0
 				else
 					enemyBLK = enemyBLK - totalValue
@@ -179,7 +190,18 @@ function GameScreen.update(dt)
 			animationTimer = 0
 		end
 		if #assignedDice == 0 then
-			phase = 'resolvingEnemyAction'
+			if enemyHP == 0 then
+				phase = 'resolveBattle' -- TODO IMPLEMENT THIS PHASE
+			else
+				phase = 'resolvingEnemyAction'
+			end
+		end
+	end
+
+	if phase == 'resolveBattle' then
+		if animationTimer > 1 then
+			showReward = true
+			phase = ''
 		end
 	end
 end

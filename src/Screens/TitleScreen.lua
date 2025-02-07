@@ -2,6 +2,7 @@ local GameScreen = require('../Screens/GameScreen')
 
 local TitleScreen = {}
 TitleScreen.screen = 0
+local seed = 0
 
 function TitleScreen.load()
 	screen = TitleScreen.screen
@@ -10,12 +11,15 @@ end
 
 function TitleScreen.update(dt)
 	if screen ~= TitleScreen.screen then return end
+	seed = seed + dt*100
 end
 
 function TitleScreen.keypressed(key)
 	if screen ~= TitleScreen.screen then return end
 
 	if key == 'enter' or key == 'space' then
+		print('seed: '..seed)
+		math.randomseed(seed)
 		GameScreen.load()
 	end
 end
