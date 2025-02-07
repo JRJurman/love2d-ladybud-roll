@@ -5,22 +5,31 @@ local Player = require('../Components/Player')
 local Enemy = require('../Components/Enemy')
 
 local DieConfig = require('../Data/DieConfig')
+local EnemyConfig = require('../Data/EnemyConfig')
 
 local GameScreen = {}
 GameScreen.screen = 2
 
+-- menu options
 selectedDiceIndex = 1
 selectedCharacter = 'enemy'
 selectedRow = 'characters'
-removingDice = false
-animationTimer = 0
-rollingDice = true
 
+-- animation handlers
+animationTimer = 0
+phase = 'rollingDice'
+
+-- initial character state
 playerHP = 20
 playerBLK = 2
-enemyHP = 20
-enemyBLK = 5
 
+enemyHP = nil
+enemyBLK = nil
+enemyActions = nil
+enemyConfig = nil
+round = 1
+
+-- starting dice
 diceBag = {
 	DieConfig.BlueDie,
 	DieConfig.BlueDie,
@@ -31,6 +40,13 @@ diceBag = {
 
 diceIndexBag = {}
 activeDice = {}
+
+function loadEnemyConfig(newEnemyConfig)
+	enemyConfig = newEnemyConfig
+	enemyHP = enemyConfig.startingHP
+	enemyBLK = enemyConfig.startingBLK
+	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+end
 
 function printDiceIndexBag()
 	print('DICE INDEX BAG')
@@ -68,7 +84,7 @@ function rollDiceFromBag()
 end
 
 function confirmAttack()
-	removingDice = true
+	phase = 'removingDice'
 	animationTimer = 0
 	selectedDiceIndex = 1
 end
@@ -78,13 +94,46 @@ function GameScreen.load()
 	for index, diceConfig in ipairs(diceBag) do
 		putDiceInBag({index})
 	end
+	loadEnemyConfig(EnemyConfig.Sandbag)
 end
 
 function GameScreen.update(dt)
 	if screen ~= GameScreen.screen then return end
 
+	-- if we are resolving an enemy attack, wait for the timer and then apply effects
+	if phase == 'resolvingEnemyAction' then
+		animationTimer = animationTimer + dt
+		if animationTimer > 0.3 then
+			local currentAction = table.remove(enemyActions, 1)
+			-- if the enemy is attacking
+			if currentAction.type == 'ATK' then
+				-- we have enough damage to go through block
+				if currentAction.value - playerBLK > 0 then
+					playerHP = playerHP - (currentAction.value - playerBLK)
+					playerBLK = 0
+				else
+					playerBLK = playerBLK - currentAction.value
+				end
+			end
+
+			-- if the enemy is doing something else
+			if currentAction.type == 'DEF' then
+				enemyBLK = enemyBLK + currentAction.value
+			end
+
+			-- reset the timer and set the dice to be rolling now
+			animationTimer = 0
+
+			if #enemyActions == 0 then
+				phase = 'rollingDice'
+				round = round + 1
+				enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+			end
+		end
+	end
+
 	-- if we are actively adding new dice, roll new ones
-	if rollingDice then
+	if phase == 'rollingDice' then
 		animationTimer = animationTimer + dt
 		if animationTimer > 0.3 then
 			-- draw the top die from our available dice and reset the timer
@@ -93,12 +142,12 @@ function GameScreen.update(dt)
 			animationTimer = 0
 		end
 		if #activeDice == 4 then
-			rollingDice = false
+			phase = ''
 		end
 	end
 
 	-- if we are actively removing dice, pop off assigned dice
-	if removingDice then
+	if phase == 'removingDice' then
 		local assignedDice = getAssignedDiceIndexes(activeDice)
 
 		animationTimer = animationTimer + dt
@@ -130,8 +179,7 @@ function GameScreen.update(dt)
 			animationTimer = 0
 		end
 		if #assignedDice == 0 then
-			removingDice = false
-			rollingDice = true
+			phase = 'resolvingEnemyAction'
 		end
 	end
 end
@@ -205,7 +253,7 @@ function GameScreen.draw()
 	local characterBorder = selectedRow == 'characters' and {1,1,1} or {0.7, 0.7, 0.7}
 	FatRect.draw(100, 66, 620, 250, 3, characterBorder, {0,0,0})
 	Player.draw(selectedRow == 'characters' and selectedCharacter == 'player', playerHP, playerBLK)
-	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK)
+	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
 	DiceTray.draw(100, 350, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil)
