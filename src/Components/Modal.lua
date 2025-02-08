@@ -3,6 +3,10 @@ local Modal = {}
 function Modal.draw(width, height, borderColor, backgroundColor)
 	local winWidth, winHeight = love.graphics.getDimensions()
 
+	-- draw the backdrop
+	love.graphics.setColor(0, 0, 0, 0.4)
+	love.graphics.rectangle('fill', 0, 0, winWidth, winHeight)
+
 	local padding = 4
 
 	-- determine x and y based on width and height, and the window frame

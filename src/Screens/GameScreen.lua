@@ -1,5 +1,7 @@
 local PositionFunctions = require('../Functions/PositionFunctions')
-local RewardModal = require('../Components/RewardModal')
+
+local MapScreen = require('../Screens/MapScreen')
+
 local DiceTray = require('../Components/DiceTray')
 local FatRect = require('../Components/FatRect')
 local Button = require('../Components/Button')
@@ -13,13 +15,13 @@ local GameScreen = {}
 GameScreen.screen = 2
 
 -- menu options
-selectedDiceIndex = 1
-selectedCharacter = 'enemy'
-selectedRow = 'characters'
+selectedDiceIndex = nil
+selectedCharacter = nil
+selectedRow = nil
 
 -- animation handlers
-animationTimer = 0
-phase = 'rollingDice'
+animationTimer = nil
+phase = nil
 
 -- initial character state
 playerHP = 5 -- set to 10 for release
@@ -29,10 +31,7 @@ enemyHP = nil
 enemyBLK = nil
 enemyActions = nil
 enemyConfig = nil
-round = 1
-
--- other menus
-showReward = false
+round = nil
 
 -- starting dice
 diceBag = {
@@ -57,13 +56,6 @@ function loadEnemyConfig(newEnemyConfig)
 	enemyHP = enemyConfig.startingHP
 	enemyBLK = enemyConfig.startingBLK
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
-end
-
-function printDiceIndexBag()
-	print('DICE INDEX BAG')
-	for index, dice in ipairs(diceIndexBag) do
-		print('['..index..']: '..dice)
-	end
 end
 
 function getAssignedDiceIndexes(dice)
@@ -106,6 +98,14 @@ function GameScreen.load()
 		putDiceInBag({index})
 	end
 	loadEnemyConfig(EnemyConfig.Sandbag)
+
+	-- reset values
+	round = 1
+	selectedDiceIndex = 1
+	selectedCharacter = 'enemy'
+	selectedRow = 'characters'
+	animationTimer = 0
+	phase = 'rollingDice'
 end
 
 function GameScreen.update(dt)
@@ -188,7 +188,6 @@ function GameScreen.update(dt)
 			-- pop an element, and reset the timer
 			table.remove(activeDice, assignedDice[1])
 			putDiceInBag({dieToRemove.diceBagIndex})
-			printDiceIndexBag()
 			animationTimer = 0
 		end
 		if #assignedDice == 0 then
@@ -202,8 +201,7 @@ function GameScreen.update(dt)
 
 	if phase == 'resolveBattle' then
 		if animationTimer > 1 then
-			showReward = true
-			phase = ''
+			MapScreen.load()
 		end
 	end
 end
@@ -286,8 +284,6 @@ function GameScreen.draw()
 
 	-- draw the confirmation button
 	Button.draw(x, 510, width, 40, 3, {1,1,1}, selectedRow == 'confirm', 'Confirm')
-
-	RewardModal.draw()
 end
 
 return GameScreen

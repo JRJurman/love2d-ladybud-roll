@@ -1,5 +1,6 @@
 local TitleScreen = require('Screens/TitleScreen')
 local GameScreen = require('Screens/GameScreen')
+local MapScreen = require('Screens/MapScreen')
 local InstructionScreen = require('Screens/InstructionScreen')
 local DebuggingScreen = require('Screens/DebuggingScreen')
 
@@ -12,6 +13,7 @@ function love.update(dt)
 	TitleScreen.update(dt)
 	InstructionScreen.update(dt)
 	GameScreen.update(dt)
+	MapScreen.update(dt)
 	DebuggingScreen.update(dt)
 end
 
@@ -19,6 +21,7 @@ function love.keypressed(key)
 	TitleScreen.keypressed(key)
 	InstructionScreen.keypressed(key)
 	GameScreen.keypressed(key)
+	MapScreen.keypressed(key)
 	DebuggingScreen.keypressed(key)
 end
 
@@ -34,5 +37,6 @@ function love.draw()
 	TitleScreen.draw()
 	InstructionScreen.draw()
 	GameScreen.draw()
+	MapScreen.draw()
 	DebuggingScreen.draw()
 end
