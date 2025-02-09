@@ -1,15 +1,13 @@
 local PositionFunctions = require('../Functions/PositionFunctions')
 
-local MapScreen = require('../Screens/MapScreen')
-
 local DiceTray = require('../Components/DiceTray')
 local FatRect = require('../Components/FatRect')
 local Button = require('../Components/Button')
 local Player = require('../Components/Player')
 local Enemy = require('../Components/Enemy')
 
-local DieConfig = require('../Data/DieConfig')
 local EnemyConfig = require('../Data/EnemyConfig')
+local PlayerConfig = require('../Data/PlayerConfig')
 
 local GameScreen = {}
 GameScreen.screen = 2
@@ -23,33 +21,11 @@ selectedRow = nil
 animationTimer = nil
 phase = nil
 
--- initial character state
-playerHP = 5 -- set to 10 for release
-playerBLK = 2
-
 enemyHP = nil
 enemyBLK = nil
 enemyActions = nil
 enemyConfig = nil
 round = nil
-
--- starting dice
-diceBag = {
-	DieConfig.BlueDie,
-	DieConfig.BlueDie,
-	DieConfig.BlueDie,
-	DieConfig.BlueDie,
-	DieConfig.BlueDie,
-	DieConfig.RedDie,
-	DieConfig.RedDie,
-	DieConfig.RedDie,
-	DieConfig.RedDie,
-	DieConfig.RedDie,
-	DieConfig.Ladybug,
-}
-
-diceIndexBag = {}
-activeDice = {}
 
 function loadEnemyConfig(newEnemyConfig)
 	enemyConfig = newEnemyConfig
@@ -94,6 +70,9 @@ end
 
 function GameScreen.load()
 	screen = GameScreen.screen
+
+	diceIndexBag = {}
+	activeDice = {}
 	for index, diceConfig in ipairs(diceBag) do
 		putDiceInBag({index})
 	end
@@ -201,7 +180,7 @@ function GameScreen.update(dt)
 
 	if phase == 'resolveBattle' then
 		if animationTimer > 1 then
-			MapScreen.load()
+			TransitionScreen.load(MapScreen)
 		end
 	end
 end

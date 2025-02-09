@@ -1,7 +1,5 @@
-local GameScreen = require('../Screens/GameScreen')
-local MapScreen = require('../Screens/MapScreen')
-
 local TitleScreen = {}
+
 TitleScreen.screen = 0
 local seed = 0
 
@@ -12,7 +10,7 @@ end
 
 function TitleScreen.update(dt)
 	if screen ~= TitleScreen.screen then return end
-	seed = seed + dt*100
+	seed = seed + dt*1000
 end
 
 function TitleScreen.keypressed(key)
@@ -21,8 +19,7 @@ function TitleScreen.keypressed(key)
 	if key == 'enter' or key == 'space' then
 		print('seed: '..seed)
 		math.randomseed(seed)
-		-- GameScreen.load()
-		MapScreen.load()
+		TransitionScreen.load(MapScreen)
 	end
 end
 

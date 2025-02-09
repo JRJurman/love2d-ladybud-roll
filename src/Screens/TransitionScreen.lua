@@ -1,0 +1,47 @@
+local TransitionScreen = {}
+
+local nextScreen
+local loadingDelay = 1
+loading = 0
+screenLoaded = false
+
+function TransitionScreen.load(next)
+	nextScreen = next
+	loading = loadingDelay
+	screenLoaded = false
+end
+
+function TransitionScreen.update(dt)
+	if loading > 0 then
+		loading = loading - dt
+
+		if loading < loadingDelay/2 and not screenLoaded then
+			nextScreen.load()
+			screenLoaded = true
+		end
+
+		if loading <= 0 then
+			loading = 0
+		end
+	end
+end
+
+function TransitionScreen.keypressed(key)
+end
+
+function TransitionScreen.draw()
+	if loading == 0 then return end
+
+	local winWidth, winHeight = love.graphics.getDimensions()
+
+	-- we want to start 1 window's width back, so that is -winWidth
+	-- loading / loadingDelay normalizes loading between 1 and 0
+	-- doing 1 - (loading / lodaingDelay) makes it between 0 and 1
+	-- we want this to end (when the normalized loading delay is 1) at 2 * winWidth
+	local x = -winWidth + (1 - (loading / loadingDelay)) * 2 * winWidth
+
+	love.graphics.setColor(0.2, 0.2, 0.2)
+	love.graphics.rectangle('fill', x, 0, winWidth, winHeight)
+end
+
+return TransitionScreen

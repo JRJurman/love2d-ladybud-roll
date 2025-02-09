@@ -1,7 +1,14 @@
+local PlayerConfig = require('../Data/PlayerConfig')
+
 local MapScreen = {}
 MapScreen.screen = 3 -- set number here!
 
 stage = 3
+
+-- initial character state
+playerHP = PlayerConfig.Seven.startingHP
+playerBLK = PlayerConfig.Seven.startingBLK
+diceBag = PlayerConfig.Seven.diceBag
 
 function MapScreen.load()
 	screen = MapScreen.screen
@@ -13,6 +20,10 @@ end
 
 function MapScreen.keypressed(key)
 	if screen ~= MapScreen.screen then return end
+
+	if key == 'enter' or key == 'space' then
+		TransitionScreen.load(GameScreen)
+	end
 end
 
 function MapScreen.draw()

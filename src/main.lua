@@ -1,20 +1,26 @@
-local TitleScreen = require('Screens/TitleScreen')
-local GameScreen = require('Screens/GameScreen')
-local MapScreen = require('Screens/MapScreen')
-local InstructionScreen = require('Screens/InstructionScreen')
-local DebuggingScreen = require('Screens/DebuggingScreen')
+TitleScreen = require('Screens/TitleScreen')
+GameScreen = require('Screens/GameScreen')
+MapScreen = require('Screens/MapScreen')
+InstructionScreen = require('Screens/InstructionScreen')
+DebuggingScreen = require('Screens/DebuggingScreen')
+TransitionScreen = require('Screens/TransitionScreen')
 
+screen = 0
 function love.load()
-	screen = 0
 	TitleScreen.load()
 end
 
 function love.update(dt)
+	DebuggingScreen.update(dt)
+	TransitionScreen.update(dt)
+	if loading > 0 then
+		return
+	end
+
 	TitleScreen.update(dt)
 	InstructionScreen.update(dt)
 	GameScreen.update(dt)
 	MapScreen.update(dt)
-	DebuggingScreen.update(dt)
 end
 
 function love.keypressed(key)
@@ -39,4 +45,6 @@ function love.draw()
 	GameScreen.draw()
 	MapScreen.draw()
 	DebuggingScreen.draw()
+
+	TransitionScreen.draw()
 end
