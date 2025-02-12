@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx serve DiceGame",
-    "build": "cd src; zip ../dice-game.zip -r *; cd .. && mv dice-game.zip dice-game.love",
-		"postbuild": "love.js dice-game.love DiceGame -t DiceGame -c && cp ./dice-game.html DiceGame/index.html"
+    "start": "serve DiceGame",
+    "build:love": "cd src; zip ../dice-game.zip -r *; cd .. && mv dice-game.zip dice-game.love",
+    "build:js": "love.js dice-game.love DiceGame -t DiceGame && cp ./dice-game.html DiceGame/index.html",
+    "build": "npm run build:love && npm run build:js",
+    "postbuild": "zip DiceGame.zip -r DiceGame"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "love.js": "^11.4.1"
+    "love.js": "^11.4.1",
+    "serve": "^14.2.4"
   }
 }

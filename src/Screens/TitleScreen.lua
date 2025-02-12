@@ -5,7 +5,7 @@ local seed = 0
 
 function TitleScreen.load()
 	screen = TitleScreen.screen
-	print('tts: Dice game, created by Jesse Jurman. Press enter or space to start.')
+	print('tts: Ladybug Roll, created by Jesse Jurman. Press enter or space to start.')
 end
 
 function TitleScreen.update(dt)
@@ -26,10 +26,11 @@ end
 function TitleScreen.draw()
 	if screen ~= TitleScreen.screen then return end
 
+	local winWidth, winHeight = love.graphics.getDimensions()
 	local font = love.graphics.newFont(40)
 	love.graphics.setFont(font)
 	love.graphics.setColor(1, 1, 1)
-	love.graphics.print('DICE GAME', 265, 200)
+	love.graphics.printf('LADYBUG ROLL', 0, (winHeight/2) - 40, winWidth, 'center')
 end
 
 return TitleScreen
