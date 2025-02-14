@@ -5,7 +5,7 @@ local seed = 0
 
 function TitleScreen.load()
 	screen = TitleScreen.screen
-	print('tts: Ladybug Roll, created by Jesse Jurman. Press enter or space to start.')
+	tts.readTitleScreen()
 end
 
 function TitleScreen.update(dt)
@@ -30,7 +30,14 @@ function TitleScreen.draw()
 	local font = love.graphics.newFont(40)
 	love.graphics.setFont(font)
 	love.graphics.setColor(1, 1, 1)
-	love.graphics.printf('LADYBUG ROLL', 0, (winHeight/2) - 40, winWidth, 'center')
+
+	love.graphics.printf('LADYBUG ROLL', 0, (winHeight/2) - 60, winWidth, 'center')
+
+	font = love.graphics.newFont(30)
+	love.graphics.setFont(font)
+
+	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')
+	love.graphics.printf('Press enter or space to start.', 0, (winHeight/2) + 20, winWidth, 'center')
 end
 
 return TitleScreen

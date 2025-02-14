@@ -80,11 +80,13 @@ function GameScreen.load()
 
 	-- reset values
 	round = 1
-	selectedDiceIndex = 1
-	selectedCharacter = 'enemy'
+	selectedDiceIndex = 0
+	selectedCharacter = nil
 	selectedRow = 'characters'
 	animationTimer = 0
 	phase = 'rollingDice'
+
+	tts.readCharactersPreview()
 end
 
 function GameScreen.update(dt)
@@ -192,15 +194,25 @@ function GameScreen.keypressed(key)
 	if key == 'up' then
 		if selectedRow == 'dice' then
 			selectedRow = 'characters'
+			tts.readCharactersPreview()
+
+			selectedDiceIndex = 0
 		elseif selectedRow == 'confirm' then
 			selectedRow = 'dice'
+			tts.readDiceTrayPreview()
 		end
 	end
 	if key == 'down' then
 		if selectedRow == 'characters' then
 			selectedRow = 'dice'
+			tts.readDiceTrayPreview()
+
+			selectedCharacter = nil
 		elseif selectedRow == 'dice' then
 			selectedRow = 'confirm'
+			tts.readDiceAssignment()
+
+			selectedDiceIndex = 0
 		end
 	end
 
@@ -254,6 +266,7 @@ function GameScreen.draw()
 	local width = 620
 	local x = PositionFunctions.getXForWidth(620)
 
+	-- player and enemy window
 	FatRect.draw(x, 66, width, 250, 3, {1,1,1}, {0,0,0}, selectedRow == 'characters')
 	Player.draw(selectedRow == 'characters' and selectedCharacter == 'player', playerHP, playerBLK)
 	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)

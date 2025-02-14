@@ -1,3 +1,4 @@
+tts = require('tts')
 TitleScreen = require('Screens/TitleScreen')
 GameScreen = require('Screens/GameScreen')
 MapScreen = require('Screens/MapScreen')
@@ -17,6 +18,14 @@ function love.update(dt)
 		return
 	end
 
+	if repeatingText > 0 then
+		repeatingText = repeatingText - dt
+		if repeatingText <= 0 then
+			repeatingText = 0
+			print('tts: '..ttsText)
+		end
+	end
+
 	TitleScreen.update(dt)
 	InstructionScreen.update(dt)
 	GameScreen.update(dt)
@@ -29,6 +38,10 @@ function love.keypressed(key)
 	GameScreen.keypressed(key)
 	MapScreen.keypressed(key)
 	DebuggingScreen.keypressed(key)
+
+	if (key == 'r') then
+		tts.repeatText()
+	end
 end
 
 function love.mousepressed(x, y)
