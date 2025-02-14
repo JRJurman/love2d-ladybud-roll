@@ -65,7 +65,7 @@ end
 function confirmAttack()
 	phase = 'removingDice'
 	animationTimer = 0
-	selectedDiceIndex = 1
+	selectedDiceIndex = 0
 end
 
 function GameScreen.load()
@@ -124,6 +124,9 @@ function GameScreen.update(dt)
 				phase = 'rollingDice'
 				round = round + 1
 				enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+
+				selectedRow = 'characters'
+				tts.readCharactersUpdate()
 			end
 		end
 	end
@@ -230,24 +233,25 @@ function GameScreen.keypressed(key)
 	if selectedRow == 'dice' then
 		if key == 'left' then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
+			tts.readSelectedDie()
 		end
 		if key == 'right' then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #activeDice)
+			tts.readSelectedDie()
 		end
 
 		local selectedDie = activeDice[selectedDiceIndex]
 		if selectedDie then
 			if key == 'a' then
 				selectedDie.assignment = 'ATK'
+				tts.readAssignmentResult()
 			end
 			if key == 'd' then
 				selectedDie.assignment = 'DEF'
+				tts.readAssignmentResult()
 			end
 			if key == 'c' then
 				selectedDie.assignment = nil
-			end
-			if key == 'x' then
-				-- rotate selectedDie.assignment
 			end
 		end
 	end
