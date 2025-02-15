@@ -16,7 +16,7 @@ end
 function TitleScreen.keypressed(key)
 	if screen ~= TitleScreen.screen then return end
 
-	if key == 'enter' or key == 'space' then
+	if key then
 		print('seed: '..seed)
 		math.randomseed(seed)
 		TransitionScreen.load(MapScreen)

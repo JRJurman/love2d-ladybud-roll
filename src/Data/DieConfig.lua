@@ -1,5 +1,5 @@
 local BlueDie = {
-	label="Blue Die", buff="+2 when assigned for Defense",
+	label="Blue Die", buff="+2 when assigned for Defending",
 	shortLabel="Blue",
 	min=1, max=3, color={0,0,1},
 	resolve=function(assignment, value)

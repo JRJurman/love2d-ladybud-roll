@@ -43,6 +43,34 @@ function tts.readCharactersPreview()
 	print('tts: '..ttsText)
 end
 
+hasHeardPlayerVisualDescription = false
+function tts.readPlayerStatus()
+	local playerDescription = 'Your character, '..playerConfig.name
+	if hasHeardPlayerVisualDescription then
+		playerDescription = playerDescription..'. '
+	else
+		hasHeardPlayerVisualDescription = true
+		playerDescription = playerDescription..', '..playerConfig.visualDescription..'. '
+	end
+	local playerStatus = playerHP..' health, and '..playerBLK..' block. '
+	ttsText = playerDescription..playerStatus
+	print('tts: '..ttsText)
+end
+
+hasHeardEnemyVisualDescription = false
+function tts.readEnemyStatus()
+	local enemyDescription = 'Your opponent, '..enemyConfig.name
+	if hasHeardenemyVisualDescription then
+		enemyDescription = enemyDescription..'. '
+	else
+		hasHeardEnemyVisualDescription = true
+		enemyDescription = enemyDescription..', '..enemyConfig.visualDescription..'. '
+	end
+	local enemyStatus = enemyHP..' health, and '..enemyBLK..' block. '
+	ttsText = enemyDescription..enemyStatus
+	print('tts: '..ttsText)
+end
+
 function tts.readCharactersUpdate()
 	local actionText = ''
 	for index, action in ipairs(enemyActions) do
@@ -114,9 +142,9 @@ function tts.readSelectedDie()
 		dieSlot = 'First Die, a '
 	elseif selectedDiceIndex == 2 then
 		dieSlot = 'Second Die, a '
-	elseif selectedDiceIndex == 2 then
+	elseif selectedDiceIndex == 3 then
 		dieSlot = 'Third Die, a '
-	elseif selectedDiceIndex == 2 then
+	elseif selectedDiceIndex == 4 then
 		dieSlot = 'Fourth Die, a '
 	end
 
@@ -125,8 +153,8 @@ function tts.readSelectedDie()
 	dieDescription = dieDescription..'A '..dieConfig.label..' gets '..dieConfig.buff..'. '
 	if selectedDie.assignment then
 		dieDescription = dieDescription..'Assigned for '..(selectedDie.assignment == 'ATK' and 'attacking' or 'defending')..'. '
-	else
-		dieDescription = dieDescription..'Not currently assigned. Press A to use for Attacking, and D to use for Defending.'
+	elseif selectedDiceIndex == 1 then
+		dieDescription = dieDescription..'Not currently assigned. Press A to use for Attacking, D to use for Defending, and C to clear the assignment and save the die.'
 	end
 	ttsText = dieSlot..dieDescription
 	print('tts: '..ttsText)

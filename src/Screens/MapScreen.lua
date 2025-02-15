@@ -6,9 +6,10 @@ MapScreen.screen = 3 -- set number here!
 stage = 0
 
 -- initial character state
-playerHP = PlayerConfig.Seven.startingHP
-playerBLK = PlayerConfig.Seven.startingBLK
-diceBag = PlayerConfig.Seven.diceBag
+playerConfig = PlayerConfig.Ladybug
+playerHP = playerConfig.startingHP
+playerBLK = playerConfig.startingBLK
+diceBag = playerConfig.diceBag
 
 function MapScreen.load()
 	screen = MapScreen.screen

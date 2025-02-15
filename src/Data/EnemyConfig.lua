@@ -1,11 +1,9 @@
 local Sandbag = {
 	name='Sandbag',
+	visualDescription='a bag full of sand with stitched buttons everywhere. it makes a distinct sound when attacked.',
 	startingHP=20, startingBLK=5,
 	ready=function(round, hp, blk)
-		if (hp + blk) < 10 then
-			return {{ type='DEF', value=7 }, { type='ATK', value=3 }}
-		end
-		return {{ type='ATK', value=7 }, { type='DEF', value=3 }}
+		return {{ type='ATK', value=4 + math.random(0, 4) }, { type='DEF', value=0 + math.random(0, 5) }}
 	end
 }
 

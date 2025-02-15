@@ -32,6 +32,7 @@ function loadEnemyConfig(newEnemyConfig)
 	enemyHP = enemyConfig.startingHP
 	enemyBLK = enemyConfig.startingBLK
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+	hasHeardEnemyVisualDescription = false
 end
 
 function getAssignedDiceIndexes(dice)
@@ -223,9 +224,11 @@ function GameScreen.keypressed(key)
 	if selectedRow == 'characters' then
 		if key == 'left' then
 			selectedCharacter = 'player'
+			tts.readPlayerStatus()
 		end
 		if key == 'right' then
 			selectedCharacter = 'enemy'
+			tts.readEnemyStatus()
 		end
 	end
 
