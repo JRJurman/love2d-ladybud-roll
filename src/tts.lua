@@ -10,7 +10,7 @@ end
 
 -- title screen
 function tts.readTitleScreen()
-	ttsText = 'Ladybug Roll, created by Jesse Jurman. Press enter or space to start.'
+	ttsText = 'Ladybug Roll, created by Jesse Jurman. Press any button to start.'
 	print('tts: '..ttsText)
 end
 
@@ -93,7 +93,7 @@ end
 function tts.readDiceTrayPreview()
 	local diceOptions = ''
 	for index, die in ipairs(activeDice) do
-		local dieConfig = diceBag[die.diceBagIndex]
+		local dieConfig = die.dieConfig
 		diceOptions = diceOptions..', a '..dieConfig.shortLabel..' '..die.value
 		if (die.assignment) then
 			diceOptions = diceOptions..' (assigned)'
@@ -150,7 +150,9 @@ function tts.readSelectedDie()
 
 	local dieDescription = ''
 	dieDescription = dieDescription..dieConfig.label..' with '..selectedDie.value..' face up. '
-	dieDescription = dieDescription..'A '..dieConfig.label..' gets '..dieConfig.buff..'. '
+	if dieConfig.buff then
+		dieDescription = dieDescription..'A '..dieConfig.label..' gets '..dieConfig.buff..'. '
+	end
 	if selectedDie.assignment then
 		dieDescription = dieDescription..'Assigned for '..(selectedDie.assignment == 'ATK' and 'attacking' or 'defending')..'. '
 	elseif selectedDiceIndex == 1 then

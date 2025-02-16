@@ -37,7 +37,7 @@ function TitleScreen.draw()
 	love.graphics.setFont(font)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')
-	love.graphics.printf('Press enter or space to start.', 0, (winHeight/2) + 20, winWidth, 'center')
+	love.graphics.printf('Press any button to start.', 0, (winHeight/2) + 20, winWidth, 'center')
 end
 
 return TitleScreen

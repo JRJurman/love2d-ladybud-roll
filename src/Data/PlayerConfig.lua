@@ -7,15 +7,10 @@ local Ladybug = {
 	startingHP=5, startingBLK=0,
 	diceBag={
 		DieConfig.BlueDie,
-		DieConfig.BlueDie,
-		DieConfig.BlueDie,
-		DieConfig.BlueDie,
-		DieConfig.BlueDie,
 		DieConfig.RedDie,
-		DieConfig.RedDie,
-		DieConfig.RedDie,
-		DieConfig.RedDie,
-		DieConfig.RedDie,
+		DieConfig.WhiteDie,
+		DieConfig.WhiteDie,
+		DieConfig.WhiteDie,
 		DieConfig.Ladybug,
 	}
 }

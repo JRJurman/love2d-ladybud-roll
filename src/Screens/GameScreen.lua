@@ -55,12 +55,12 @@ end
 
 function rollDiceFromBag()
 	local diceBagIndex = table.remove(diceIndexBag, 1)
-	local die = diceBag[diceBagIndex]
+	local dieConfig = diceBag[diceBagIndex]
 
-	-- roll the die to turn it something for the tray
-	local value = math.random(die.min, die.max)
+	-- roll the dieConfig to turn it something for the tray
+	local value = math.random(dieConfig.min, dieConfig.max)
 
-	return { value = value, assignment = nil, diceBagIndex = diceBagIndex }
+	return { value = value, assignment = nil, diceBagIndex = diceBagIndex, dieConfig = dieConfig }
 end
 
 function confirmAttack()
@@ -74,7 +74,7 @@ function GameScreen.load()
 
 	diceIndexBag = {}
 	activeDice = {}
-	for index, diceConfig in ipairs(diceBag) do
+	for index, dieConfig in ipairs(diceBag) do
 		putDiceInBag({index})
 	end
 	loadEnemyConfig(EnemyConfig.Sandbag)
@@ -151,23 +151,25 @@ function GameScreen.update(dt)
 
 		if animationTimer > 0.3 then
 			local dieToRemove = activeDice[assignedDice[1]]
-			local diceConfig = diceBag[dieToRemove.diceBagIndex]
-			local totalValue = dieToRemove.value + diceConfig.resolve(dieToRemove.assignment, dieToRemove.value)
+			local dieConfig = dieToRemove.dieConfig
+			if dieConfig.resolveAssignment then
+				dieConfig.resolveAssignment(dieToRemove)
+			end
 
 			-- if this is an attack die, remove block, then hp from enemy
 			if dieToRemove.assignment == 'ATK' then
 				-- we have enough damage to go through block
-				if totalValue - enemyBLK > 0 then
-					enemyHP = math.max(enemyHP - (totalValue - enemyBLK), 0)
+				if dieToRemove.value - enemyBLK > 0 then
+					enemyHP = math.max(enemyHP - (dieToRemove.value - enemyBLK), 0)
 					enemyBLK = 0
 				else
-					enemyBLK = enemyBLK - totalValue
+					enemyBLK = enemyBLK - dieToRemove.value
 				end
 			end
 
 			-- if this is a block die, add that to players block
 			if dieToRemove.assignment == 'DEF' then
-				playerBLK = playerBLK + totalValue
+				playerBLK = playerBLK + dieToRemove.value
 			end
 
 			-- pop an element, and reset the timer
@@ -176,6 +178,12 @@ function GameScreen.update(dt)
 			animationTimer = 0
 		end
 		if #assignedDice == 0 then
+			-- apply all onSave effects to remaining dice
+			for index, die in ipairs(activeDice) do
+				if die.dieConfig.onSave then
+					die.dieConfig.onSave(die)
+				end
+			end
 			if enemyHP == 0 then
 				phase = 'resolveBattle' -- TODO IMPLEMENT THIS PHASE
 			else
