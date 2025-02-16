@@ -33,7 +33,12 @@ function tts.readCharactersPreview()
 			actionText = actionText..'block '..action.value..' future damage'
 		end
 	end
-	local enemyStatus = 'You are facing off against a '..enemyConfig.name..' with '..enemyHP..' health, and '..enemyBLK..' block. '
+
+	local enemyStatus = 'You are facing off against a '..enemyConfig.name..' with '..enemyHP..' health;'
+	if enemyBLK then
+		enemyStatus = enemyStatus..' and '..enemyBLK..' block. '
+	end
+
 	local enemyActionText = 'They are planning to '..actionText..'. '
 	local instructions = ''
 	if stage == 1 then
@@ -52,7 +57,10 @@ function tts.readPlayerStatus()
 		hasHeardPlayerVisualDescription = true
 		playerDescription = playerDescription..', '..playerConfig.visualDescription..'. '
 	end
-	local playerStatus = playerHP..' health, and '..playerBLK..' block. '
+	local playerStatus = playerHP..' health;'
+	if playerBLK then
+		playerStatus = playerStatus..'and '..playerBLK..' block. '
+	end
 	ttsText = playerDescription..playerStatus
 	print('tts: '..ttsText)
 end

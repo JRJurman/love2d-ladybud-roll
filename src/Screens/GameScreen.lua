@@ -81,6 +81,7 @@ function GameScreen.load()
 
 	-- reset values
 	round = 1
+	playerBLK = playerConfig.startingBLK
 	selectedDiceIndex = 0
 	selectedCharacter = nil
 	selectedRow = 'characters'
