@@ -2,9 +2,10 @@ local FatRect = require('../Components/FatRect')
 
 local Button = {}
 
-function Button.draw(x, y, width, height, padding, defaultColor, isSelected, text)
+function Button.draw(x, y, width, height, defaultColor, isSelected, text)
+	local padding = 4
 	local alpha = isSelected and 1 or 0.7
-	FatRect.draw(x, y, width, height, padding, defaultColor, {0,0,0}, isSelected)
+	FatRect.draw(x, y, width, height, defaultColor, {0,0,0}, isSelected)
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
 
 	-- if the button is not wide, make the font size based on width

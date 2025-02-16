@@ -5,6 +5,7 @@ MapScreen = require('Screens/MapScreen')
 InstructionScreen = require('Screens/InstructionScreen')
 DebuggingScreen = require('Screens/DebuggingScreen')
 TransitionScreen = require('Screens/TransitionScreen')
+IntroScreen = require('Screens/IntroScreen')
 
 screen = 0
 function love.load()
@@ -14,10 +15,15 @@ end
 function love.update(dt)
 	DebuggingScreen.update(dt)
 	TransitionScreen.update(dt)
+
+	-- if we are in the middle of transitioning
+	-- don't run any update logic
 	if loading > 0 then
 		return
 	end
 
+	-- if we triggered a text repeat, we need to
+	-- wait a short while, and then re-set the text
 	if repeatingText > 0 then
 		repeatingText = repeatingText - dt
 		if repeatingText <= 0 then
@@ -30,6 +36,7 @@ function love.update(dt)
 	InstructionScreen.update(dt)
 	GameScreen.update(dt)
 	MapScreen.update(dt)
+	IntroScreen.update(dt)
 end
 
 function love.keypressed(key)
@@ -37,8 +44,11 @@ function love.keypressed(key)
 	InstructionScreen.keypressed(key)
 	GameScreen.keypressed(key)
 	MapScreen.keypressed(key)
+	IntroScreen.keypressed(key)
 	DebuggingScreen.keypressed(key)
 
+	-- key binding we want everywhere,
+	-- if they press r, repeat whatever the tts text is
 	if (key == 'r') then
 		tts.repeatText()
 	end
@@ -57,6 +67,7 @@ function love.draw()
 	InstructionScreen.draw()
 	GameScreen.draw()
 	MapScreen.draw()
+	IntroScreen.draw()
 	DebuggingScreen.draw()
 
 	TransitionScreen.draw()

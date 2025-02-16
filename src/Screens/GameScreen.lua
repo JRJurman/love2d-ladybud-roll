@@ -283,7 +283,7 @@ function GameScreen.draw()
 	local x = PositionFunctions.getXForWidth(620)
 
 	-- player and enemy window
-	FatRect.draw(x, 66, width, 250, 3, {1,1,1}, {0,0,0}, selectedRow == 'characters')
+	FatRect.draw(x, 66, width, 250, {1,1,1}, {0,0,0}, selectedRow == 'characters')
 	Player.draw(selectedRow == 'characters' and selectedCharacter == 'player', playerHP, playerBLK)
 	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
@@ -291,7 +291,7 @@ function GameScreen.draw()
 	DiceTray.draw(x, 350, width, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	-- draw the confirmation button
-	Button.draw(x, 510, width, 40, 3, {1,1,1}, selectedRow == 'confirm', 'Confirm')
+	Button.draw(x, 510, width, 40, {1,1,1}, selectedRow == 'confirm', 'Confirm')
 end
 
 return GameScreen

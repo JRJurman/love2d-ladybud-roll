@@ -1,6 +1,7 @@
 local FatRect = {}
 
-function FatRect.draw(x, y, width, height, padding, borderColor, backgroundColor, isSelected)
+function FatRect.draw(x, y, width, height, borderColor, backgroundColor, isSelected)
+	local padding = 4
 	local alpha = isSelected and 1 or 0.7
 	love.graphics.setColor(borderColor[1], borderColor[2], borderColor[3], alpha)
 	love.graphics.rectangle('fill', x, y, width, height)

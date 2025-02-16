@@ -1,7 +1,16 @@
+local PlayerConfig = require('../Data/PlayerConfig')
 local TitleScreen = {}
 
 TitleScreen.screen = 0
-local seed = 0
+
+stage = 0
+seed = 0
+
+-- initial character state
+playerConfig = PlayerConfig.Ladybug
+playerHP = playerConfig.startingHP
+playerBLK = playerConfig.startingBLK
+diceBag = playerConfig.diceBag
 
 function TitleScreen.load()
 	screen = TitleScreen.screen

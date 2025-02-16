@@ -1,15 +1,7 @@
-local PlayerConfig = require('../Data/PlayerConfig')
+local StageProgress = require('../Components/StageProgress')
 
 local MapScreen = {}
-MapScreen.screen = 3 -- set number here!
-
-stage = 0
-
--- initial character state
-playerConfig = PlayerConfig.Ladybug
-playerHP = playerConfig.startingHP
-playerBLK = playerConfig.startingBLK
-diceBag = playerConfig.diceBag
+MapScreen.screen = 3
 
 function MapScreen.load()
 	screen = MapScreen.screen
@@ -34,33 +26,9 @@ function MapScreen.draw()
 	local pathX = 90
 	local pathY = 70
 	local pathWidth = 610
-
-	-- draw the path we are going
-	love.graphics.setColor(1, 1, 1)
-	love.graphics.line(90, pathY, pathX + pathWidth, pathY)
-
 	local maxStages = 11
-	local distBetweenStages = pathWidth / (maxStages - 1)
-	local enemyStageSize = distBetweenStages / 3
-	local restStageSize = distBetweenStages / 4
 
-	-- draw circles for progress
-	for stageIndex=1,maxStages do
-		if stageIndex == stage then
-			love.graphics.setColor(0.4, 0.4, 1)
-		elseif stageIndex < stage then
-			love.graphics.setColor(0.4, 0.4, 0.4)
-		else
-			love.graphics.setColor(0, 0, 0)
-		end
-
-		local circleX = pathX + ((stageIndex - 1) * distBetweenStages)
-		local circleSize = stageIndex % 2 == 0 and enemyStageSize or restStageSize
-
-		love.graphics.circle('fill', circleX, pathY, circleSize)
-		love.graphics.setColor(1, 1, 1)
-		love.graphics.circle('line', circleX, pathY, circleSize)
-	end
+	StageProgress.draw(pathX, pathY, pathWidth, maxStages, stage)
 end
 
 return MapScreen
