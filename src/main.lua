@@ -8,6 +8,12 @@ TransitionScreen = require('Screens/TransitionScreen')
 IntroScreen = require('Screens/IntroScreen')
 
 screen = 0
+
+-- there are some menu options that we'll use throughout multiple screens
+-- so we're assigning them here, and they'll be used everywhere else
+selectedRow = nil
+selectedDiceIndex = nil
+
 function love.load()
 	TitleScreen.load()
 end

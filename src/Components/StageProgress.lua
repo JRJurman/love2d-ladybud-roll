@@ -7,13 +7,12 @@ function StageProgress.draw()
 	local pathWidth = 700
 	local pathX = getXForWidth(pathWidth)
 	local pathY = 60
-	local maxStages = 11
+	local maxStages = 13
 
 	-- draw the path we are going
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.line(pathX, pathY, pathX + pathWidth, pathY)
 
-	local maxStages = 11
 	local distBetweenStages = pathWidth / (maxStages - 1)
 	local enemyStageSize = distBetweenStages / 3
 	local restStageSize = distBetweenStages / 4
@@ -29,7 +28,7 @@ function StageProgress.draw()
 		end
 
 		local circleX = pathX + ((stageIndex - 1) * distBetweenStages)
-		local circleSize = stageIndex % 2 == 0 and enemyStageSize or restStageSize
+		local circleSize = stageIndex % 2 == 0 and restStageSize or enemyStageSize
 
 		love.graphics.circle('fill', circleX, pathY, circleSize)
 		love.graphics.setColor(1, 1, 1)

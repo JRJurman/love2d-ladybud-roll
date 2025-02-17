@@ -1,9 +1,9 @@
 local TextBlocks = {}
 
 TextBlocks.introLore = [[
-Your home, the once peaceful forest, is in danger.
+Dark Energies are throwing off the balance of the once peaceful forest.
 
-Determined to bring the forest back to rest, you grab your family's bag of magical dice, known for handling all sorts of challenges and foes.
+Determined to save your home, you grab your family's bag of magical dice, known for handling all sorts of challenges and foes, and set off!
 ]]
 
 return TextBlocks

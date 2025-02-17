@@ -9,7 +9,11 @@ seed = 0
 -- initial character state
 playerConfig = PlayerConfig.Ladybug
 playerHP = playerConfig.startingHP
-playerBLK = playerConfig.startingBLK
+playerStartingBLK = playerConfig.startingBLK
+playerBLK = playerStartingBLK
+playerDiceCapBonus = 0
+playerDiceFloorBonus = 0
+enemyStartingBLKBonus = 0
 diceBag = playerConfig.diceBag
 
 function TitleScreen.load()
@@ -25,7 +29,7 @@ end
 function TitleScreen.keypressed(key)
 	if screen ~= TitleScreen.screen then return end
 
-	if key then
+	if key == 'x' then
 		print('seed: '..seed)
 		math.randomseed(seed)
 		TransitionScreen.load(IntroScreen)
@@ -46,7 +50,7 @@ function TitleScreen.draw()
 	love.graphics.setFont(font)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')
-	love.graphics.printf('Press any button to start.', 0, (winHeight/2) + 20, winWidth, 'center')
+	love.graphics.printf('Press X to start.', 0, (winHeight/2) + 20, winWidth, 'center')
 end
 
 return TitleScreen

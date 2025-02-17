@@ -13,9 +13,7 @@ local GameScreen = {}
 GameScreen.screen = 2
 
 -- menu options
-selectedDiceIndex = nil
 selectedCharacter = nil
-selectedRow = nil
 
 -- animation handlers
 animationTimer = nil
@@ -30,7 +28,7 @@ round = nil
 function loadEnemyConfig(newEnemyConfig)
 	enemyConfig = newEnemyConfig
 	enemyHP = enemyConfig.startingHP
-	enemyBLK = enemyConfig.startingBLK
+	enemyBLK = enemyConfig.startingBLK + enemyStartingBLKBonus
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
 	hasHeardEnemyVisualDescription = false
 end
@@ -57,8 +55,10 @@ function rollDiceFromBag()
 	local diceBagIndex = table.remove(diceIndexBag, 1)
 	local dieConfig = diceBag[diceBagIndex]
 
-	-- roll the dieConfig to turn it something for the tray
-	local value = math.random(dieConfig.min, dieConfig.max)
+	-- roll the dieConfig (+ bonuses) to roll it for the tray
+	local possibleMax = dieConfig.max + playerDiceCapBonus
+	local possibleMin = math.min(dieConfig.min + playerDiceFloorBonus, possibleMax)
+	local value = math.random(possibleMin, possibleMax)
 
 	return { value = value, assignment = nil, diceBagIndex = diceBagIndex, dieConfig = dieConfig }
 end
@@ -81,7 +81,7 @@ function GameScreen.load()
 
 	-- reset values
 	round = 1
-	playerBLK = playerConfig.startingBLK
+	playerBLK = playerStartingBLK
 	selectedDiceIndex = 0
 	selectedCharacter = nil
 	selectedRow = 'characters'
@@ -206,26 +206,25 @@ function GameScreen.keypressed(key)
 	-- change which set of elements we are selecting
 	if key == 'up' then
 		if selectedRow == 'dice' then
+			selectedCharacter = nil
 			selectedRow = 'characters'
 			tts.readCharactersPreview()
 
-			selectedDiceIndex = 0
 		elseif selectedRow == 'confirm' then
+			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readDiceTrayPreview()
 		end
 	end
+
 	if key == 'down' then
 		if selectedRow == 'characters' then
+			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readDiceTrayPreview()
-
-			selectedCharacter = nil
 		elseif selectedRow == 'dice' then
 			selectedRow = 'confirm'
 			tts.readDiceAssignment()
-
-			selectedDiceIndex = 0
 		end
 	end
 
