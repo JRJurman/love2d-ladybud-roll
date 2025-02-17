@@ -20,6 +20,8 @@ function IntroScreen.load()
 		local newDie = { value = dieConfig.max, assignment = nil, diceBagIndex = index, dieConfig = dieConfig }
 		table.insert(dice, newDie)
 	end
+
+	tts.readIntroLore()
 end
 
 function IntroScreen.update(dt)
@@ -33,9 +35,11 @@ function IntroScreen.keypressed(key)
 	if key == 'up' then
 		if selectedRow == 'dice' then
 			selectedRow = 'intro'
+			tts.readIntroLore()
 		elseif selectedRow == 'begin' then
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
+			tts.readIntroDiceTray()
 		end
 	end
 
@@ -43,19 +47,21 @@ function IntroScreen.keypressed(key)
 		if selectedRow == 'intro' then
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
+			tts.readIntroDiceTray()
 		elseif selectedRow == 'dice' then
 			selectedRow = 'begin'
+			tts.readBeginButton()
 		end
 	end
 
 	if selectedRow == 'dice' then
 		if key == 'left' then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
-			-- tts.readDiceConfig()
+			tts.readSelectedDiceConfig()
 		end
 		if key == 'right' then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #dice)
-			-- tts.readDiceConfig()
+			tts.readSelectedDiceConfig()
 		end
 	end
 

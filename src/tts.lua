@@ -1,6 +1,24 @@
+local TextBlocks = require('Data/TextBlocks')
+
 local tts = {}
 ttsText = ''
 repeatingText = 0
+
+function indexToPlace(index)
+	if index == 1 then
+		return 'First'
+	elseif index == 2 then
+		return 'Second'
+	elseif index == 3 then
+		return 'Third'
+	elseif index == 4 then
+		return 'Fourth'
+	elseif index == 5 then
+		return 'Fifth'
+	elseif index == 6 then
+		return 'Sixth'
+	end
+end
 
 -- repeat at any time
 function tts.repeatText()
@@ -11,6 +29,38 @@ end
 -- title screen
 function tts.readTitleScreen()
 	ttsText = 'Ladybug Roll, created by Jesse Jurman. Press any button to start.'
+	print('tts: '..ttsText)
+end
+
+-- intro screen
+
+function tts.readIntroLore()
+	local instructions = 'Press down to preview dice.'
+	ttsText = TextBlocks.introLore..instructions
+	print('tts: '..ttsText)
+end
+
+function tts.readIntroDiceTray()
+	local diceReadout = 'Your starting '..#diceBag..' dice. Press right to learn more about each die. Press down to begin your adventure.'
+	ttsText = diceReadout
+	print('tts: '..ttsText)
+end
+
+function tts.readSelectedDiceConfig()
+	local selectedDieConfig = diceBag[selectedDiceIndex]
+	local dieConfigTitle = indexToPlace(selectedDiceIndex)..', a '..selectedDieConfig.label..'. '
+	local dieConfigMinMax = 'The range of values on this die are '..selectedDieConfig.min..' to '..selectedDieConfig.max..'. '
+	local dieConfigBuff = ''
+	if selectedDieConfig.buff then
+		dieConfigBuff = 'In combat, this die gets '..selectedDieConfig.buff
+	end
+	ttsText = dieConfigTitle..dieConfigMinMax..dieConfigBuff
+	print('tts: '..ttsText)
+end
+
+function tts.readBeginButton()
+	local beginReadout = 'Begin your adventure? Press X to start.'
+	ttsText = beginReadout
 	print('tts: '..ttsText)
 end
 
@@ -145,16 +195,7 @@ function tts.readSelectedDie()
 	local selectedDie = activeDice[selectedDiceIndex]
 	local dieConfig = diceBag[selectedDie.diceBagIndex]
 
-	local dieSlot = ''
-	if selectedDiceIndex == 1 then
-		dieSlot = 'First Die, a '
-	elseif selectedDiceIndex == 2 then
-		dieSlot = 'Second Die, a '
-	elseif selectedDiceIndex == 3 then
-		dieSlot = 'Third Die, a '
-	elseif selectedDiceIndex == 4 then
-		dieSlot = 'Fourth Die, a '
-	end
+	local dieSlot = indexToPlace(selectedDiceIndex)
 
 	local dieDescription = ''
 	dieDescription = dieDescription..dieConfig.label..' with '..selectedDie.value..' face up. '
@@ -166,7 +207,7 @@ function tts.readSelectedDie()
 	elseif selectedDiceIndex == 1 then
 		dieDescription = dieDescription..'Not currently assigned. Press A to use for Attacking, D to use for Defending, and C to clear the assignment and save the die.'
 	end
-	ttsText = dieSlot..dieDescription
+	ttsText = dieSlot..' Die, a '..dieDescription
 	print('tts: '..ttsText)
 end
 
