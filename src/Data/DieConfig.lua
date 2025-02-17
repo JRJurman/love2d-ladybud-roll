@@ -44,7 +44,7 @@ local GreenDie = {
 		playerHP = math.min(playerHP + 1, playerConfig.startingHP)
 	end,
 
-	brokenBuff="+10 to current HP",
+	brokenBuff="+10 to current health",
 	onBreaking=function()
 		playerHP = playerHP + 10
 	end

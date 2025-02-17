@@ -90,11 +90,43 @@ function tts.readCharactersPreview()
 	end
 
 	local enemyActionText = 'They are planning to '..actionText..'. '
-	local instructions = ''
-	if stage == 1 then
-		instructions = 'Press right to learn more about the enemy, or left to see your own stats. Press down to view your dice.'
+	local enemyActionHotKey = 'You can press E at any time to hear the enemy actions and stats. '
+
+	local playerStatus = 'You have '..playerHP..' health, and '..playerBLK..' block. '
+	local playerHotKey = 'You can press Q at any time to hear your own stats. '
+
+	local instructions = 'Press down to view your dice.'
+	ttsText = enemyStatus..enemyActionText..enemyActionHotKey..playerStatus..playerHotKey..instructions
+	print('tts: '..ttsText)
+end
+
+function tts.enemyPreview()
+	local actionText = ''
+	for index, action in ipairs(enemyActions) do
+		if index > 1 then
+			actionText = actionText..', and '
+		end
+		if action.type == 'ATK' then
+			actionText = actionText..'attack for '..action.value..' damage'
+		end
+		if action.type == 'DEF' then
+			actionText = actionText..'block '..action.value..' future damage'
+		end
 	end
-	ttsText = enemyStatus..enemyActionText..instructions
+
+	local enemyStatus = 'The '..enemyConfig.name..' has '..enemyHP..' health;'
+	if enemyBLK then
+		enemyStatus = enemyStatus..' and '..enemyBLK..' block. '
+	end
+
+	local enemyActionText = 'They are planning to '..actionText..'. '
+	ttsText = enemyStatus..enemyActionText
+	print('tts: '..ttsText)
+end
+
+function tts.playerPreview()
+	local playerStatus = 'You have '..playerHP..' health, and '..playerBLK..' block. '
+	ttsText = playerStatus
 	print('tts: '..ttsText)
 end
 
@@ -142,9 +174,14 @@ function tts.readCharactersUpdate()
 			actionText = actionText..'block '..action.value..' future damage'
 		end
 	end
+
 	local enemyStatus = enemyConfig.name..' is still standing with '..enemyHP..' health, and '..enemyBLK..' block. '
-	local enemyActionText = 'They are planning to '..actionText..'.'
-	ttsText = enemyStatus..enemyActionText
+	local enemyActionText = 'They are planning to '..actionText..'. '
+
+	local playerStatus = 'You have '..playerHP..' health, and '..playerBLK..' block. '
+
+	local instructions = 'Press down to view your dice and continue the fight.'
+	ttsText = enemyStatus..enemyActionText..playerStatus..instructions
 	print('tts: '..ttsText)
 end
 

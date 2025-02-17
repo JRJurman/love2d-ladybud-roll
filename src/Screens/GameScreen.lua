@@ -272,6 +272,14 @@ function GameScreen.keypressed(key)
 			confirmAttack()
 		end
 	end
+
+	-- hotkeys for getting player / enemy status
+	if key == 'e' then
+		tts.enemyPreview()
+	end
+	if key == 'q' then
+		tts.playerPreview()
+	end
 end
 
 function GameScreen.draw()
