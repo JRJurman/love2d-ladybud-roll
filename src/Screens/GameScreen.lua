@@ -288,7 +288,7 @@ function GameScreen.draw()
 	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
-	DiceTray.draw(x, 350, width, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil)
+	DiceTray.draw(x, 350, width, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil, true)
 
 	-- draw the confirmation button
 	Button.draw(x, 510, width, 40, {1,1,1}, selectedRow == 'confirm', 'Confirm')

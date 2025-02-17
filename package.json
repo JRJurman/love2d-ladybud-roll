@@ -5,7 +5,7 @@
   "scripts": {
     "start": "serve DiceGame",
     "build:love": "cd src; zip ../dice-game.zip -r *; cd .. && mv dice-game.zip dice-game.love",
-    "build:js": "love.js dice-game.love DiceGame -t DiceGame -c && cp ./dice-game.html DiceGame/index.html",
+    "build:js": "love.js dice-game.love DiceGame -t DiceGame -c && cp ./dice-game.html DiceGame/index.html && cp ./AtkinsonHyperlegibleMono-SemiBold.ttf DiceGame/AtkinsonHyperlegibleMono-SemiBold.ttf",
     "build": "npm run build:love && npm run build:js",
     "postbuild": "zip DiceGame.zip -r DiceGame"
   },

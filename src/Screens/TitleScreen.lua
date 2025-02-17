@@ -28,7 +28,7 @@ function TitleScreen.keypressed(key)
 	if key then
 		print('seed: '..seed)
 		math.randomseed(seed)
-		TransitionScreen.load(MapScreen)
+		TransitionScreen.load(IntroScreen)
 	end
 end
 
