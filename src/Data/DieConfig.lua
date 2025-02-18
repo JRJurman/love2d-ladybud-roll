@@ -61,9 +61,9 @@ local WhiteDie = {
 	end
 }
 
-local Battery = {
-	label="Battery",
-	shortLabel="Battery",
+local YellowDie = {
+	label="Yellow Die",
+	shortLabel="Yellow",
 	min=1, max=3, color={0.9,0.7,0.5},
 
 	buff="+2 when left unassigned",
@@ -99,6 +99,6 @@ return {
 	RedDie = RedDie,
 	GreenDie = GreenDie,
 	WhiteDie = WhiteDie,
-	Battery = Battery,
+	YellowDie = YellowDie,
 	Ladybug = Ladybug,
 }

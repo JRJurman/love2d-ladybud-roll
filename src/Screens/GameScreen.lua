@@ -195,7 +195,7 @@ function GameScreen.update(dt)
 
 	if phase == 'resolveBattle' then
 		if animationTimer > 1 then
-			TransitionScreen.load(MapScreen)
+			TransitionScreen.load(DicePackScreen)
 		end
 	end
 end
@@ -287,7 +287,7 @@ function GameScreen.draw()
 
 	-- most of the controls here should be the same width, and left-aligned
 	local width = 620
-	local x = PositionFunctions.getXForWidth(620)
+	local x = getXForWidth(620)
 
 	-- player and enemy window
 	FatRect.draw(x, 66, width, 250, {1,1,1}, {0,0,0}, selectedRow == 'characters')
@@ -295,7 +295,7 @@ function GameScreen.draw()
 	Enemy.draw('Sandbag', selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
-	DiceTray.draw(x, 350, width, activeDice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil, true)
+	DiceTray.draw(x, 350, width, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, true)
 
 	-- draw the confirmation button
 	Button.draw(x, 510, width, 40, {1,1,1}, selectedRow == 'confirm', 'Confirm')

@@ -4,7 +4,7 @@ local FatRect = require('../Components/FatRect')
 local DiceTray = {}
 
 local padding = 20
-function DiceTray.draw(x, y, width, dice, diceBag, selectedIndex, assignable)
+function DiceTray.draw(x, y, width, dice, selectedIndex, assignable)
 	-- if there is a selected index, draw the border in a brighter color
 	local borderColor = selectedIndex and {1,1,1} or {0.7,0.7,0.7}
 
@@ -19,8 +19,7 @@ function DiceTray.draw(x, y, width, dice, diceBag, selectedIndex, assignable)
 		local dx = (padding + x) + (index - 1) * (Die.DICE_SIZE + padding)
 		local dy = y + padding
 
-		-- pull dice config details from the diceBag
-		local dieConfig = diceBag[die.diceBagIndex]
+		local dieConfig = die.dieConfig
 
 		-- draw the die
 		Die.draw(dx, dy, die.value, dieConfig.color, index == selectedIndex)

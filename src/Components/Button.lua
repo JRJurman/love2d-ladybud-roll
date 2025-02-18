@@ -13,7 +13,7 @@ function Button.draw(x, y, width, height, defaultColor, isSelected, text)
 	-- local fontSizeBasedOnHeight = height * 0.8
 
 	local fontSize = 31
-	local font = love.graphics.newFont(fontSize)
+	local font = newWhackyFont(fontSize)
 
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
 	love.graphics.setFont(font)

@@ -9,8 +9,3 @@ function getYForHeight(height)
 	local y = (winHeight - height) / 2
 	return y
 end
-
-return {
-	getXForWidth=getXForWidth,
-	getYForHeight=getYForHeight,
-}

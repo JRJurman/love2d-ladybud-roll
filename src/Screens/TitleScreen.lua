@@ -40,13 +40,13 @@ function TitleScreen.draw()
 	if screen ~= TitleScreen.screen then return end
 
 	local winWidth, winHeight = love.graphics.getDimensions()
-	local font = love.graphics.newFont(40)
+	local font = newWhackyFont(40)
 	love.graphics.setFont(font)
 	love.graphics.setColor(1, 1, 1)
 
 	love.graphics.printf('LADYBUG ROLL', 0, (winHeight/2) - 60, winWidth, 'center')
 
-	font = love.graphics.newFont(30)
+	font = newWhackyFont(30)
 	love.graphics.setFont(font)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')

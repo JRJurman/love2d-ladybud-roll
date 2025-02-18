@@ -67,7 +67,7 @@ function IntroScreen.keypressed(key)
 
 	if selectedRow == 'begin' then
 		if key == 'x' then
-			TransitionScreen.load(GameScreen)
+			TransitionScreen.load(DicePackScreen)
 		end
 	end
 end
@@ -78,13 +78,13 @@ function IntroScreen.draw()
 	StageProgress.draw()
 
 	local width = 730
-	local x = 30
+	local x = getXForWidth(width)
 
 	local textBlockHeight = 240
 	local textBlockY = 110
 	TextAndGraphic.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.introLore, 330)
 
-	DiceTray.draw(x, 365, width, dice, diceBag, selectedRow == 'dice' and selectedDiceIndex or nil)
+	DiceTray.draw(x, 365, width, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	Button.draw(x, 510, width, 50, {1,1,1}, selectedRow == 'begin', 'Begin')
 end

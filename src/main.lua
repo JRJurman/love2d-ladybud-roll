@@ -1,4 +1,9 @@
-tts = require('tts')
+-- load functions
+tts = require('Functions/tts')
+require('Functions/PositionFunctions')
+require('Functions/FontFunctions')
+
+-- load screens
 TitleScreen = require('Screens/TitleScreen')
 GameScreen = require('Screens/GameScreen')
 MapScreen = require('Screens/MapScreen')
@@ -6,6 +11,8 @@ InstructionScreen = require('Screens/InstructionScreen')
 DebuggingScreen = require('Screens/DebuggingScreen')
 TransitionScreen = require('Screens/TransitionScreen')
 IntroScreen = require('Screens/IntroScreen')
+DicePackScreen = require('Screens/DicePackScreen')
+DiceBreakScreen = require('Screens/DiceBreakScreen')
 
 screen = 0
 
@@ -20,6 +27,7 @@ end
 
 function love.update(dt)
 	DebuggingScreen.update(dt)
+
 	TransitionScreen.update(dt)
 
 	-- if we are in the middle of transitioning
@@ -43,6 +51,8 @@ function love.update(dt)
 	GameScreen.update(dt)
 	MapScreen.update(dt)
 	IntroScreen.update(dt)
+	DicePackScreen.update(dt)
+	DiceBreakScreen.update(dt)
 end
 
 function love.keypressed(key)
@@ -51,6 +61,8 @@ function love.keypressed(key)
 	GameScreen.keypressed(key)
 	MapScreen.keypressed(key)
 	IntroScreen.keypressed(key)
+	DicePackScreen.keypressed(key)
+	DiceBreakScreen.keypressed(key)
 	DebuggingScreen.keypressed(key)
 
 	-- key binding we want everywhere,
@@ -74,6 +86,8 @@ function love.draw()
 	GameScreen.draw()
 	MapScreen.draw()
 	IntroScreen.draw()
+	DicePackScreen.draw()
+	DiceBreakScreen.draw()
 	DebuggingScreen.draw()
 
 	TransitionScreen.draw()
