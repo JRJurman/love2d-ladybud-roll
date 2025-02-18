@@ -195,7 +195,7 @@ function GameScreen.update(dt)
 
 	if phase == 'resolveBattle' then
 		if animationTimer > 1 then
-			TransitionScreen.load(DicePackScreen)
+			TransitionScreen.load(DicePackScreen, true)
 		end
 	end
 end

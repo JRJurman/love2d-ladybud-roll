@@ -4,11 +4,13 @@ local nextScreen
 local loadingDelay = 1
 loading = 0
 screenLoaded = false
+advanceStage = false
 
-function TransitionScreen.load(next)
+function TransitionScreen.load(next, shouldAdvanceStage)
 	nextScreen = next
 	loading = loadingDelay
 	screenLoaded = false
+	advanceStage = shouldAdvanceStage
 end
 
 function TransitionScreen.update(dt)
@@ -16,12 +18,15 @@ function TransitionScreen.update(dt)
 		loading = loading - dt
 
 		if loading < loadingDelay/2 and not screenLoaded then
+			stage = stage + 1
 			nextScreen.load()
 			screenLoaded = true
 		end
 
 		if loading <= 0 then
 			loading = 0
+			if advanceStage then
+			end
 		end
 	end
 end

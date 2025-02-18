@@ -16,7 +16,7 @@ function MapScreen.keypressed(key)
 	if screen ~= MapScreen.screen then return end
 
 	if key == 'enter' or key == 'space' then
-		TransitionScreen.load(GameScreen)
+		TransitionScreen.load(GameScreen, true)
 	end
 end
 

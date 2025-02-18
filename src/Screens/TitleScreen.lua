@@ -33,7 +33,7 @@ function TitleScreen.keypressed(key)
 	if key == 'x' then
 		print('seed: '..seed)
 		math.randomseed(seed)
-		TransitionScreen.load(IntroScreen)
+		TransitionScreen.load(IntroScreen, false)
 	end
 end
 

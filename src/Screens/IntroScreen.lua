@@ -57,17 +57,17 @@ function IntroScreen.keypressed(key)
 	if selectedRow == 'dice' then
 		if key == 'left' then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
-			tts.readSelectedDiceConfig()
+			tts.readSelectedDiceConfig(diceBag[selectedDiceIndex])
 		end
 		if key == 'right' then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #dice)
-			tts.readSelectedDiceConfig()
+			tts.readSelectedDiceConfig(diceBag[selectedDiceIndex])
 		end
 	end
 
 	if selectedRow == 'begin' then
 		if key == 'x' then
-			TransitionScreen.load(DicePackScreen)
+			TransitionScreen.load(DicePackScreen, true)
 		end
 	end
 end

@@ -46,13 +46,12 @@ function tts.readIntroDiceTray()
 	print('tts: '..ttsText)
 end
 
-function tts.readSelectedDiceConfig()
-	local selectedDieConfig = diceBag[selectedDiceIndex]
-	local dieConfigTitle = indexToPlace(selectedDiceIndex)..', a '..selectedDieConfig.label..'. '
-	local dieConfigMinMax = 'The range of values on this die are '..selectedDieConfig.min..' to '..selectedDieConfig.max..'. '
+function tts.readSelectedDiceConfig(dieConfig)
+	local dieConfigTitle = indexToPlace(selectedDiceIndex)..', a '..dieConfig.label..'. '
+	local dieConfigMinMax = 'The range of values on this die are '..dieConfig.min..' to '..dieConfig.max..'. '
 	local dieConfigBuff = ''
-	if selectedDieConfig.buff then
-		dieConfigBuff = 'In combat, this die gets '..selectedDieConfig.buff
+	if dieConfig.buff then
+		dieConfigBuff = 'In combat, this die '..dieConfig.buff
 	end
 	ttsText = dieConfigTitle..dieConfigMinMax..dieConfigBuff
 	print('tts: '..ttsText)
@@ -61,6 +60,29 @@ end
 function tts.readBeginButton()
 	local beginReadout = 'Begin your adventure? Press X to start.'
 	ttsText = beginReadout
+	print('tts: '..ttsText)
+end
+
+-- dice pack screen
+
+function tts.readDicePackIntro()
+	local instructions = 'There are three bags, each with three dice. Press down to preview the dice, and press X on one bag to add it to your own.'
+	ttsText = TextBlocks.dicePacks..instructions
+	print('tts: '..ttsText)
+end
+
+function tts.readPackSummary(selectedPackOptions, packIndex)
+	local packText = 'The '..indexToPlace(packIndex)..' pack'
+	for index, die in ipairs(selectedPackOptions) do
+		packText = packText..', a '..die.dieConfig.label
+	end
+	packText = packText..'. '
+
+	local instructions = 'Press X to select this bag, or right to get more details on each die. '
+	if packIndex == 1 then
+		instructions = instructions..'There are two more packs to choose from, you can press down to check other options, or go to the bottom to skip.'
+	end
+	ttsText = packText..instructions
 	print('tts: '..ttsText)
 end
 
@@ -237,7 +259,7 @@ function tts.readSelectedDie()
 	local dieDescription = ''
 	dieDescription = dieDescription..dieConfig.label..' with '..selectedDie.value..' face up. '
 	if dieConfig.buff then
-		dieDescription = dieDescription..'A '..dieConfig.label..' gets '..dieConfig.buff..'. '
+		dieDescription = dieDescription..'A '..dieConfig.label..' '..dieConfig.buff..'. '
 	end
 	if selectedDie.assignment then
 		dieDescription = dieDescription..'Assigned for '..(selectedDie.assignment == 'ATK' and 'attacking' or 'defending')..'. '

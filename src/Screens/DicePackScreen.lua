@@ -33,7 +33,7 @@ function buildDieConfigOption()
 	return option
 end
 
-local prizeOptions = {}
+local packOptions = {}
 
 function DicePackScreen.load()
 	screen = DicePackScreen.screen
@@ -46,9 +46,13 @@ function DicePackScreen.load()
 		4, 4, 4,
 		5, 5, 5,
 	}
-	prizeOptions1 = buildDieConfigOption()
-	prizeOptions2 = buildDieConfigOption()
-	prizeOptions3 = buildDieConfigOption()
+	packOptions1 = buildDieConfigOption()
+	packOptions2 = buildDieConfigOption()
+	packOptions3 = buildDieConfigOption()
+
+	selectedRow = 'intro'
+
+	tts.readDicePackIntro()
 end
 
 function DicePackScreen.update(dt)
@@ -57,6 +61,82 @@ end
 
 function DicePackScreen.keypressed(key)
 	if screen ~= DicePackScreen.screen then return end
+
+	-- change which set of elements we are selecting
+	if key == 'up' then
+		if selectedRow == 'pack1' then
+			selectedRow = 'intro'
+			tts.readDicePackIntro()
+		elseif selectedRow == 'pack2' then
+			selectedDiceIndex = 0
+			selectedRow = 'pack1'
+			tts.readPackSummary(packOptions1, 1)
+		elseif selectedRow == 'pack3' then
+			selectedDiceIndex = 0
+			selectedRow = 'pack2'
+			tts.readPackSummary(packOptions2, 2)
+		elseif selectedRow == 'skip' then
+			selectedDiceIndex = 0
+			selectedRow = 'pack3'
+			tts.readPackSummary(packOptions3, 3)
+		end
+	end
+
+	if key == 'down' then
+		if selectedRow == 'intro' then
+			selectedDiceIndex = 0
+			selectedRow = 'pack1'
+			tts.readPackSummary(packOptions1, 1)
+		elseif selectedRow == 'pack1' then
+			selectedDiceIndex = 0
+			selectedRow = 'pack2'
+			tts.readPackSummary(packOptions2, 2)
+		elseif selectedRow == 'pack2' then
+			selectedDiceIndex = 0
+			selectedRow = 'pack3'
+			tts.readPackSummary(packOptions3, 3)
+		elseif selectedRow == 'pack3' then
+			selectedRow = 'skip'
+		end
+	end
+
+	-- determine if we are looking at a pack option (and which one specifically)
+	local selectedPackOptions =
+		selectedRow == 'pack1' and packOptions1 or
+		selectedRow == 'pack2' and packOptions2 or
+		selectedRow == 'pack3' and packOptions3 or nil
+
+	local packIndex =
+		selectedRow == 'pack1' and 1 or
+		selectedRow == 'pack2' and 2 or
+		selectedRow == 'pack3' and 3 or nil
+
+	if selectedPackOptions then
+		if key == 'left' then
+			selectedDiceIndex = math.max(selectedDiceIndex - 1, 0)
+			if selectedDiceIndex == 0 then
+				tts.readPackSummary(selectedPackOptions, packIndex)
+			else
+				tts.readSelectedDiceConfig(selectedPackOptions[selectedDiceIndex].dieConfig)
+			end
+		end
+		if key == 'right' then
+			selectedDiceIndex = math.min(selectedDiceIndex + 1, #selectedPackOptions)
+			tts.readSelectedDiceConfig(selectedPackOptions[selectedDiceIndex].dieConfig)
+		end
+		if key == 'x' then
+			for index, die in ipairs(selectedPackOptions) do
+				table.insert(diceBag, 1, die.dieConfig)
+			end
+			TransitionScreen.load(GameScreen, true)
+		end
+	end
+
+	if selectedRow == 'skip' then
+		if key == 'x' then
+			TransitionScreen.load(GameScreen, true)
+		end
+	end
 end
 
 function DicePackScreen.draw()
@@ -75,9 +155,9 @@ function DicePackScreen.draw()
 	local trayWidth = 320
 	local trayX = x
 	local trayY = textBlockY + textBlockHeight + 5
-	DiceTray.draw(trayX, trayY + 0, trayWidth, prizeOptions1, selectedRow == 'prize1' and selectedDiceIndex or nil)
-	DiceTray.draw(trayX, trayY + 125, trayWidth, prizeOptions2, selectedRow == 'prize2' and selectedDiceIndex or nil)
-	DiceTray.draw(trayX, trayY + 250, trayWidth, prizeOptions3, selectedRow == 'prize3' and selectedDiceIndex or nil)
+	DiceTray.draw(trayX, trayY + 0, trayWidth, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
+	DiceTray.draw(trayX, trayY + 125, trayWidth, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
+	DiceTray.draw(trayX, trayY + 250, trayWidth, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
 
 	Button.draw(600, 525, 180, 50, {1,1,1}, selectedRow == 'skip', 'Skip')
 end
