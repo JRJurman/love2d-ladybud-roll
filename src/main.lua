@@ -16,6 +16,8 @@ DiceBreakScreen = require('Screens/DiceBreakScreen')
 
 screen = 0
 
+local LightForest = require('../Backgrounds/LightForest')
+
 -- there are some menu options that we'll use throughout multiple screens
 -- so we're assigning them here, and they'll be used everywhere else
 selectedRow = nil
@@ -81,6 +83,8 @@ function love.mousereleased(x, y)
 end
 
 function love.draw()
+	LightForest.draw()
+
 	TitleScreen.draw()
 	InstructionScreen.draw()
 	GameScreen.draw()

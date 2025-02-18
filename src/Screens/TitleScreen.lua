@@ -1,5 +1,4 @@
 local PlayerConfig = require('../Data/PlayerConfig')
-local BlockyCanvas = require('../Components/BlockyCanvas')
 local TitleScreen = {}
 
 TitleScreen.screen = 0
@@ -51,10 +50,7 @@ function TitleScreen.draw()
 	love.graphics.setFont(font)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')
-	love.graphics.printf('Press X to start.', 0, (winHeight/2) + 20, winWidth, 'center')
-
-	-- Testing canvas
-	-- BlockyCanvas.draw()
+	love.graphics.printf('Press X to Start', 0, (winHeight/2) + 20, winWidth, 'center')
 end
 
 return TitleScreen
