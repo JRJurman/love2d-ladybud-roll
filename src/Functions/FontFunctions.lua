@@ -1,3 +1,3 @@
 function newWhackyFont(fontSize)
-	return love.graphics.newFont('Whacky_Joe_Monospaced.ttf', fontSize)
+	return love.graphics.newFont('Whacky_Joe.ttf', fontSize)
 end

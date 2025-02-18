@@ -30,7 +30,6 @@ function buildDieConfigOption()
 		table.insert(option, 1, newDie)
 	end
 
-	print(option)
 	return option
 end
 
