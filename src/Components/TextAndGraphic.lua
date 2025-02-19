@@ -7,7 +7,7 @@ function TextBlock.draw(x, y, width, height, defaultColor, isSelected, text, gra
 	FatRect.draw(x, y, width, height, defaultColor, {0,0,0}, isSelected)
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
 
-	local fontSize = 15
+	local fontSize = 18
 	local font = newWhackyFont(fontSize)
 
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)

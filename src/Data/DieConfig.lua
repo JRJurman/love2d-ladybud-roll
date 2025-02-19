@@ -10,7 +10,7 @@ local BlueDie = {
 		end
 	end,
 
-	brokenBuff="+5 starting block on match start",
+	brokenBuff="gives you +5 starting block on every match",
 	onBreaking=function()
 		playerStartingBLK = playerStartingBLK + 5
 	end
@@ -28,7 +28,7 @@ local RedDie = {
 		end
 	end,
 
-	brokenBuff="-10 to enemy starting block",
+	brokenBuff="reduces the enemy starting block by 10",
 	onBreaking=function()
 		enemyStartingBLKBonus = enemyStartingBLKBonus - 10
 	end
@@ -44,7 +44,7 @@ local GreenDie = {
 		playerHP = math.min(playerHP + 1, playerConfig.startingHP)
 	end,
 
-	brokenBuff="+10 to current health",
+	brokenBuff="heals you by +10 (can go over the starting health)",
 	onBreaking=function()
 		playerHP = playerHP + 10
 	end
@@ -55,7 +55,7 @@ local WhiteDie = {
 	shortLabel="White",
 	min=2, max=4, color={0.9,0.9,0.9},
 
-	brokenBuff="+1 to maximum dice roll values",
+	brokenBuff="gives you +1 to maximum dice roll values",
 	onBreaking=function()
 		playerDiceCapBonus = playerDiceCapBonus + 1
 	end
@@ -71,7 +71,7 @@ local YellowDie = {
 		die.value = math.min(die.value + 2, 6)
 	end,
 
-	brokenBuff="+1 to minimum dice roll values",
+	brokenBuff="gives you +1 to minimum dice roll values",
 	onBreaking=function()
 		playerDiceFloorBonus = playerDiceFloorBonus + 1
 	end
@@ -89,9 +89,9 @@ local Ladybug = {
 		end
 	end,
 
-	brokenBuff="Not breakable yet",
-	onBreaking=function()
-	end
+	-- brokenBuff="Not breakable yet",
+	-- onBreaking=function()
+	-- end
 }
 
 return {

@@ -6,17 +6,21 @@ repeatingText = 0
 
 function indexToPlace(index)
 	if index == 1 then
-		return 'First'
-	elseif index == 2 then
-		return 'Second'
-	elseif index == 3 then
-		return 'Third'
-	elseif index == 4 then
-		return 'Fourth'
-	elseif index == 5 then
-		return 'Fifth'
-	elseif index == 6 then
-		return 'Sixth'
+		return '1st'
+	end
+	if index == 2 then
+		return '2nd'
+	end
+	if index == 3 then
+		return '3rd'
+	end
+	-- if the number ends in 1, then it is '-st', otherwise '-th'
+	-- fun fact, voice over will read 21th as 21st, but it is unclear
+	-- if all screen readers behave this way
+	if index % 10 == 1 then
+		return tostring(index)..'st'
+	else
+		return tostring(index)..'th'
 	end
 end
 
@@ -83,6 +87,46 @@ function tts.readPackSummary(selectedPackOptions, packIndex)
 		instructions = instructions..'There are two more packs to choose from, you can press down to check other options, or go to the bottom to skip.'
 	end
 	ttsText = packText..instructions
+	print('tts: '..ttsText)
+end
+
+function tts.readSkipButton()
+	ttsText = 'skip, and go to the next battle'
+	print('tts: '..ttsText)
+end
+
+-- dice break screen
+
+function tts.readDiceBreakIntro()
+	local instructions = 'Press down to look at your dice and the different buffs.'
+	ttsText = TextBlocks.diceBreak..instructions
+	print('tts: '..ttsText)
+end
+
+function tts.readBreakDiceTray()
+	local diceReadout = 'Your '..#diceBag..' dice. Press right to learn what breaking the die would do. Press down if you want to skip destroying a die.'
+	ttsText = diceReadout
+	print('tts: '..ttsText)
+end
+
+function tts.readSelectedDiceConfigAndBreakBuff(dieConfig)
+	local dieConfigTitle = indexToPlace(selectedDiceIndex)..', a '..dieConfig.label..'. '
+	local dieConfigBuff = ''
+	if dieConfig.brokenBuff then
+		dieConfigBuff = 'When broken this die '..dieConfig.brokenBuff..'. '
+	else
+		dieConfigBuff = 'This die has no benefit when broken.'
+	end
+	local instructions = ''
+	if selectedDiceIndex == 1 then
+		instructions = 'Press X to destroy this die and get this buff, or right to scan more dice. '
+	end
+	ttsText = dieConfigTitle..dieConfigBuff..instructions
+	print('tts: '..ttsText)
+end
+
+function tts.breakSelectedDice(dieConfig)
+	ttsText = 'Breaking '..dieConfig.label..'. '
 	print('tts: '..ttsText)
 end
 

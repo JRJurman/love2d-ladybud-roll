@@ -97,6 +97,7 @@ function DicePackScreen.keypressed(key)
 			tts.readPackSummary(packOptions3, 3)
 		elseif selectedRow == 'pack3' then
 			selectedRow = 'skip'
+			tts.readSkipButton()
 		end
 	end
 
@@ -128,13 +129,13 @@ function DicePackScreen.keypressed(key)
 			for index, die in ipairs(selectedPackOptions) do
 				table.insert(diceBag, 1, die.dieConfig)
 			end
-			TransitionScreen.load(GameScreen, true)
+			TransitionScreen.load(DiceBreakScreen, true)
 		end
 	end
 
 	if selectedRow == 'skip' then
 		if key == 'x' then
-			TransitionScreen.load(GameScreen, true)
+			TransitionScreen.load(DiceBreakScreen, true)
 		end
 	end
 end

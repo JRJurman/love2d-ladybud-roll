@@ -16,6 +16,7 @@ function IntroScreen.load()
 	selectedRow = 'intro'
 	selectedDiceIndex = 0
 
+	dice = {}
 	for index, dieConfig in ipairs(diceBag) do
 		local newDie = { value = dieConfig.max, assignment = nil, diceBagIndex = index, dieConfig = dieConfig }
 		table.insert(dice, newDie)
