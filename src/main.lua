@@ -59,6 +59,12 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
+	-- if we are in the middle of transitioning
+	-- don't handle any keypresses
+	if loading > 0 then
+		return
+	end
+
 	TitleScreen.keypressed(key)
 	InstructionScreen.keypressed(key)
 	GameScreen.keypressed(key)

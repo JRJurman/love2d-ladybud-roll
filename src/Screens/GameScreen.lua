@@ -28,7 +28,7 @@ round = nil
 function loadEnemyConfig(newEnemyConfig)
 	enemyConfig = newEnemyConfig
 	enemyHP = enemyConfig.startingHP
-	enemyBLK = enemyConfig.startingBLK + enemyStartingBLKBonus
+	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus, 0)
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
 	hasHeardEnemyVisualDescription = false
 end

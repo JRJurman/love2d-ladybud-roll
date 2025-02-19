@@ -20,7 +20,7 @@ local possibleDiceOptions = {}
 
 function buildDieConfigOption()
 	local option = {}
-	for i=1,3 do
+	for i=1,2 do
 		local possibleDiceOptionIndex = math.random(1, #possibleDiceOptions)
 		local dieConfigIndex = possibleDiceOptions[possibleDiceOptionIndex]
 		local dieConfig = possibleDieConfigs[dieConfigIndex]
@@ -40,11 +40,11 @@ function DicePackScreen.load()
 
 	-- build sets of dice that the player can choose from
 	possibleDiceOptions = {
-		1, 1, 1,
-		2, 2, 2,
-		3, 3, 3,
-		4, 4, 4,
-		5, 5, 5,
+		1, 1,
+		2, 2,
+		3, 3,
+		4, 4,
+		5, 5,
 	}
 	packOptions1 = buildDieConfigOption()
 	packOptions2 = buildDieConfigOption()
