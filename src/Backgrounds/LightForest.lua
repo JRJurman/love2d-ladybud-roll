@@ -10,17 +10,18 @@ function LightForest.draw()
 	love.graphics.clear()
 
 	-- Background (Sky)
-	love.graphics.setColor(0.5, 0.8, 1)
+	newVanillaColor(6)
 	love.graphics.rectangle("fill", 0, 0, canvasWidth, canvasHeight)
 
 	-- Darker hill in the back
-	love.graphics.setColor(0, 0.5, 0)
+	newVanillaColor(9)
 	love.graphics.circle("fill", 130, canvasHeight + 10, 90)
 
 	-- Lighter hill in the front
-	love.graphics.setColor(0.1, 0.7, 0.1)
+	newVanillaColor(10)
 	love.graphics.circle("fill", 40, canvasHeight + 40, 90)
 
+	-- need this pure white for canvas
 	love.graphics.setColor(1, 1, 1)
 
 	-- Reset canvas

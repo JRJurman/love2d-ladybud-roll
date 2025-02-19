@@ -62,7 +62,7 @@ function tts.readSelectedDiceConfig(dieConfig)
 end
 
 function tts.readBeginButton()
-	local beginReadout = 'Begin your adventure? Press X to start.'
+	local beginReadout = 'Begin your adventure? Press X key to start.'
 	ttsText = beginReadout
 	print('tts: '..ttsText)
 end

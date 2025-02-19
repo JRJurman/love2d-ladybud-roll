@@ -50,7 +50,7 @@ function TitleScreen.draw()
 	love.graphics.setFont(font)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')
-	love.graphics.printf('Press X to Start', 0, (winHeight/2) + 20, winWidth, 'center')
+	love.graphics.printf('Press X key to Start', 0, (winHeight/2) + 20, winWidth, 'center')
 end
 
 return TitleScreen

@@ -54,11 +54,6 @@ local WhiteDie = {
 	label="White Die",
 	shortLabel="White",
 	min=2, max=4, color={0.9,0.9,0.9},
-
-	brokenBuff="gives you +1 to maximum dice roll values",
-	onBreaking=function()
-		playerDiceCapBonus = playerDiceCapBonus + 1
-	end
 }
 
 local YellowDie = {
@@ -71,9 +66,9 @@ local YellowDie = {
 		die.value = math.min(die.value + 2, 6)
 	end,
 
-	brokenBuff="gives you +1 to minimum dice roll values",
+	brokenBuff="gives you +1 to maximum dice roll values",
 	onBreaking=function()
-		playerDiceFloorBonus = playerDiceFloorBonus + 1
+		playerDiceCapBonus = playerDiceCapBonus + 1
 	end
 }
 

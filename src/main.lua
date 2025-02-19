@@ -2,6 +2,7 @@
 tts = require('Functions/tts')
 require('Functions/PositionFunctions')
 require('Functions/FontFunctions')
+require('Functions/PaletteFunctions')
 
 -- load screens
 TitleScreen = require('Screens/TitleScreen')
