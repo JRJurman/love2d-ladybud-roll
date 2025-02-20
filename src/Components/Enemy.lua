@@ -3,8 +3,8 @@ local Button = require('../Components/Button')
 local Enemy = {}
 
 function Enemy.createCanvas(graphic)
-	-- Set up a canvas to draw the shape
 	local canvas = love.graphics.newCanvas(64, 64)
+
 	love.graphics.setCanvas(canvas)
 	love.graphics.clear()
 

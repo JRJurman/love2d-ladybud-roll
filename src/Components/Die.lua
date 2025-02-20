@@ -11,8 +11,7 @@ local pipAssets = {
 
 -- Function to create a canvas with a rendered die face
 function Die.createCanvas(graphic, value)
-	local canvasSize = 32
-	local canvas = love.graphics.newCanvas(canvasSize, canvasSize)
+	local canvas = love.graphics.newCanvas(32, 32)
 
 	love.graphics.setCanvas(canvas)
 	love.graphics.clear()
@@ -24,6 +23,10 @@ function Die.createCanvas(graphic, value)
 	if value > 0 and value < 7 then
 		love.graphics.draw(pipAssets[value], 0, 0)
 	end
+
+	-- Reset canvas
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.setCanvas()
 
 	-- Apply nearest neighbor filter to fix aliasing when we enlarge the image
 	canvas:setFilter("nearest", "nearest")
