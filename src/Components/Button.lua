@@ -10,13 +10,12 @@ function ButtonCanvas(width, height, color)
 	love.graphics.clear()
 
 	-- Draw a shadow first
-	print(unpack(color), 0.4)
 	love.graphics.setColor(color[1], color[2], color[3], 0.4)
-	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5) -- rounded corners
+	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5)
 
 	-- Draw a rounded rectangle (initially smooth)
 	love.graphics.setColor(color[1], color[2], color[3])
-	love.graphics.rectangle("fill", 4, 4, canvasWidth, canvasHeight, 5, 5) -- rounded corners
+	love.graphics.rectangle("fill", 4, 4, canvasWidth, canvasHeight, 5, 5)
 
 	-- Reset canvas
 	love.graphics.setColor(1, 1, 1)
@@ -39,7 +38,7 @@ function Button.draw(x, y, width, height, isSelected, text)
 
 	newLospecColor(2, alpha)
 	love.graphics.setFont(font)
-	love.graphics.printf(text, x, y + 16, width + 24, 'center')
+	love.graphics.printf(text, x + 4, y + (4*canvasMult), width + (6*canvasMult), 'center')
 end
 
 return Button

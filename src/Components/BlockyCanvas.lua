@@ -10,7 +10,6 @@ function BlockyCanvas.draw(x, y, width, height, color)
 	love.graphics.clear()
 
 	-- Draw a shadow first
-	print(unpack(color))
 	love.graphics.setColor(unpack(color, 0.4))
 	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 8, 8) -- rounded corners
 

@@ -85,7 +85,9 @@ function IntroScreen.draw()
 	local textBlockY = 110
 	TextAndGraphic.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.introLore, 330)
 
-	DiceTray.draw(x, 365, width, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+	local diceTrayWidth = 620
+	local diceTrayX = getXForWidth(diceTrayWidth)
+	DiceTray.draw(diceTrayX, 365, diceTrayWidth, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	Button.draw(580, 510, 170, 50, selectedRow == 'begin', 'Begin')
 end
