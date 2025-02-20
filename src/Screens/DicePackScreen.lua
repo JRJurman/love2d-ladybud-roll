@@ -153,7 +153,7 @@ function DicePackScreen.draw()
 
 	TextAndGraphic.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.dicePacks, 0)
 
-	local trayWidth = 320
+	local trayWidth = 200
 	local trayX = x
 	local trayY = textBlockY + textBlockHeight + 5
 	DiceTray.draw(trayX, trayY + 0, trayWidth, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)

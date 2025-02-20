@@ -44,9 +44,7 @@ function Die.draw(x, y, size, value, color, selected)
 	-- If selected, draw a border
 	if selected then
 		love.graphics.setColor(1, 1, 1)
-		love.graphics.rectangle('fill', x - 5, y - 5, size * 1.125, size * 1.125, 5, 5)
-		love.graphics.setColor(0, 0, 0)
-		love.graphics.rectangle('fill', x - 3, y - 3, size * 1.075, size * 1.075, 5, 5)
+		love.graphics.rectangle('line', x - 5, y - 5, size * 1.125, size * 1.125, 5, 5)
 	end
 
 	-- Draw the cached die image

@@ -295,12 +295,12 @@ function GameScreen.draw()
 	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
-	local diceTrayWidth = 400
+	local diceTrayWidth = 600
 	local diceTrayX = getXForWidth(diceTrayWidth)
-	DiceTray.draw(diceTrayX, diceTrayWidth, 400, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, true)
+	DiceTray.draw(diceTrayX - 10, 330, diceTrayWidth, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
 
 	-- draw the confirmation button
-	Button.draw(x, 510, width, 40, selectedRow == 'confirm', 'Confirm')
+	Button.draw(580, 510, 170, 50, selectedRow == 'confirm', 'Confirm')
 end
 
 return GameScreen

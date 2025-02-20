@@ -35,11 +35,12 @@ function DiceTrayCanvas(width, height, color, selected)
 	return canvas
 end
 
-function DiceTray.draw(x, y, width, dice, selectedIndex, assignable)
-	local diceSize = math.min(width/#dice, 80)
-	local diceTotalWidth = diceSize * #dice
-	local totalPadding = (width - diceTotalWidth) * 0.8
-	local paddingPerDie = totalPadding / #dice
+function DiceTray.draw(x, y, width, dice, selectedIndex, numOfDiceOverride)
+	local numOfDice = numOfDiceOverride or #dice
+	local paddingPerDie = 15
+	local totalPaddingSize = paddingPerDie * (2 + numOfDice)
+	local totalDieSize = width - totalPaddingSize
+	local diceSize = totalDieSize / numOfDice
 
 	local height = diceSize
 
@@ -54,18 +55,28 @@ function DiceTray.draw(x, y, width, dice, selectedIndex, assignable)
 		local dy = y + ySelectedOffset
 
 		local dieConfig = die.dieConfig
+		local isSelected = index == selectedIndex
 
 		-- draw the die
-		Die.draw(dx, dy, diceSize, die.value, dieConfig.color, index == selectedIndex)
+		Die.draw(dx, dy, diceSize, die.value, dieConfig.color, isSelected)
 
 		-- draw assignments, if they exist
 		if (die.assignment) then
-			if die.assignment == 'ATK' then
-				love.graphics.setColor(1, 0, 0)
-			elseif die.assignment == 'DEF' then
-				love.graphics.setColor(0, 0, 1)
+			-- if this is also the selected die, draw an outline
+			if isSelected then
+				newLospecColor(2)
+				love.graphics.rectangle('line', dx, dy + diceSize * 1.125, diceSize, 10, 4, 4)
 			end
-			love.graphics.rectangle('fill', dx, dy + diceSize * 1.125, diceSize, 10)
+			if die.assignment == 'ATK' then
+				newLospecColor(38)
+			elseif die.assignment == 'DEF' then
+				newLospecColor(28)
+			end
+			love.graphics.rectangle('fill', dx, dy + diceSize * 1.125, diceSize, 10, 4, 4)
+		elseif isSelected then
+			newLospecColor(2)
+			local selectSize = diceSize / 8
+			love.graphics.rectangle('fill', dx + (diceSize / 2) - (selectSize / 2), dy + diceSize * 1.125, selectSize, 10, 2, 2)
 		end
 	end
 
