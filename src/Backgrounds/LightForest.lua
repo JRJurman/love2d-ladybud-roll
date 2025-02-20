@@ -10,21 +10,19 @@ function LightForest.draw()
 	love.graphics.clear()
 
 	-- Background (Sky)
-	newVanillaColor(6)
+	newLospecColor(29)
 	love.graphics.rectangle("fill", 0, 0, canvasWidth, canvasHeight)
 
 	-- Darker hill in the back
-	newVanillaColor(9)
+	newLospecColor(18)
 	love.graphics.circle("fill", 130, canvasHeight + 10, 90)
 
 	-- Lighter hill in the front
-	newVanillaColor(10)
+	newLospecColor(20)
 	love.graphics.circle("fill", 40, canvasHeight + 40, 90)
 
-	-- need this pure white for canvas
-	love.graphics.setColor(1, 1, 1)
-
 	-- Reset canvas
+	love.graphics.setColor(1, 1, 1)
 	love.graphics.setCanvas()
 	backgroundCanvas:setFilter("nearest", "nearest") -- Pixelated effect
 

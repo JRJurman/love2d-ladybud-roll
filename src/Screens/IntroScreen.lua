@@ -68,7 +68,7 @@ function IntroScreen.keypressed(key)
 
 	if selectedRow == 'begin' then
 		if key == 'x' then
-			TransitionScreen.load(DicePackScreen, true)
+			TransitionScreen.load(GameScreen, true)
 		end
 	end
 end
@@ -87,7 +87,7 @@ function IntroScreen.draw()
 
 	DiceTray.draw(x, 365, width, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
-	Button.draw(x, 510, width, 50, {1,1,1}, selectedRow == 'begin', 'Begin')
+	Button.draw(580, 510, 170, 50, selectedRow == 'begin', 'Begin')
 end
 
 return IntroScreen

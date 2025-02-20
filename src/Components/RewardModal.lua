@@ -10,7 +10,7 @@ function RewardModal.draw()
 	love.graphics.printf('Rewards', 228, 148, 350, 'center')
 
 	local isSkipSelected = false
-	Button.draw(270, 385, 240, 50, {1,1,1}, isSkipSelected, 'Skip Rewards')
+	Button.draw(270, 385, 240, 50, isSkipSelected, 'Skip Rewards')
 end
 
 return RewardModal

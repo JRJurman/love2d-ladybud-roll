@@ -96,7 +96,7 @@ function DiceBreakScreen.draw()
 
 	DiceTray.draw(x, 365, width, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
-	Button.draw(x, 510, width, 50, {1,1,1}, selectedRow == 'skip', 'Skip')
+	Button.draw(x, 510, width, 50, selectedRow == 'skip', 'Skip')
 end
 
 return DiceBreakScreen

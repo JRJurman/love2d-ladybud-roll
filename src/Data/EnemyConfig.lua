@@ -1,5 +1,6 @@
-local Sandbag = {
-	name='Sandbag',
+local Centipede = {
+	name='Centipede',
+	graphic=love.graphics.newImage('Assets/centipede.png'),
 	visualDescription='a bag full of sand with stitched buttons everywhere. it makes a distinct sound when attacked.',
 	startingHP=20, startingBLK=0,
 	ready=function(round, hp, blk)
@@ -8,5 +9,5 @@ local Sandbag = {
 }
 
 return {
-	Sandbag=Sandbag
+	Centipede=Centipede
 }

@@ -160,7 +160,7 @@ function DicePackScreen.draw()
 	DiceTray.draw(trayX, trayY + 125, trayWidth, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
 	DiceTray.draw(trayX, trayY + 250, trayWidth, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
 
-	Button.draw(600, 525, 180, 50, {1,1,1}, selectedRow == 'skip', 'Skip')
+	Button.draw(600, 525, 180, 50, selectedRow == 'skip', 'Skip')
 end
 
 return DicePackScreen

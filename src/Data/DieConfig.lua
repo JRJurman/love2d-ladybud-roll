@@ -1,7 +1,7 @@
 local BlueDie = {
 	label="Blue Die",
 	shortLabel="Blue",
-	min=1, max=3, color={0.3,0.3,0.9},
+	min=1, max=3, color=lospecColors[28],
 
 	buff="gets +2 when assigned for Defending",
 	resolveAssignment=function(die)
@@ -19,7 +19,7 @@ local BlueDie = {
 local RedDie = {
 	label="Red Die",
 	shortLabel="Red",
-	min=1, max=3, color={0.9,0.3,0.3},
+	min=1, max=3, color=lospecColors[38],
 
 	buff="gets +2 when assigned for Attacking",
 	resolveAssignment=function(die)
@@ -37,7 +37,7 @@ local RedDie = {
 local GreenDie = {
 	label="Green Die",
 	shortLabel="Green",
-	min=1, max=3, color={0.3,0.9,0.3},
+	min=1, max=3, color=lospecColors[19],
 
 	buff="heals the player's health by 2 when assigned",
 	resolveAssignment=function(die)
@@ -53,13 +53,13 @@ local GreenDie = {
 local WhiteDie = {
 	label="White Die",
 	shortLabel="White",
-	min=2, max=4, color={0.9,0.9,0.9},
+	min=2, max=4, color=lospecColors[41],
 }
 
 local YellowDie = {
 	label="Yellow Die",
 	shortLabel="Yellow",
-	min=1, max=3, color={0.9,0.9,0.3},
+	min=1, max=3, color=lospecColors[9],
 
 	buff="gets +2 when left unassigned",
 	onSave=function(die)
@@ -75,7 +75,7 @@ local YellowDie = {
 local Ladybug = {
 	label="Ladybug",
 	shortLabel="Ladybug",
-	min=0, max=0, color={0.9,0.3,0.3},
+	min=0, max=0, color=lospecColors[5],
 
 	buff="gets +7 when assigned for Attacking",
 	resolveAssignment=function(die)

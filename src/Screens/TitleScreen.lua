@@ -1,4 +1,5 @@
 local PlayerConfig = require('../Data/PlayerConfig')
+local BlockyCanvas = require('../Components/BlockyCanvas')
 local TitleScreen = {}
 
 TitleScreen.screen = 0
@@ -44,13 +45,16 @@ function TitleScreen.draw()
 	love.graphics.setFont(font)
 	love.graphics.setColor(1, 1, 1)
 
-	love.graphics.printf('LADYBUG ROLL', 0, (winHeight/2) - 60, winWidth, 'center')
+	local startHeight = (winHeight/2) - 80
+	love.graphics.printf('LADYBUG ROLL', 0, startHeight, winWidth, 'center')
 
+	-- BlockyCanvas.draw(150, 240, 485, 175, lospecColors[17])
 	font = newWhackyFont(30)
 	love.graphics.setFont(font)
 
-	love.graphics.printf('Created by Jesse Jurman', 0, (winHeight/2) - 10, winWidth, 'center')
-	love.graphics.printf('Press X key to Start', 0, (winHeight/2) + 20, winWidth, 'center')
+	love.graphics.printf('Created by Jesse Jurman', 0, startHeight + 50, winWidth, 'center')
+	love.graphics.printf('Art by Ethan Jurman', 0, startHeight + 80, winWidth, 'center')
+	love.graphics.printf('Press X key to Start', 0, startHeight + 130, winWidth, 'center')
 end
 
 return TitleScreen
