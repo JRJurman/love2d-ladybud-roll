@@ -1,3 +1,5 @@
+local Die = require('../Components/Die')
+
 local BlueDie = {
 	label="Blue Die",
 	shortLabel="Blue",
