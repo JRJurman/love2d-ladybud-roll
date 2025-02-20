@@ -1,7 +1,7 @@
 local Button = {}
 
 local canvasMult = 4
-function ButtonCanvas(width, height, color)
+function ButtonCanvas(width, height, color, selected)
 	local canvasWidth = width / canvasMult
 	local canvasHeight = height / canvasMult
 	-- Set up a canvas to draw the shape
@@ -9,13 +9,19 @@ function ButtonCanvas(width, height, color)
 	love.graphics.setCanvas(canvas)
 	love.graphics.clear()
 
-	-- Draw a shadow first
-	love.graphics.setColor(color[1], color[2], color[3], 0.4)
-	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5)
+	if selected then
+		-- Draw just the rectangle
+		love.graphics.setColor(color[1], color[2], color[3])
+		love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5)
+	else
+		-- Draw a shadow first
+		love.graphics.setColor(color[1], color[2], color[3], 0.4)
+		love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5)
 
-	-- Draw a rounded rectangle (initially smooth)
-	love.graphics.setColor(color[1], color[2], color[3])
-	love.graphics.rectangle("fill", 4, 4, canvasWidth, canvasHeight, 5, 5)
+		-- Draw a rounded rectangle
+		love.graphics.setColor(color[1], color[2], color[3])
+		love.graphics.rectangle("fill", 4, 4, canvasWidth, canvasHeight, 5, 5)
+	end
 
 	-- Reset canvas
 	love.graphics.setColor(1, 1, 1)
@@ -28,17 +34,17 @@ function ButtonCanvas(width, height, color)
 end
 
 function Button.draw(x, y, width, height, isSelected, text)
-	local alpha = isSelected and 1 or 0.7
-
-	local canvas = ButtonCanvas(width, height, lospecColors[15])
+	local canvas = ButtonCanvas(width, height, lospecColors[15], isSelected)
 	love.graphics.draw(canvas, x, y, 0, canvasMult, canvasMult)
 
 	local fontSize = 31
 	local font = newWhackyFont(fontSize)
 
-	newLospecColor(2, alpha)
+	newLospecColor(2)
 	love.graphics.setFont(font)
-	love.graphics.printf(text, x + 4, y + (4*canvasMult), width + (6*canvasMult), 'center')
+	local xOffset = isSelected and -4 or 0
+	local yOffset = (4*canvasMult) + (isSelected and 8 or 0)
+	love.graphics.printf(text, x + xOffset, y + yOffset, width + (6*canvasMult), 'center')
 end
 
 return Button

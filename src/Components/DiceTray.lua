@@ -3,7 +3,7 @@ local Die = require('../Components/Die')
 local DiceTray = {}
 
 local canvasMult = 4
-function DiceTrayCanvas(width, height, color)
+function DiceTrayCanvas(width, height, color, selected)
 	local canvasWidth = width / canvasMult
 	local canvasHeight = height / canvasMult
 	-- Set up a canvas to draw the shape
@@ -11,13 +11,19 @@ function DiceTrayCanvas(width, height, color)
 	love.graphics.setCanvas(canvas)
 	love.graphics.clear()
 
-	-- Draw a shadow first
-	love.graphics.setColor(color[1], color[2], color[3], 0.4)
-	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 12, 12)
+	if (selected) then
+		-- Draw just the rounded rectangle
+		love.graphics.setColor(color[1], color[2], color[3])
+		love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 12, 12)
+	else
+		-- Draw a shadow first
+		love.graphics.setColor(color[1], color[2], color[3], 0.4)
+		love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 12, 12)
 
-	-- Draw a rounded rectangle (initially smooth)
-	love.graphics.setColor(color[1], color[2], color[3])
-	love.graphics.rectangle("fill", 4, 4, canvasWidth, canvasHeight, 12, 12)
+		-- Draw a rounded rectangle
+		love.graphics.setColor(color[1], color[2], color[3])
+		love.graphics.rectangle("fill", 4, 4, canvasWidth, canvasHeight, 12, 12)
+	end
 
 	-- Reset canvas
 	love.graphics.setColor(1, 1, 1)
@@ -35,21 +41,17 @@ function DiceTray.draw(x, y, width, dice, selectedIndex, assignable)
 	local totalPadding = (width - diceTotalWidth) * 0.8
 	local paddingPerDie = totalPadding / #dice
 
-	-- if there is a selected index, draw the border in a brighter color
-	-- local borderColor = selectedIndex and {1,1,1} or {0.7,0.7,0.7}
-
-	-- draw border
-	-- if this has assignable dice, add extra padding
-	-- local extraPadding = assignable and 20 or 0
 	local height = diceSize
 
-	local canvas = DiceTrayCanvas(width, height, lospecColors[15])
+	local canvas = DiceTrayCanvas(width, height, lospecColors[15], selectedIndex)
 	love.graphics.draw(canvas, x, y + (diceSize / 6), 0, canvasMult, canvasMult)
 
+	local xSelectedOffset = selectedIndex and -4 or 0
+	local ySelectedOffset = selectedIndex and 8 or 0
 	-- draw dice
 	for index, die in ipairs(dice) do
-		local dx = x + ((index - 0.6) * (diceSize + paddingPerDie))
-		local dy = y
+		local dx = x + xSelectedOffset + (diceSize / 2.5) +  ((index - 1) * (diceSize + paddingPerDie))
+		local dy = y + ySelectedOffset
 
 		local dieConfig = die.dieConfig
 
