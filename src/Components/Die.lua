@@ -1,55 +1,46 @@
 local Die = {}
 
-local pip_positions = {
-	[1] = {{0.5, 0.5}},
-	[2] = {{0.25, 0.25}, {0.75, 0.75}},
-	[3] = {{0.25, 0.25}, {0.5, 0.5}, {0.75, 0.75}},
-	[4] = {{0.25, 0.25}, {0.75, 0.25}, {0.25, 0.75}, {0.75, 0.75}},
-	[5] = {{0.25, 0.25}, {0.75, 0.25}, {0.25, 0.75}, {0.75, 0.75}, {0.5, 0.5}},
-	[6] = {{0.25, 0.2}, {0.75, 0.2}, {0.25, 0.5}, {0.75, 0.5}, {0.25, 0.80}, {0.75, 0.80}},
+local pipAssets = {
+	love.graphics.newImage('Assets/1-pip.png'),
+	love.graphics.newImage('Assets/2-pip.png'),
+	love.graphics.newImage('Assets/3-pip.png'),
+	love.graphics.newImage('Assets/4-pip.png'),
+	love.graphics.newImage('Assets/5-pip.png'),
+	love.graphics.newImage('Assets/6-pip.png'),
 }
 
-local dieCanvasMultiplier = 1
 -- Function to create a canvas with a rendered die face
-function Die.createCanvas(size, value, color)
-	local canvasSize = size / dieCanvasMultiplier
+function Die.createCanvas(graphic, value)
+	local canvasSize = 32
 	local canvas = love.graphics.newCanvas(canvasSize, canvasSize)
 
 	love.graphics.setCanvas(canvas)
-	love.graphics.clear(0, 0, 0, 0)
-	love.graphics.setColor(unpack(color))
-	love.graphics.rectangle('fill', 0, 0, canvasSize, canvasSize, 10, 10)
+	love.graphics.clear()
+
+	love.graphics.setColor(1,1,1)
+	love.graphics.draw(graphic, 0, 0)
 
 	-- Draw pips
-	love.graphics.setColor(0, 0, 0, 0.8)
-	local pips = pip_positions[value]
-	if pips then
-		for _, pip in ipairs(pips) do
-			local px = pip[1] * canvasSize
-			local py = pip[2] * canvasSize
-			love.graphics.circle('fill', px, py, canvasSize / 8)
-		end
+	if value > 0 and value < 7 then
+		love.graphics.draw(pipAssets[value], 0, 0)
 	end
 
-	love.graphics.setCanvas()
-	canvas:setFilter("nearest", "nearest") -- Pixelated effect
+	-- Apply nearest neighbor filter to fix aliasing when we enlarge the image
+	canvas:setFilter("nearest", "nearest")
 
 	return canvas
 end
 
-function Die.draw(x, y, size, value, color, selected)
-	-- Create and store the canvas for reuse
-	local dieCanvas = Die.createCanvas(size, value, color)
-
+function Die.draw(canvas, x, y, size, selected)
 	-- If selected, draw a border
 	if selected then
-		love.graphics.setColor(1, 1, 1)
-		love.graphics.rectangle('line', x - 5, y - 5, size * 1.125, size * 1.125, 5, 5)
+		newLospecColor(29)
+		love.graphics.rectangle('fill', x - 5, y - 5, size * 1.125, size * 1.125, 5, 5)
 	end
 
 	-- Draw the cached die image
 	love.graphics.setColor(1, 1, 1) -- Ensure full brightness
-	love.graphics.draw(dieCanvas, x, y, 0, dieCanvasMultiplier, dieCanvasMultiplier)
+	love.graphics.draw(canvas, x, y, 0, size / 32, size / 32)
 end
 
 return Die

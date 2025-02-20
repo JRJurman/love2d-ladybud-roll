@@ -3,12 +3,19 @@ local TextAndGraphic = require('../Components/TextAndGraphic')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
 local Button = require('../Components/Button')
+local Die = require('../Components/Die')
 
 local IntroScreen = {}
 IntroScreen.screen = 4
 
 -- dice set for rendering what's in our starting bag
 local dice = {}
+
+-- dice tray canvas variables (which we only want to create on load)
+local diceTrayWidth = nil
+local diceTrayHeight = nil
+local introDiceTrayCanvas = nil
+local introDiceTrayCanvasSelected = nil
 
 function IntroScreen.load()
 	screen = IntroScreen.screen
@@ -18,10 +25,23 @@ function IntroScreen.load()
 
 	dice = {}
 	for index, dieConfig in ipairs(diceBag) do
-		local newDie = { value = dieConfig.max, assignment = nil, diceBagIndex = index, dieConfig = dieConfig }
+		local newDie = {
+			value = dieConfig.max,
+			assignment = nil,
+			diceBagIndex = index,
+			dieConfig = dieConfig,
+			canvas = Die.createCanvas(dieConfig.graphic, dieConfig.max)
+		}
 		table.insert(dice, newDie)
 	end
 
+	-- build tray canvas for the intro screen
+	diceTrayWidth = 620
+	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, #dice)
+	introDiceTrayCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
+	introDiceTrayCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
+
+	-- read out the first intro box selection
 	tts.readIntroLore()
 end
 
@@ -85,9 +105,9 @@ function IntroScreen.draw()
 	local textBlockY = 110
 	TextAndGraphic.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.introLore, 330)
 
-	local diceTrayWidth = 620
 	local diceTrayX = getXForWidth(diceTrayWidth)
-	DiceTray.draw(diceTrayX, 365, diceTrayWidth, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+	local diceTrayY = 365
+	DiceTray.draw(introDiceTrayCanvas, introDiceTrayCanvasSelected, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	Button.draw(580, 510, 170, 50, selectedRow == 'begin', 'Begin')
 end

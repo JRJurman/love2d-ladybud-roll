@@ -1,6 +1,9 @@
+local Enemy = require('../Components/Enemy')
+
+local centipedeGraphic=love.graphics.newImage('Assets/enemy-centipede.png')
 local Centipede = {
 	name='Centipede',
-	graphic=love.graphics.newImage('Assets/centipede.png'),
+	canvas=Enemy.createCanvas(centipedeGraphic),
 	visualDescription='a bag full of sand with stitched buttons everywhere. it makes a distinct sound when attacked.',
 	startingHP=20, startingBLK=0,
 	ready=function(round, hp, blk)

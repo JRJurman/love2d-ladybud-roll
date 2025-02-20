@@ -5,6 +5,7 @@ local FatRect = require('../Components/FatRect')
 local Button = require('../Components/Button')
 local Player = require('../Components/Player')
 local Enemy = require('../Components/Enemy')
+local Die = require('../Components/Die')
 
 local EnemyConfig = require('../Data/EnemyConfig')
 local PlayerConfig = require('../Data/PlayerConfig')
@@ -60,7 +61,13 @@ function rollDiceFromBag()
 	local possibleMin = math.min(dieConfig.min + playerDiceFloorBonus, possibleMax)
 	local value = math.random(possibleMin, possibleMax)
 
-	return { value = value, assignment = nil, diceBagIndex = diceBagIndex, dieConfig = dieConfig }
+	return {
+		value = value,
+		assignment = nil,
+		diceBagIndex = diceBagIndex,
+		dieConfig = dieConfig,
+		canvas = Die.createCanvas(dieConfig.graphic, value)
+	}
 end
 
 function confirmAttack()
@@ -68,6 +75,12 @@ function confirmAttack()
 	animationTimer = 0
 	selectedDiceIndex = 0
 end
+
+-- dice tray canvas variables (which we only want to create on load)
+local diceTrayWidth = nil
+local diceTrayHeight = nil
+local gameDiceTrayCanvas = nil
+local gameDiceTrayCanvasSelected = nil
 
 function GameScreen.load()
 	screen = GameScreen.screen
@@ -87,6 +100,12 @@ function GameScreen.load()
 	selectedRow = 'characters'
 	animationTimer = 0
 	phase = 'rollingDice'
+
+	-- build tray canvas for the intro screen
+	diceTrayWidth = 600
+	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, 4)
+	gameDiceTrayCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
+	gameDiceTrayCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
 
 	tts.readCharactersPreview()
 end
@@ -186,7 +205,7 @@ function GameScreen.update(dt)
 				end
 			end
 			if enemyHP == 0 then
-				phase = 'resolveBattle' -- TODO IMPLEMENT THIS PHASE
+				phase = 'resolveBattle'
 			else
 				phase = 'resolvingEnemyAction'
 			end
@@ -202,6 +221,11 @@ end
 
 function GameScreen.keypressed(key)
 	if screen ~= GameScreen.screen then return end
+
+	-- don't allow key actions if we are in the middle of resolving a phase
+	if phase ~= '' then
+		return
+	end
 
 	-- change which set of elements we are selecting
 	if key == 'up' then
@@ -295,9 +319,9 @@ function GameScreen.draw()
 	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
-	local diceTrayWidth = 600
-	local diceTrayX = getXForWidth(diceTrayWidth)
-	DiceTray.draw(diceTrayX - 10, 330, diceTrayWidth, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
+	local diceTrayX = getXForWidth(diceTrayWidth) - 10
+	local diceTrayY = 330
+	DiceTray.draw(gameDiceTrayCanvas, gameDiceTrayCanvasSelected, diceTrayHeight, diceTrayX, diceTrayY, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
 
 	-- draw the confirmation button
 	Button.draw(580, 510, 170, 50, selectedRow == 'confirm', 'Confirm')

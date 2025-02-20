@@ -4,6 +4,7 @@ local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
 local Button = require('../Components/Button')
 local DieConfig = require('../Data/DieConfig')
+local Die = require('../Components/Die')
 
 local DicePackScreen = {}
 DicePackScreen.screen = 5
@@ -25,7 +26,13 @@ function buildDieConfigOption()
 		local dieConfigIndex = possibleDiceOptions[possibleDiceOptionIndex]
 		local dieConfig = possibleDieConfigs[dieConfigIndex]
 		table.remove(possibleDiceOptions, possibleDiceOptionIndex)
-		local newDie = { value = dieConfig.max, assignment = nil, diceBagIndex = dieConfigIndex, dieConfig = dieConfig }
+		local newDie = {
+			value = dieConfig.max,
+			assignment = nil,
+			diceBagIndex = dieConfigIndex,
+			dieConfig = dieConfig,
+			canvas = Die.createCanvas(dieConfig.graphic, dieConfig.max)
+		}
 
 		table.insert(option, 1, newDie)
 	end
@@ -34,6 +41,12 @@ function buildDieConfigOption()
 end
 
 local packOptions = {}
+
+-- dice tray canvas variables (which we only want to create on load)
+local diceTrayWidth = nil
+local diceTrayHeight = nil
+local dicePackCanvas = nil
+local dicePackCanvasSelected = nil
 
 function DicePackScreen.load()
 	screen = DicePackScreen.screen
@@ -49,6 +62,11 @@ function DicePackScreen.load()
 	packOptions1 = buildDieConfigOption()
 	packOptions2 = buildDieConfigOption()
 	packOptions3 = buildDieConfigOption()
+
+	diceTrayWidth = 200
+	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, 2)
+	dicePackCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
+	dicePackCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
 
 	selectedRow = 'intro'
 
@@ -153,12 +171,11 @@ function DicePackScreen.draw()
 
 	TextAndGraphic.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.dicePacks, 0)
 
-	local trayWidth = 200
 	local trayX = x
 	local trayY = textBlockY + textBlockHeight + 5
-	DiceTray.draw(trayX, trayY + 0, trayWidth, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
-	DiceTray.draw(trayX, trayY + 125, trayWidth, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
-	DiceTray.draw(trayX, trayY + 250, trayWidth, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
+	DiceTray.draw(dicePackCanvas, dicePackCanvasSelected, diceTrayHeight, trayX, trayY + 0, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
+	DiceTray.draw(dicePackCanvas, dicePackCanvasSelected, diceTrayHeight, trayX, trayY + 125, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
+	DiceTray.draw(dicePackCanvas, dicePackCanvasSelected, diceTrayHeight, trayX, trayY + 250, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
 
 	Button.draw(600, 525, 180, 50, selectedRow == 'skip', 'Skip')
 end
