@@ -46,7 +46,7 @@ lospecColors = {
 	{1, 1, 1},							-- 42, #ffffff
 }
 
-function newLospecColor(index, alpha)
+function setLospecColor(index, alpha)
 	love.graphics.setColor(
 		lospecColors[index][1],
 		lospecColors[index][2],

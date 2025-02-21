@@ -13,7 +13,7 @@ function Nameplate.createCanvas()
 	love.graphics.clear()
 
 	-- Draw a shadow first
-	love.graphics.setColor(1, 1, 1, 0.4)
+	love.graphics.setColor(0, 0, 0, 0.4)
 	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5)
 
 	-- Draw a rounded rectangle
@@ -32,15 +32,20 @@ end
 
 Nameplate.canvas = Nameplate.createCanvas()
 
-function Nameplate.draw(x, y, text)
-	newLospecColor(42)
+function Nameplate.draw(x, y, text, selected)
+	if selected then
+		setLospecColor(29)
+	else
+		setLospecColor(15)
+	end
+
 	love.graphics.draw(Nameplate.canvas, x, y, 0, canvasMult, canvasMult)
 
-	local fontSize = 31
-	local font = newWhackyFont(fontSize)
+	local fontSize = 36
+	setWhackyFont(fontSize)
 
-	newLospecColor(2)
-	love.graphics.setFont(font)
+	setLospecColor(2)
+
 	local xOffset = 0
 	local yOffset = (4*canvasMult) - 4
 	love.graphics.printf(text, x + xOffset, y + yOffset, namePlateWidth + (6*canvasMult), 'center')

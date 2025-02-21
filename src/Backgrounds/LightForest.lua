@@ -10,15 +10,15 @@ function LightForest.draw()
 	love.graphics.clear()
 
 	-- Background (Sky)
-	newLospecColor(29)
+	setLospecColor(29)
 	love.graphics.rectangle("fill", 0, 0, canvasWidth, canvasHeight)
 
 	-- Darker hill in the back
-	newLospecColor(18)
+	setLospecColor(18)
 	love.graphics.circle("fill", 130, canvasHeight + 10, 90)
 
 	-- Lighter hill in the front
-	newLospecColor(20)
+	setLospecColor(20)
 	love.graphics.circle("fill", 40, canvasHeight + 40, 90)
 
 	-- Reset canvas

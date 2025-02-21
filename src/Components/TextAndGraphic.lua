@@ -8,10 +8,9 @@ function TextBlock.draw(x, y, width, height, defaultColor, isSelected, text, gra
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
 
 	local fontSize = 18
-	local font = newWhackyFont(fontSize)
+	setWhackyFont(fontSize)
 
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
-	love.graphics.setFont(font)
 
 	-- set the text width based on the size of a graphic (if there is one)
 	local padding = 10

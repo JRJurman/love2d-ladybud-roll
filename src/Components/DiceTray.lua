@@ -12,7 +12,7 @@ function DiceTray.Canvas(width, height, selected)
 	love.graphics.clear()
 
 	-- Draw a shadow first
-	love.graphics.setColor(1, 1, 1, 0.4)
+	love.graphics.setColor(0, 0, 0, 0.4)
 	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 12, 12)
 
 	-- Draw a rounded rectangle
@@ -44,9 +44,9 @@ function DiceTray.draw(canvas, height, x, y, dice, selectedIndex)
 	local diceSize = height
 
 	if selectedIndex == 0 then
-		newLospecColor(29)
+		setLospecColor(29)
 	else
-		newLospecColor(15)
+		setLospecColor(15)
 	end
 	love.graphics.draw(canvas, x, y + (diceSize / 6), 0, canvasMult, canvasMult)
 
@@ -65,16 +65,16 @@ function DiceTray.draw(canvas, height, x, y, dice, selectedIndex)
 
 		-- if this is the selected die, draw an outline
 		-- if isSelected then
-		-- 	newLospecColor(29)
+		-- 	setLospecColor(29)
 		-- 	love.graphics.rectangle('line', dx, dy + diceSize * 1.125, diceSize, 10, 4, 4)
 		-- end
 
 		-- draw assignments, if they exist
 		if (die.assignment) then
 			if die.assignment == 'ATK' then
-				newLospecColor(38)
+				setLospecColor(38)
 			elseif die.assignment == 'DEF' then
-				newLospecColor(28)
+				setLospecColor(28)
 			end
 			love.graphics.rectangle('fill', dx, dy + diceSize * 1.125, diceSize, 10, 4, 4)
 		end

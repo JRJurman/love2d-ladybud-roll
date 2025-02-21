@@ -41,16 +41,14 @@ function TitleScreen.draw()
 	if screen ~= TitleScreen.screen then return end
 
 	local winWidth, winHeight = love.graphics.getDimensions()
-	local font = newWhackyFont(40)
-	love.graphics.setFont(font)
+	setWhackyFont(40)
 	love.graphics.setColor(1, 1, 1)
 
 	local startHeight = (winHeight/2) - 80
 	love.graphics.printf('LADYBUG ROLL', 0, startHeight, winWidth, 'center')
 
 	-- BlockyCanvas.draw(150, 240, 485, 175, lospecColors[17])
-	font = newWhackyFont(30)
-	love.graphics.setFont(font)
+	setWhackyFont(30)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, startHeight + 50, winWidth, 'center')
 	love.graphics.printf('Art by Ethan Jurman', 0, startHeight + 80, winWidth, 'center')

@@ -82,7 +82,7 @@ local diceTrayHeight = nil
 local gameDiceTrayCanvas = nil
 
 -- confirm button canvas
-local confirmButtonWidth, confirmButtonHeight = 170, 50
+local confirmButtonWidth, confirmButtonHeight = 180, 50
 local confirmButtonCanvas = Button.canvas(confirmButtonWidth, confirmButtonHeight)
 
 function GameScreen.load()
@@ -316,8 +316,8 @@ function GameScreen.draw()
 	local x = getXForWidth(620)
 
 	-- player and enemy window
-	Player.draw(selectedRow == 'characters' and selectedCharacter == 'player', playerHP, playerBLK)
-	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
+	Player.draw(selectedRow == 'characters' and selectedCharacter ~= 'enemy', playerHP, playerBLK)
+	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter ~= 'player', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
 	local diceTrayX = getXForWidth(diceTrayWidth) - 10
@@ -325,7 +325,7 @@ function GameScreen.draw()
 	DiceTray.draw(gameDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
 
 	-- draw the confirmation button
-	local confirmButtonX, confirmButtonY = 580, 510
+	local confirmButtonX, confirmButtonY = 575, 510
 	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, selectedRow == 'confirm', 'Confirm')
 end
 

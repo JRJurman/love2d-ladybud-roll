@@ -10,6 +10,7 @@ local pipAssets = {
 }
 
 local dieAsset = love.graphics.newImage('Assets/die-white.png')
+local dieAssetSize = 32
 
 -- Function to create a canvas with a rendered die face
 function Die.createCanvas(value)
@@ -39,13 +40,13 @@ end
 function Die.draw(canvas, dieConfig, x, y, size, selected)
 	-- If selected, draw a border
 	if selected then
-		newLospecColor(29)
+		setLospecColor(29)
 		love.graphics.rectangle('fill', x - 5, y - 5, size * 1.125, size * 1.125, 5, 5)
 	end
 
 	-- Draw the cached die image
 	love.graphics.setColor(unpack(dieConfig.color))
-	love.graphics.draw(canvas, x, y, 0, size / 32, size / 32)
+	love.graphics.draw(canvas, x, y, 0, size / dieAssetSize, size / dieAssetSize)
 end
 
 return Die

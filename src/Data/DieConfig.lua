@@ -5,7 +5,6 @@ local BlueDie = {
 	shortLabel="Blue",
 	min=1, max=3,
 	color=lospecColors[28],
-	graphic=love.graphics.newImage('Assets/die-blue.png'),
 
 	buff="gets +2 when assigned for Defending",
 	resolveAssignment=function(die)
@@ -25,7 +24,6 @@ local RedDie = {
 	shortLabel="Red",
 	min=1, max=3,
 	color=lospecColors[38],
-	graphic=love.graphics.newImage('Assets/die-red.png'),
 
 	buff="gets +2 when assigned for Attacking",
 	resolveAssignment=function(die)
@@ -45,7 +43,6 @@ local GreenDie = {
 	shortLabel="Green",
 	min=1, max=3,
 	color=lospecColors[19],
-	graphic=love.graphics.newImage('Assets/die-green.png'),
 
 	buff="heals the player's health by 2 when assigned",
 	resolveAssignment=function(die)
@@ -63,7 +60,6 @@ local WhiteDie = {
 	shortLabel="White",
 	min=2, max=4,
 	color=lospecColors[41],
-	graphic=love.graphics.newImage('Assets/die-white.png'),
 
 }
 
@@ -72,7 +68,6 @@ local YellowDie = {
 	shortLabel="Yellow",
 	min=1, max=3,
 	color=lospecColors[9],
-	graphic=love.graphics.newImage('Assets/die-yellow.png'),
 
 	buff="gets +2 when left unassigned",
 	onSave=function(die)
@@ -91,7 +86,6 @@ local Ladybug = {
 	shortLabel="Ladybug",
 	min=0, max=0,
 	color=lospecColors[5],
-	graphic=love.graphics.newImage('Assets/die-red.png'),
 
 	buff="gets +7 when assigned for Attacking",
 	resolveAssignment=function(die)

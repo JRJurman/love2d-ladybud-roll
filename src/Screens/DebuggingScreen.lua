@@ -40,9 +40,8 @@ end
 function DebuggingScreen.draw()
 	if not debugging then return end
 
-	local font = newWhackyFont(16)
+	setWhackyFont(16)
 	love.graphics.setColor(0, 1, 0)
-	love.graphics.setFont(font)
 
 	-- draw current mouse position (circle)
 	local x, y = love.mouse.getPosition()

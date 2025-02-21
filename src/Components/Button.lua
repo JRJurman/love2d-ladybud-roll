@@ -10,7 +10,7 @@ function Button.canvas(width, height)
 	love.graphics.clear()
 
 	-- Draw a shadow first
-	love.graphics.setColor(1, 1, 1, 0.4)
+	love.graphics.setColor(0, 0, 0, 0.4)
 	love.graphics.rectangle("fill", 3, 6, canvasWidth, canvasHeight, 5, 5)
 
 	-- Draw a rounded rectangle
@@ -29,20 +29,19 @@ end
 
 function Button.draw(canvas, x, y, width, isSelected, text)
 	if isSelected then
-		newLospecColor(29)
+		setLospecColor(29)
 	else
-		newLospecColor(15)
+		setLospecColor(15)
 	end
 	love.graphics.draw(canvas, x, y, 0, canvasMult, canvasMult)
 
-	local fontSize = 31
-	local font = newWhackyFont(fontSize)
+	local fontSize = 36
+	setWhackyFont(fontSize)
 
-	newLospecColor(2)
-	love.graphics.setFont(font)
+	setLospecColor(2)
 	local xOffset = 0
-	local yOffset = (4*canvasMult) + (isSelected and 0 or -4)
-	love.graphics.printf(text, x + xOffset, y + yOffset, width + (6*canvasMult), 'center')
+	local yOffset = (4*canvasMult) + (isSelected and -4 or -8)
+	love.graphics.printf(text, x + xOffset, y + yOffset, width + (6*canvasMult) + 8, 'center')
 end
 
 return Button
