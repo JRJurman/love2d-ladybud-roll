@@ -31,7 +31,7 @@ function Heart.draw(x, y, value)
 	love.graphics.draw(Heart.canvas, x, y, 0, size / heartAssetSize, size / heartAssetSize)
 	setLospecColor(01)
 	setWhackyFont(40)
-	love.graphics.printf(value, x, y + 8, size, 'center')
+	love.graphics.printf(value, x, y + 10, size, 'center')
 end
 
 return Heart

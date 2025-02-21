@@ -2,6 +2,7 @@ local Button = require('../Components/Button')
 local Nameplate = require('../Components/Nameplate')
 local Heart = require('../Components/Heart')
 local Shield = require('../Components/Shield')
+local Attack = require('../Components/Attack')
 
 local Enemy = {}
 
@@ -40,11 +41,11 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 	Heart.draw(enemyX + 180, 50, hp)
 	Shield.draw(enemyX + 188, 150, block)
 
-	-- if nextActions then
-	-- 	for index, action in ipairs(nextActions) do
-	-- 		love.graphics.printf(action.type..' '..action.value, 500, 70 + (28 * index), 170, 'center')
-	-- 	end
-	-- end
+	if nextActions then
+		for index, action in ipairs(nextActions) do
+			Attack.draw(425, 70 + (30 * index), action.value)
+		end
+	end
 end
 
 return Enemy
