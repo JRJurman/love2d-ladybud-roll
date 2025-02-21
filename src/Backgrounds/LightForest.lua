@@ -1,6 +1,6 @@
 LightForest = {}
 
-function LightForest.draw()
+function LightForest.createCanvas()
 	-- Canvas size (lower res to force pixelation)
 	local canvasWidth, canvasHeight = 160, 120
 	local backgroundCanvas = love.graphics.newCanvas(canvasWidth, canvasHeight)
@@ -26,8 +26,15 @@ function LightForest.draw()
 	love.graphics.setCanvas()
 	backgroundCanvas:setFilter("nearest", "nearest") -- Pixelated effect
 
+	return backgroundCanvas
+end
+
+LightForest.canvas = LightForest.createCanvas()
+
+function LightForest.draw()
 	-- Scale the canvas for pixelation effect
-	love.graphics.draw(backgroundCanvas, 0, 0, 0, 5, 5) -- Scales up to fit the screen
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.draw(LightForest.canvas, 0, 0, 0, 5, 5) -- Scales up to fit the screen
 end
 
 return LightForest

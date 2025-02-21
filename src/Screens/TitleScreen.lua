@@ -1,5 +1,4 @@
 local PlayerConfig = require('../Data/PlayerConfig')
-local BlockyCanvas = require('../Components/BlockyCanvas')
 local TitleScreen = {}
 
 TitleScreen.screen = 0
@@ -47,7 +46,6 @@ function TitleScreen.draw()
 	local startHeight = (winHeight/2) - 80
 	love.graphics.printf('LADYBUG ROLL', 0, startHeight, winWidth, 'center')
 
-	-- BlockyCanvas.draw(150, 240, 485, 175, lospecColors[17])
 	setWhackyFont(30)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, startHeight + 50, winWidth, 'center')

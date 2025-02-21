@@ -3,7 +3,7 @@ local Die = require('../Components/Die')
 local DiceTray = {}
 
 local canvasMult = 4
-function DiceTray.Canvas(width, height, selected)
+function DiceTray.createCanvas(width, height, selected)
 	local canvasWidth = width / canvasMult
 	local canvasHeight = height / canvasMult
 	-- Set up a canvas to draw the shape

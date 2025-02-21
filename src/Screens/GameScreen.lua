@@ -83,7 +83,7 @@ local gameDiceTrayCanvas = nil
 
 -- confirm button canvas
 local confirmButtonWidth, confirmButtonHeight = 180, 50
-local confirmButtonCanvas = Button.canvas(confirmButtonWidth, confirmButtonHeight)
+local confirmButtonCanvas = Button.createCanvas(confirmButtonWidth, confirmButtonHeight)
 
 function GameScreen.load()
 	screen = GameScreen.screen
@@ -107,7 +107,7 @@ function GameScreen.load()
 	-- build tray canvas for the intro screen
 	diceTrayWidth = 600
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, 4)
-	gameDiceTrayCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
+	gameDiceTrayCanvas = DiceTray.createCanvas(diceTrayWidth, diceTrayHeight, false)
 
 	tts.readCharactersPreview()
 end

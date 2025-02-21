@@ -18,7 +18,7 @@ local diceBreakCanvas = nil
 
 -- skip button canvas
 local skipButtonWidth, skipButtonHeight = 170, 50
-local skipButtonCanvas = Button.canvas(skipButtonWidth, skipButtonHeight)
+local skipButtonCanvas = Button.createCanvas(skipButtonWidth, skipButtonHeight)
 
 function DiceBreakScreen.load()
 	screen = DiceBreakScreen.screen
@@ -40,7 +40,7 @@ function DiceBreakScreen.load()
 
 	diceTrayWidth = 730
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, #dice)
-	diceBreakCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
+	diceBreakCanvas = DiceTray.createCanvas(diceTrayWidth, diceTrayHeight, false)
 
 	-- read out the first box selection
 	tts.readDiceBreakIntro()

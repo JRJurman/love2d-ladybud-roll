@@ -1,7 +1,7 @@
 local Button = {}
 
 local canvasMult = 4
-function Button.canvas(width, height)
+function Button.createCanvas(width, height)
 	local canvasWidth = width / canvasMult
 	local canvasHeight = height / canvasMult
 	-- Set up a canvas to draw the shape

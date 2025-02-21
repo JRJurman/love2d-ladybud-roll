@@ -49,7 +49,7 @@ local dicePackCanvas = nil
 
 -- skip button canvas
 local skipButtonWidth, skipButtonHeight = 170, 50
-local skipButtonCanvas = Button.canvas(skipButtonWidth, skipButtonHeight)
+local skipButtonCanvas = Button.createCanvas(skipButtonWidth, skipButtonHeight)
 
 
 function DicePackScreen.load()
@@ -69,7 +69,7 @@ function DicePackScreen.load()
 
 	diceTrayWidth = 200
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, 2)
-	dicePackCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
+	dicePackCanvas = DiceTray.createCanvas(diceTrayWidth, diceTrayHeight, false)
 
 	selectedRow = 'intro'
 

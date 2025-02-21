@@ -18,7 +18,7 @@ local introDiceTrayCanvas = nil
 
 -- confirm button canvas
 local confirmButtonWidth, confirmButtonHeight = 170, 50
-local confirmButtonCanvas = Button.canvas(confirmButtonWidth, confirmButtonHeight)
+local confirmButtonCanvas = Button.createCanvas(confirmButtonWidth, confirmButtonHeight)
 
 function IntroScreen.load()
 	screen = IntroScreen.screen
@@ -41,7 +41,7 @@ function IntroScreen.load()
 	-- build tray canvas for the intro screen
 	diceTrayWidth = 620
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, #dice)
-	introDiceTrayCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
+	introDiceTrayCanvas = DiceTray.createCanvas(diceTrayWidth, diceTrayHeight, false)
 
 	-- read out the first intro box selection
 	tts.readIntroLore()
