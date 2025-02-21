@@ -1,6 +1,7 @@
 local Button = require('../Components/Button')
 local Nameplate = require('../Components/Nameplate')
 local Heart = require('../Components/Heart')
+local Shield = require('../Components/Shield')
 
 local Enemy = {}
 
@@ -23,7 +24,7 @@ function Enemy.createCanvas(graphic)
 	return canvas
 end
 
-function Enemy.draw(enemyConfig, isSelected, hp, block, buff, nextActions)
+function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 	love.graphics.setColor(1,1,1)
 
 	-- draw the enemy
@@ -33,12 +34,11 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, buff, nextActions)
 	love.graphics.draw(canvas, enemyX, enemyY, 0, enemyScale, enemyScale)
 
 	-- draw the canvas
-	Nameplate.draw(450, 240, enemyConfig.name, isSelected)
+	Nameplate.draw(enemyX - 50, 240, enemyConfig.name, isSelected)
 
 	-- draw the heart and health
-	Heart.draw(660, 50, hp)
-	-- if block then love.graphics.printf('BLK: '..block, 500, 216, 170, 'center') end
-	-- if buff then love.graphics.printf('BUFF: '..buff, 500, 230, 170, 'center') end
+	Heart.draw(enemyX + 180, 50, hp)
+	Shield.draw(enemyX + 188, 150, block)
 
 	-- if nextActions then
 	-- 	for index, action in ipairs(nextActions) do

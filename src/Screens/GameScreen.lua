@@ -317,7 +317,7 @@ function GameScreen.draw()
 
 	-- player and enemy window
 	Player.draw(selectedRow == 'characters' and selectedCharacter ~= 'enemy', playerHP, playerBLK)
-	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter ~= 'player', enemyHP, enemyBLK, nil, enemyActions)
+	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter ~= 'player', enemyHP, enemyBLK, enemyActions)
 
 	-- draw the dice tray
 	local diceTrayX = getXForWidth(diceTrayWidth) - 10
