@@ -4,7 +4,7 @@ local BlueDie = {
 	label="Blue Die",
 	shortLabel="Blue",
 	min=1, max=3,
-	-- color=lospecColors[28],
+	color=lospecColors[28],
 	graphic=love.graphics.newImage('Assets/die-blue.png'),
 
 	buff="gets +2 when assigned for Defending",
@@ -24,7 +24,7 @@ local RedDie = {
 	label="Red Die",
 	shortLabel="Red",
 	min=1, max=3,
-	-- color=lospecColors[38],
+	color=lospecColors[38],
 	graphic=love.graphics.newImage('Assets/die-red.png'),
 
 	buff="gets +2 when assigned for Attacking",
@@ -44,7 +44,7 @@ local GreenDie = {
 	label="Green Die",
 	shortLabel="Green",
 	min=1, max=3,
-	-- color=lospecColors[19],
+	color=lospecColors[19],
 	graphic=love.graphics.newImage('Assets/die-green.png'),
 
 	buff="heals the player's health by 2 when assigned",
@@ -62,7 +62,7 @@ local WhiteDie = {
 	label="White Die",
 	shortLabel="White",
 	min=2, max=4,
-	-- color=lospecColors[41],
+	color=lospecColors[41],
 	graphic=love.graphics.newImage('Assets/die-white.png'),
 
 }
@@ -71,13 +71,13 @@ local YellowDie = {
 	label="Yellow Die",
 	shortLabel="Yellow",
 	min=1, max=3,
-	-- color=lospecColors[9],
+	color=lospecColors[9],
 	graphic=love.graphics.newImage('Assets/die-yellow.png'),
 
 	buff="gets +2 when left unassigned",
 	onSave=function(die)
 		die.value = math.min(die.value + 2, 6)
-		die.canvas = Die.createCanvas(die.dieConfig.graphic, die.value)
+		die.canvas = Die.createCanvas(die.value)
 	end,
 
 	brokenBuff="gives you +1 to maximum dice roll values",
@@ -90,7 +90,7 @@ local Ladybug = {
 	label="Ladybug",
 	shortLabel="Ladybug",
 	min=0, max=0,
-	-- color=lospecColors[5],
+	color=lospecColors[5],
 	graphic=love.graphics.newImage('Assets/die-red.png'),
 
 	buff="gets +7 when assigned for Attacking",

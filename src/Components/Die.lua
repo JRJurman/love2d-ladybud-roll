@@ -9,15 +9,17 @@ local pipAssets = {
 	love.graphics.newImage('Assets/6-pip.png'),
 }
 
+local dieAsset = love.graphics.newImage('Assets/die-white.png')
+
 -- Function to create a canvas with a rendered die face
-function Die.createCanvas(graphic, value)
+function Die.createCanvas(value)
 	local canvas = love.graphics.newCanvas(32, 32)
 
 	love.graphics.setCanvas(canvas)
 	love.graphics.clear()
 
 	love.graphics.setColor(1,1,1)
-	love.graphics.draw(graphic, 0, 0)
+	love.graphics.draw(dieAsset, 0, 0)
 
 	-- Draw pips
 	if value > 0 and value < 7 then
@@ -34,7 +36,7 @@ function Die.createCanvas(graphic, value)
 	return canvas
 end
 
-function Die.draw(canvas, x, y, size, selected)
+function Die.draw(canvas, dieConfig, x, y, size, selected)
 	-- If selected, draw a border
 	if selected then
 		newLospecColor(29)
@@ -42,7 +44,7 @@ function Die.draw(canvas, x, y, size, selected)
 	end
 
 	-- Draw the cached die image
-	love.graphics.setColor(1, 1, 1) -- Ensure full brightness
+	love.graphics.setColor(unpack(dieConfig.color))
 	love.graphics.draw(canvas, x, y, 0, size / 32, size / 32)
 end
 

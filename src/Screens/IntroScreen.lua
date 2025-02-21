@@ -15,7 +15,10 @@ local dice = {}
 local diceTrayWidth = nil
 local diceTrayHeight = nil
 local introDiceTrayCanvas = nil
-local introDiceTrayCanvasSelected = nil
+
+-- confirm button canvas
+local confirmButtonWidth, confirmButtonHeight = 170, 50
+local confirmButtonCanvas = Button.canvas(confirmButtonWidth, confirmButtonHeight)
 
 function IntroScreen.load()
 	screen = IntroScreen.screen
@@ -30,7 +33,7 @@ function IntroScreen.load()
 			assignment = nil,
 			diceBagIndex = index,
 			dieConfig = dieConfig,
-			canvas = Die.createCanvas(dieConfig.graphic, dieConfig.max)
+			canvas = Die.createCanvas(dieConfig.max)
 		}
 		table.insert(dice, newDie)
 	end
@@ -38,8 +41,7 @@ function IntroScreen.load()
 	-- build tray canvas for the intro screen
 	diceTrayWidth = 620
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, #dice)
-	introDiceTrayCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
-	introDiceTrayCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
+	introDiceTrayCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
 
 	-- read out the first intro box selection
 	tts.readIntroLore()
@@ -107,9 +109,10 @@ function IntroScreen.draw()
 
 	local diceTrayX = getXForWidth(diceTrayWidth)
 	local diceTrayY = 365
-	DiceTray.draw(introDiceTrayCanvas, introDiceTrayCanvasSelected, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+	DiceTray.draw(introDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
-	Button.draw(580, 510, 170, 50, selectedRow == 'begin', 'Begin')
+	local confirmButtonX, confirmButtonY = 580, 510
+	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, selectedRow == 'begin', 'Begin')
 end
 
 return IntroScreen

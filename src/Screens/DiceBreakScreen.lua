@@ -15,7 +15,10 @@ local dice = {}
 local diceTrayWidth = nil
 local diceTrayHeight = nil
 local diceBreakCanvas = nil
-local diceBreakCanvasSelected = nil
+
+-- skip button canvas
+local skipButtonWidth, skipButtonHeight = 170, 50
+local skipButtonCanvas = Button.canvas(skipButtonWidth, skipButtonHeight)
 
 function DiceBreakScreen.load()
 	screen = DiceBreakScreen.screen
@@ -30,15 +33,14 @@ function DiceBreakScreen.load()
 			assignment = nil,
 			diceBagIndex = index,
 			dieConfig = dieConfig,
-			canvas = Die.createCanvas(dieConfig.graphic, dieConfig.max)
+			canvas = Die.createCanvas(dieConfig.max)
 		}
 		table.insert(dice, newDie)
 	end
 
 	diceTrayWidth = 730
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, #dice)
-	diceBreakCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
-	diceBreakCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
+	diceBreakCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
 
 	-- read out the first box selection
 	tts.readDiceBreakIntro()
@@ -121,9 +123,10 @@ function DiceBreakScreen.draw()
 
 	local diceTrayX = x
 	local diceTrayY = 365
-	DiceTray.draw(diceBreakCanvas, diceBreakCanvasSelected, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+	DiceTray.draw(diceBreakCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
-	Button.draw(x, 510, width, 50, selectedRow == 'skip', 'Skip')
+	local skipButtonX, skipButtonY = 580, 510
+	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, selectedRow == 'skip', 'Skip')
 end
 
 return DiceBreakScreen

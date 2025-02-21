@@ -66,7 +66,7 @@ function rollDiceFromBag()
 		assignment = nil,
 		diceBagIndex = diceBagIndex,
 		dieConfig = dieConfig,
-		canvas = Die.createCanvas(dieConfig.graphic, value)
+		canvas = Die.createCanvas(value)
 	}
 end
 
@@ -80,7 +80,10 @@ end
 local diceTrayWidth = nil
 local diceTrayHeight = nil
 local gameDiceTrayCanvas = nil
-local gameDiceTrayCanvasSelected = nil
+
+-- confirm button canvas
+local confirmButtonWidth, confirmButtonHeight = 170, 50
+local confirmButtonCanvas = Button.canvas(confirmButtonWidth, confirmButtonHeight)
 
 function GameScreen.load()
 	screen = GameScreen.screen
@@ -104,8 +107,7 @@ function GameScreen.load()
 	-- build tray canvas for the intro screen
 	diceTrayWidth = 600
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, 4)
-	gameDiceTrayCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
-	gameDiceTrayCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
+	gameDiceTrayCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
 
 	tts.readCharactersPreview()
 end
@@ -314,17 +316,17 @@ function GameScreen.draw()
 	local x = getXForWidth(620)
 
 	-- player and enemy window
-	FatRect.draw(x, 66, width, 250, {1,1,1}, {0,0,0}, selectedRow == 'characters')
 	Player.draw(selectedRow == 'characters' and selectedCharacter == 'player', playerHP, playerBLK)
 	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter == 'enemy', enemyHP, enemyBLK, nil, enemyActions)
 
 	-- draw the dice tray
 	local diceTrayX = getXForWidth(diceTrayWidth) - 10
 	local diceTrayY = 330
-	DiceTray.draw(gameDiceTrayCanvas, gameDiceTrayCanvasSelected, diceTrayHeight, diceTrayX, diceTrayY, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
+	DiceTray.draw(gameDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
 
 	-- draw the confirmation button
-	Button.draw(580, 510, 170, 50, selectedRow == 'confirm', 'Confirm')
+	local confirmButtonX, confirmButtonY = 580, 510
+	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, selectedRow == 'confirm', 'Confirm')
 end
 
 return GameScreen

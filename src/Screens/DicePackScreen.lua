@@ -31,7 +31,7 @@ function buildDieConfigOption()
 			assignment = nil,
 			diceBagIndex = dieConfigIndex,
 			dieConfig = dieConfig,
-			canvas = Die.createCanvas(dieConfig.graphic, dieConfig.max)
+			canvas = Die.createCanvas(dieConfig.max)
 		}
 
 		table.insert(option, 1, newDie)
@@ -46,7 +46,11 @@ local packOptions = {}
 local diceTrayWidth = nil
 local diceTrayHeight = nil
 local dicePackCanvas = nil
-local dicePackCanvasSelected = nil
+
+-- skip button canvas
+local skipButtonWidth, skipButtonHeight = 170, 50
+local skipButtonCanvas = Button.canvas(skipButtonWidth, skipButtonHeight)
+
 
 function DicePackScreen.load()
 	screen = DicePackScreen.screen
@@ -65,8 +69,7 @@ function DicePackScreen.load()
 
 	diceTrayWidth = 200
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, 2)
-	dicePackCanvas = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], false)
-	dicePackCanvasSelected = DiceTrayCanvas(diceTrayWidth, diceTrayHeight, lospecColors[15], true)
+	dicePackCanvas = DiceTray.Canvas(diceTrayWidth, diceTrayHeight, false)
 
 	selectedRow = 'intro'
 
@@ -173,11 +176,14 @@ function DicePackScreen.draw()
 
 	local trayX = x
 	local trayY = textBlockY + textBlockHeight + 5
-	DiceTray.draw(dicePackCanvas, dicePackCanvasSelected, diceTrayHeight, trayX, trayY + 0, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
-	DiceTray.draw(dicePackCanvas, dicePackCanvasSelected, diceTrayHeight, trayX, trayY + 125, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
-	DiceTray.draw(dicePackCanvas, dicePackCanvasSelected, diceTrayHeight, trayX, trayY + 250, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
+	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 0, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
+	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 125, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
+	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 250, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
 
-	Button.draw(600, 525, 180, 50, selectedRow == 'skip', 'Skip')
+	local skipButtonX = 600
+	local skipButtonY = 525
+	local skipButtonWidth = 180
+	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, selectedRow == 'skip', 'Skip')
 end
 
 return DicePackScreen

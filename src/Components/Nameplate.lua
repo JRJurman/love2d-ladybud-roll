@@ -1,9 +1,12 @@
-local Button = {}
+local Nameplate = {}
 
+local namePlateWidth = 250
+local namePlateHeight = 50
 local canvasMult = 4
-function Button.canvas(width, height)
-	local canvasWidth = width / canvasMult
-	local canvasHeight = height / canvasMult
+
+function Nameplate.createCanvas()
+	local canvasWidth = namePlateWidth / canvasMult
+	local canvasHeight = namePlateHeight / canvasMult
 	-- Set up a canvas to draw the shape
 	local canvas = love.graphics.newCanvas(canvasWidth + 6, canvasHeight + 6)
 	love.graphics.setCanvas(canvas)
@@ -27,13 +30,11 @@ function Button.canvas(width, height)
 	return canvas
 end
 
-function Button.draw(canvas, x, y, width, isSelected, text)
-	if isSelected then
-		newLospecColor(29)
-	else
-		newLospecColor(15)
-	end
-	love.graphics.draw(canvas, x, y, 0, canvasMult, canvasMult)
+Nameplate.canvas = Nameplate.createCanvas()
+
+function Nameplate.draw(x, y, text)
+	newLospecColor(42)
+	love.graphics.draw(Nameplate.canvas, x, y, 0, canvasMult, canvasMult)
 
 	local fontSize = 31
 	local font = newWhackyFont(fontSize)
@@ -41,8 +42,8 @@ function Button.draw(canvas, x, y, width, isSelected, text)
 	newLospecColor(2)
 	love.graphics.setFont(font)
 	local xOffset = 0
-	local yOffset = (4*canvasMult) + (isSelected and 0 or -4)
-	love.graphics.printf(text, x + xOffset, y + yOffset, width + (6*canvasMult), 'center')
+	local yOffset = (4*canvasMult) - 4
+	love.graphics.printf(text, x + xOffset, y + yOffset, namePlateWidth + (6*canvasMult), 'center')
 end
 
-return Button
+return Nameplate
