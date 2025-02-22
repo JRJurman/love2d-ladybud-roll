@@ -43,7 +43,7 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 
 	if nextActions then
 		for index, action in ipairs(nextActions) do
-			Attack.draw(425, 70 + (30 * index), action.value)
+			Attack.draw(425, 60 + (30 * index), action.value)
 		end
 	end
 end

@@ -27,12 +27,12 @@ Attack.canvas = Attack.createCanvas()
 
 local font = buildWhackyFont(40)
 function Attack.draw(x, y, value)
-	size = 80
+	size = 100
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Attack.canvas, x, y, 0, size / attackAssetSize, size / attackAssetSize)
 	setLospecColor(01)
 	love.graphics.setFont(font)
-	love.graphics.printf(value, x, y + 8, size, 'center')
+	love.graphics.printf(value, x, y + 18, size, 'center')
 end
 
 return Attack
