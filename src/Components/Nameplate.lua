@@ -32,6 +32,7 @@ end
 
 Nameplate.canvas = Nameplate.createCanvas()
 
+local font = buildWhackyFont(36)
 function Nameplate.draw(x, y, text, selected)
 	if selected then
 		setLospecColor(29)
@@ -41,8 +42,7 @@ function Nameplate.draw(x, y, text, selected)
 
 	love.graphics.draw(Nameplate.canvas, x, y, 0, canvasMult, canvasMult)
 
-	local fontSize = 36
-	setWhackyFont(fontSize)
+	love.graphics.setFont(font)
 
 	setLospecColor(2)
 

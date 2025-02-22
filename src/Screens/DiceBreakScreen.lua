@@ -22,7 +22,6 @@ local skipButtonCanvas = Button.createCanvas(skipButtonWidth, skipButtonHeight)
 
 function DiceBreakScreen.load()
 	screen = DiceBreakScreen.screen
-	stage = 1
 	selectedRow = 'intro'
 	selectedDiceIndex = 0
 

@@ -2,13 +2,13 @@ local FatRect = require('../Components/FatRect')
 
 local TextBlock = {}
 
+local font = buildWhackyFont(18)
 function TextBlock.draw(x, y, width, height, defaultColor, isSelected, text, graphicSize)
 	local alpha = isSelected and 1 or 0.7
 	FatRect.draw(x, y, width, height, defaultColor, {0,0,0}, isSelected)
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
 
-	local fontSize = 18
-	setWhackyFont(fontSize)
+	love.graphics.setFont(font)
 
 	love.graphics.setColor(defaultColor[1], defaultColor[2], defaultColor[3], alpha)
 

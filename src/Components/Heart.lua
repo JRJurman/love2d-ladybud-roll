@@ -25,12 +25,13 @@ end
 
 Heart.canvas = Heart.createCanvas()
 
+local font = buildWhackyFont(40)
 function Heart.draw(x, y, value)
 	size = 96
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Heart.canvas, x, y, 0, size / heartAssetSize, size / heartAssetSize)
 	setLospecColor(01)
-	setWhackyFont(40)
+	love.graphics.setFont(font)
 	love.graphics.printf(value, x, y + 10, size, 'center')
 end
 

@@ -9,6 +9,7 @@ seed = 0
 -- initial character state
 playerConfig = PlayerConfig.Ladybug
 playerHP = playerConfig.startingHP
+playerMaxHP = playerConfig.startingHP
 playerStartingBLK = playerConfig.startingBLK
 playerBLK = playerStartingBLK
 playerDiceCapBonus = 0
@@ -36,17 +37,19 @@ function TitleScreen.keypressed(key)
 	end
 end
 
+local largeFont = buildWhackyFont(40)
+local smallFont = buildWhackyFont(30)
 function TitleScreen.draw()
 	if screen ~= TitleScreen.screen then return end
 
 	local winWidth, winHeight = love.graphics.getDimensions()
-	setWhackyFont(40)
+	love.graphics.setFont(largeFont)
 	love.graphics.setColor(1, 1, 1)
 
 	local startHeight = (winHeight/2) - 80
 	love.graphics.printf('LADYBUG ROLL', 0, startHeight, winWidth, 'center')
 
-	setWhackyFont(30)
+	love.graphics.setFont(smallFont)
 
 	love.graphics.printf('Created by Jesse Jurman', 0, startHeight + 50, winWidth, 'center')
 	love.graphics.printf('Art by Ethan Jurman', 0, startHeight + 80, winWidth, 'center')

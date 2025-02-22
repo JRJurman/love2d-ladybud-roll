@@ -46,11 +46,12 @@ local GreenDie = {
 
 	buff="heals the player's health by 2 when assigned",
 	resolveAssignment=function(die)
-		playerHP = math.min(playerHP + 1, playerConfig.startingHP)
+		playerHP = math.min(playerHP + 1, playerMaxHP)
 	end,
 
-	brokenBuff="heals you by +10 (can go over the starting health)",
+	brokenBuff="heals you by +10 (increases max hp)",
 	onBreaking=function()
+		playerMaxHP = playerMaxHP + 10
 		playerHP = playerHP + 10
 	end
 }

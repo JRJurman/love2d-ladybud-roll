@@ -25,12 +25,13 @@ end
 
 Shield.canvas = Shield.createCanvas()
 
+local font = buildWhackyFont(40)
 function Shield.draw(x, y, value)
 	size = 80
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Shield.canvas, x, y, 0, size / shieldAssetSize, size / shieldAssetSize)
 	setLospecColor(01)
-	setWhackyFont(40)
+	love.graphics.setFont(font)
 	love.graphics.printf(value, x, y + 8, size, 'center')
 end
 

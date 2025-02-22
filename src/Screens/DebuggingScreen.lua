@@ -37,10 +37,11 @@ function DebuggingScreen.mousereleased(x, y)
 	print('clicked - '..x..', '..y)
 end
 
+local font = buildWhackyFont(16)
 function DebuggingScreen.draw()
 	if not debugging then return end
 
-	setWhackyFont(16)
+	love.graphics.setFont(font)
 	love.graphics.setColor(0, 1, 0)
 
 	-- draw current mouse position (circle)
