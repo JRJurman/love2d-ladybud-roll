@@ -7,7 +7,7 @@ stage = 0
 seed = 0
 
 -- initial character state
-playerConfig = PlayerConfig.Ladybug
+playerConfig = PlayerConfig.Ladybud
 playerHP = playerConfig.startingHP
 playerMaxHP = playerConfig.startingHP
 playerStartingBLK = playerConfig.startingBLK
@@ -47,7 +47,7 @@ function TitleScreen.draw()
 	love.graphics.setColor(1, 1, 1)
 
 	local startHeight = (winHeight/2) - 80
-	love.graphics.printf('LADYBUG ROLL', 0, startHeight, winWidth, 'center')
+	love.graphics.printf('LADYBUD ROLL', 0, startHeight, winWidth, 'center')
 
 	love.graphics.setFont(smallFont)
 

@@ -23,7 +23,7 @@ local RedDie = {
 	label="Red Die",
 	shortLabel="Red",
 	min=1, max=3,
-	color=lospecColors[38],
+	color=lospecColors[5],
 
 	buff="gets +2 when assigned for Attacking",
 	resolveAssignment=function(die)
@@ -82,29 +82,10 @@ local YellowDie = {
 	end
 }
 
-local Ladybug = {
-	label="Ladybug",
-	shortLabel="Ladybug",
-	min=0, max=0,
-	color=lospecColors[5],
-
-	buff="gets +7 when assigned for Attacking",
-	resolveAssignment=function(die)
-		if die.assignment == 'ATK' then
-			die.value = die.value + 7
-		end
-	end,
-
-	-- brokenBuff="Not breakable yet",
-	-- onBreaking=function()
-	-- end
-}
-
 return {
 	BlueDie = BlueDie,
 	RedDie = RedDie,
 	GreenDie = GreenDie,
 	WhiteDie = WhiteDie,
 	YellowDie = YellowDie,
-	Ladybug = Ladybug,
 }

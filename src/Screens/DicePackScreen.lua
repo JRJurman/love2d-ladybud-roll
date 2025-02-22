@@ -1,5 +1,5 @@
 local StageProgress = require('../Components/StageProgress')
-local TextAndGraphic = require('../Components/TextAndGraphic')
+local TextArea = require('../Components/TextArea')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
 local Button = require('../Components/Button')
@@ -172,7 +172,7 @@ function DicePackScreen.draw()
 	local textBlockY = 100
 	local textBlockHeight = 85
 
-	TextAndGraphic.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.dicePacks, 0)
+	TextArea.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.dicePacks, 0)
 
 	local trayX = x
 	local trayY = textBlockY + textBlockHeight + 5

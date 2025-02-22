@@ -32,7 +32,7 @@ end
 
 -- title screen
 function tts.readTitleScreen()
-	ttsText = 'Ladybug Roll, created by Jesse Jurman. Press any button to start.'
+	ttsText = 'Lady-Bud Roll, created by Jesse Jurman. Press any button to start.'
 	print('tts: '..ttsText)
 end
 
@@ -203,12 +203,10 @@ function tts.readPlayerStatus()
 		playerDescription = playerDescription..'. '
 	else
 		hasHeardPlayerVisualDescription = true
-		playerDescription = playerDescription..', '..playerConfig.visualDescription..'. '
+		playerDescription = playerDescription..', '..playerConfig.visualDescription..' '
 	end
-	local playerStatus = playerHP..' health;'
-	if playerBLK then
-		playerStatus = playerStatus..'and '..playerBLK..' block. '
-	end
+	local playerStatus = 'Currently '..playerHP..' health '..'and '..playerBLK..' block. '
+
 	ttsText = playerDescription..playerStatus
 	print('tts: '..ttsText)
 end
@@ -220,9 +218,9 @@ function tts.readEnemyStatus()
 		enemyDescription = enemyDescription..'. '
 	else
 		hasHeardEnemyVisualDescription = true
-		enemyDescription = enemyDescription..', '..enemyConfig.visualDescription..'. '
+		enemyDescription = enemyDescription..', '..enemyConfig.visualDescription..' '
 	end
-	local enemyStatus = enemyHP..' health, and '..enemyBLK..' block. '
+	local enemyStatus = 'Currently '..enemyHP..' health and '..enemyBLK..' block. '
 	ttsText = enemyDescription..enemyStatus
 	print('tts: '..ttsText)
 end

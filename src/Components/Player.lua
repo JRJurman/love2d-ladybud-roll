@@ -5,7 +5,7 @@ local Shield = require('../Components/Shield')
 
 local Player = {}
 
-local ladybugAsset = love.graphics.newImage('Assets/ladybug.png')
+local ladybudAsset = love.graphics.newImage('Assets/ladybud.png')
 
 function Player.createCanvas()
 	local canvas = love.graphics.newCanvas(64, 64)
@@ -14,7 +14,7 @@ function Player.createCanvas()
 	love.graphics.clear()
 
 	love.graphics.setColor(1,1,1)
-	love.graphics.draw(ladybugAsset, 0, 0)
+	love.graphics.draw(ladybudAsset, 0, 0)
 
 	-- Reset canvas
 	love.graphics.setColor(1, 1, 1)

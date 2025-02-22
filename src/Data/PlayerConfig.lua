@@ -1,8 +1,8 @@
 local DieConfig = require('../Data/DieConfig')
 
-local Ladybug = {
-	name='Ladybug',
-	visualDescription='',
+local Ladybud = {
+	name='LadyBud',
+	visualDescription='A rad ladybug with a red backwards cap - you got your arms up and are ready to give a wallop! ',
 	-- TODO: set hp to 10 for release
 	startingHP=5, startingBLK=0,
 	diceBag={
@@ -11,10 +11,9 @@ local Ladybug = {
 		DieConfig.WhiteDie,
 		DieConfig.WhiteDie,
 		DieConfig.WhiteDie,
-		DieConfig.Ladybug,
 	}
 }
 
 return {
-	Ladybug=Ladybug
+	Ladybud=Ladybud
 }
