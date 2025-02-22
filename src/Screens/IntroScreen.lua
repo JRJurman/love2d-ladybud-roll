@@ -1,5 +1,4 @@
 local StageProgress = require('../Components/StageProgress')
-local TextArea = require('../Components/TextArea')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
 local Button = require('../Components/Button')
@@ -19,6 +18,10 @@ local introDiceTrayCanvas = nil
 -- confirm button canvas
 local confirmButtonWidth, confirmButtonHeight = 170, 50
 local confirmButtonCanvas = Button.createCanvas(confirmButtonWidth, confirmButtonHeight)
+
+-- Title Text canvas
+local titleTextWidth, titleTextHeight = 730, 240
+local titleTextCanvas = Button.createCanvas(titleTextWidth, titleTextHeight)
 
 function IntroScreen.load()
 	screen = IntroScreen.screen
@@ -104,8 +107,8 @@ function IntroScreen.draw()
 	local x = getXForWidth(width)
 
 	local textBlockHeight = 240
-	local textBlockY = 110
-	TextArea.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.introLore, 330)
+	local textBlockY = 90
+	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, selectedRow == 'intro', TextBlocks.introLore)
 
 	local diceTrayX = getXForWidth(diceTrayWidth)
 	local diceTrayY = 365

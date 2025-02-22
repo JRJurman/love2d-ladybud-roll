@@ -62,7 +62,7 @@ function tts.readSelectedDiceConfig(dieConfig)
 end
 
 function tts.readBeginButton()
-	local beginReadout = 'Begin your adventure? Press X key to start.'
+	local beginReadout = 'Begin Button, Press X key to start.'
 	ttsText = beginReadout
 	print('tts: '..ttsText)
 end
@@ -91,7 +91,7 @@ function tts.readPackSummary(selectedPackOptions, packIndex)
 end
 
 function tts.readSkipButton()
-	ttsText = 'skip, and go to the next battle'
+	ttsText = 'skip button, press X to skip and go to the next battle'
 	print('tts: '..ttsText)
 end
 
@@ -258,7 +258,7 @@ function tts.readDiceTrayPreview()
 			diceOptions = diceOptions..' (assigned)'
 		end
 	end
-	ttsText = 'You have rolled '..#activeDice..' dice;'..diceOptions..'. Press right to scan and assign these dice. Press down after assigning dice to confirm your selection and attack!'
+	ttsText = 'Your dice tray - You have rolled '..#activeDice..' dice;'..diceOptions..'. Press right to scan and assign these dice. Press down after assigning dice to confirm your selection and attack!'
 	print('tts: '..ttsText)
 end
 
@@ -288,7 +288,7 @@ function tts.readDiceAssignment()
 		assignedDefenseDiceText = 'no dice'
 	end
 
-	ttsText = 'You are attacking with '..assignedAttackDiceText..' and are defending with '..assignedDefenseDiceText..'. Press X to confirm.'
+	ttsText = 'Confirm Button, You are attacking with '..assignedAttackDiceText..' and are defending with '..assignedDefenseDiceText..'. Press X to confirm.'
 	print('tts: '..ttsText)
 end
 
