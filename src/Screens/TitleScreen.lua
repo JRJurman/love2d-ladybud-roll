@@ -7,19 +7,30 @@ stage = 0
 seed = 0
 
 -- initial character state
-playerConfig = PlayerConfig.Ladybud
-playerHP = playerConfig.startingHP
-playerMaxHP = playerConfig.startingHP
-playerStartingBLK = playerConfig.startingBLK
-playerBLK = playerStartingBLK
-playerDiceCapBonus = 0
-playerDiceFloorBonus = 0
-enemyStartingBLKBonus = 0
-diceBag = playerConfig.diceBag
+playerConfig = nil
+playerHP = nil
+playerMaxHP = nil
+playerStartingBLK = nil
+playerBLK = nil
+playerDiceCapBonus = nil
+playerDiceFloorBonus = nil
+enemyStartingBLKBonus = nil
+diceBag = nil
 
 function TitleScreen.load()
 	screen = TitleScreen.screen
 	tts.readTitleScreen()
+
+	playerConfig = PlayerConfig.Ladybud
+	playerHP = playerConfig.startingHP
+	playerMaxHP = playerConfig.startingHP
+	playerStartingBLK = playerConfig.startingBLK
+	playerBLK = playerStartingBLK
+	playerDiceCapBonus = 0
+	playerDiceFloorBonus = 0
+	enemyStartingBLKBonus = 0
+	diceBag = {}
+	for index, dieConfig in ipairs(playerConfig.diceBag) do table.insert(diceBag, dieConfig) end
 end
 
 function TitleScreen.update(dt)

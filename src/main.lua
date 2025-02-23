@@ -14,6 +14,8 @@ TransitionScreen = require('Screens/TransitionScreen')
 IntroScreen = require('Screens/IntroScreen')
 DicePackScreen = require('Screens/DicePackScreen')
 DiceBreakScreen = require('Screens/DiceBreakScreen')
+VictoryScreen = require('Screens/VictoryScreen')
+GameOverScreen = require('Screens/GameOverScreen')
 
 screen = 0
 
@@ -56,6 +58,8 @@ function love.update(dt)
 	IntroScreen.update(dt)
 	DicePackScreen.update(dt)
 	DiceBreakScreen.update(dt)
+	VictoryScreen.update(dt)
+	GameOverScreen.update(dt)
 end
 
 function love.keypressed(key)
@@ -72,6 +76,8 @@ function love.keypressed(key)
 	IntroScreen.keypressed(key)
 	DicePackScreen.keypressed(key)
 	DiceBreakScreen.keypressed(key)
+	VictoryScreen.keypressed(key)
+	GameOverScreen.keypressed(key)
 	DebuggingScreen.keypressed(key)
 
 	-- key binding we want everywhere,
@@ -99,6 +105,8 @@ function love.draw()
 	IntroScreen.draw()
 	DicePackScreen.draw()
 	DiceBreakScreen.draw()
+	VictoryScreen.draw()
+	GameOverScreen.draw()
 	DebuggingScreen.draw()
 
 	TransitionScreen.draw()

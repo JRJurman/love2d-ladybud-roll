@@ -128,7 +128,7 @@ function GameScreen.update(dt)
 			if currentAction.type == 'ATK' then
 				-- we have enough damage to go through block
 				if currentAction.value - playerBLK > 0 then
-					playerHP = playerHP - (currentAction.value - playerBLK)
+					playerHP = math.max(playerHP - (currentAction.value - playerBLK), 0)
 					playerBLK = 0
 				else
 					playerBLK = playerBLK - currentAction.value
@@ -143,13 +143,19 @@ function GameScreen.update(dt)
 			-- reset the timer and set the dice to be rolling now
 			animationTimer = 0
 
+			-- if the enemy is done attacking
 			if #enemyActions == 0 then
-				phase = 'rollingDice'
-				round = round + 1
-				enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+				-- if the player died, go to resolving
+				if playerHP == 0 then
+					phase = 'resolveBattle'
+				else
+					phase = 'rollingDice'
+					round = round + 1
+					enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
 
-				selectedRow = 'characters'
-				tts.readCharactersUpdate()
+					selectedRow = 'characters'
+					tts.readCharactersUpdate()
+				end
 			end
 		end
 	end
@@ -199,6 +205,8 @@ function GameScreen.update(dt)
 			putDiceInBag({dieToRemove.diceBagIndex})
 			animationTimer = 0
 		end
+
+		-- if we've finished resolving all our dice
 		if #assignedDice == 0 then
 			-- apply all onSave effects to remaining dice
 			for index, die in ipairs(activeDice) do
@@ -206,6 +214,8 @@ function GameScreen.update(dt)
 					die.dieConfig.onSave(die)
 				end
 			end
+
+			-- check if the enemy has been defeated
 			if enemyHP == 0 then
 				phase = 'resolveBattle'
 			else
@@ -216,7 +226,18 @@ function GameScreen.update(dt)
 
 	if phase == 'resolveBattle' then
 		if animationTimer > 1 then
-			TransitionScreen.load(DicePackScreen, true)
+			-- if we have 0 hp, we lost
+			if (playerHP == 0) then
+				TransitionScreen.load(GameOverScreen, false)
+			end
+			-- if we won, and this is the last stage, go to victory screen
+			if (enemyHP == 0 and stage == 5) then
+				TransitionScreen.load(VictoryScreen, false)
+			end
+			-- if we won, and there are more stages, continue
+			if (enemyHP == 0 and stage < 5) then
+				TransitionScreen.load(DicePackScreen, true)
+			end
 		end
 	end
 end
