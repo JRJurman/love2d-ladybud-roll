@@ -93,7 +93,7 @@ function IntroScreen.keypressed(key)
 
 	if selectedRow == 'begin' then
 		if key == 'x' then
-			TransitionScreen.load(GameScreen, true)
+			TransitionScreen.next()
 		end
 	end
 end
@@ -101,7 +101,8 @@ end
 function IntroScreen.draw()
 	if screen ~= IntroScreen.screen then return end
 
-	StageProgress.draw()
+	-- hiding this until there is a more complete implementation and SR support
+	-- StageProgress.draw()
 
 	local width = 730
 	local x = getXForWidth(width)

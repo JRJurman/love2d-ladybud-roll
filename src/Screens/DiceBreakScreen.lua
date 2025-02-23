@@ -101,13 +101,13 @@ function DiceBreakScreen.keypressed(key)
 			end
 
 			table.remove(diceBag, selectedDiceIndex)
-			TransitionScreen.load(GameScreen, true)
+			TransitionScreen.next()
 		end
 	end
 
 	if selectedRow == 'skip' then
 		if key == 'x' then
-			TransitionScreen.load(GameScreen, true)
+			TransitionScreen.next()
 		end
 	end
 end
@@ -115,7 +115,8 @@ end
 function DiceBreakScreen.draw()
 	if screen ~= DiceBreakScreen.screen then return end
 
-	StageProgress.draw()
+	-- hiding this until there is a more complete implementation and SR support
+	-- StageProgress.draw()
 
 	local width = 730
 	local x = getXForWidth(width)

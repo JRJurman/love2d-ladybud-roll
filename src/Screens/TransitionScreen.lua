@@ -1,3 +1,5 @@
+local ScreenOrder = require('../Data/ScreenOrder')
+
 local TransitionScreen = {}
 
 local nextScreen
@@ -5,6 +7,13 @@ local loadingDelay = 1
 loading = 0
 screenLoaded = false
 advanceStage = false
+
+function TransitionScreen.next()
+	print('next stage: '..stage + 1)
+	print('screen: ', ScreenOrder[stage + 1])
+	local nextScreenConfig = ScreenOrder[stage + 1]
+	TransitionScreen.load(nextScreenConfig, true)
+end
 
 function TransitionScreen.load(next, shouldAdvanceStage)
 	nextScreen = next

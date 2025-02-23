@@ -7,15 +7,13 @@ require('Functions/PaletteFunctions')
 -- load screens
 TitleScreen = require('Screens/TitleScreen')
 GameScreen = require('Screens/GameScreen')
-MapScreen = require('Screens/MapScreen')
-InstructionScreen = require('Screens/InstructionScreen')
-DebuggingScreen = require('Screens/DebuggingScreen')
-TransitionScreen = require('Screens/TransitionScreen')
 IntroScreen = require('Screens/IntroScreen')
 DicePackScreen = require('Screens/DicePackScreen')
 DiceBreakScreen = require('Screens/DiceBreakScreen')
 VictoryScreen = require('Screens/VictoryScreen')
 GameOverScreen = require('Screens/GameOverScreen')
+TransitionScreen = require('Screens/TransitionScreen')
+DebuggingScreen = require('Screens/DebuggingScreen')
 
 screen = 0
 
@@ -52,9 +50,7 @@ function love.update(dt)
 	end
 
 	TitleScreen.update(dt)
-	InstructionScreen.update(dt)
 	GameScreen.update(dt)
-	MapScreen.update(dt)
 	IntroScreen.update(dt)
 	DicePackScreen.update(dt)
 	DiceBreakScreen.update(dt)
@@ -70,9 +66,7 @@ function love.keypressed(key)
 	end
 
 	TitleScreen.keypressed(key)
-	InstructionScreen.keypressed(key)
 	GameScreen.keypressed(key)
-	MapScreen.keypressed(key)
 	IntroScreen.keypressed(key)
 	DicePackScreen.keypressed(key)
 	DiceBreakScreen.keypressed(key)
@@ -99,9 +93,7 @@ function love.draw()
 	LightForest.draw()
 
 	TitleScreen.draw()
-	InstructionScreen.draw()
 	GameScreen.draw()
-	MapScreen.draw()
 	IntroScreen.draw()
 	DicePackScreen.draw()
 	DiceBreakScreen.draw()

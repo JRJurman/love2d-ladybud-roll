@@ -153,13 +153,13 @@ function DicePackScreen.keypressed(key)
 			for index, die in ipairs(selectedPackOptions) do
 				table.insert(diceBag, 1, die.dieConfig)
 			end
-			TransitionScreen.load(DiceBreakScreen, true)
+			TransitionScreen.next()
 		end
 	end
 
 	if selectedRow == 'skip' then
 		if key == 'x' then
-			TransitionScreen.load(DiceBreakScreen, true)
+			TransitionScreen.next()
 		end
 	end
 end
@@ -167,7 +167,8 @@ end
 function DicePackScreen.draw()
 	if screen ~= DicePackScreen.screen then return end
 
-	StageProgress.draw()
+	-- hiding this until there is a more complete implementation and SR support
+	-- StageProgress.draw()
 
 	local width = 730
 	local x = getXForWidth(width)

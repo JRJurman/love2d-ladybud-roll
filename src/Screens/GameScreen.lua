@@ -7,8 +7,8 @@ local Player = require('../Components/Player')
 local Enemy = require('../Components/Enemy')
 local Die = require('../Components/Die')
 
-local EnemyConfig = require('../Data/EnemyConfig')
 local PlayerConfig = require('../Data/PlayerConfig')
+local EnemyOrder = require('../Data/EnemyOrder')
 
 local GameScreen = {}
 GameScreen.screen = 2
@@ -93,7 +93,7 @@ function GameScreen.load()
 	for index, dieConfig in ipairs(diceBag) do
 		putDiceInBag({index})
 	end
-	loadEnemyConfig(EnemyConfig.Centipede)
+	loadEnemyConfig(EnemyOrder[stage])
 
 	-- reset values
 	round = 1
@@ -230,13 +230,9 @@ function GameScreen.update(dt)
 			if (playerHP == 0) then
 				TransitionScreen.load(GameOverScreen, false)
 			end
-			-- if we won, and this is the last stage, go to victory screen
-			if (enemyHP == 0 and stage == 5) then
-				TransitionScreen.load(VictoryScreen, false)
-			end
-			-- if we won, and there are more stages, continue
-			if (enemyHP == 0 and stage < 5) then
-				TransitionScreen.load(DicePackScreen, true)
+			-- if we won, advance to whatever the next stage is
+			if (enemyHP == 0) then
+				TransitionScreen.next()
 			end
 		end
 	end
