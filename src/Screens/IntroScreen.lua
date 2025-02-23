@@ -20,7 +20,7 @@ local confirmButtonWidth, confirmButtonHeight = 170, 50
 local confirmButtonCanvas = Button.createCanvas(confirmButtonWidth, confirmButtonHeight)
 
 -- Title Text canvas
-local titleTextWidth, titleTextHeight = 730, 240
+local titleTextWidth, titleTextHeight = 730, 200
 local titleTextCanvas = Button.createCanvas(titleTextWidth, titleTextHeight)
 
 function IntroScreen.load()
@@ -106,8 +106,8 @@ function IntroScreen.draw()
 	local width = 730
 	local x = getXForWidth(width)
 
-	local textBlockY = 90
-	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, titleTextHeight, 40, selectedRow == 'intro', TextBlocks.introLore)
+	local textBlockY = 45
+	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, titleTextHeight, 20, selectedRow == 'intro', TextBlocks.introLore)
 
 	local diceTrayX = getXForWidth(diceTrayWidth)
 	local diceTrayY = 365

@@ -32,16 +32,16 @@ function Player.draw(isSelected, hp, block)
 
 	-- draw the player graphic
 	local canvas = Player.canvas
-	local playerX, playerY = 180, 145
+	local playerX, playerY = 180, 110
 	local playerScale = 2
 	love.graphics.draw(canvas, playerX, playerY, 0, playerScale, playerScale)
 
 	-- draw the canvas
-	Nameplate.draw(100, 240, playerConfig.name, isSelected)
+	Nameplate.draw(100, 205, playerConfig.name, isSelected)
 
 	-- draw the heart and health
-	Heart.draw(54, 50, hp)
-	Shield.draw(60, 150, block)
+	Heart.draw(55, 15, hp)
+	Shield.draw(60, 115, block)
 end
 
 return Player

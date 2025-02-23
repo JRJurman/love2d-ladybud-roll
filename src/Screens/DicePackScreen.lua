@@ -173,7 +173,7 @@ function DicePackScreen.draw()
 	local x = getXForWidth(width)
 
 	local textBlockX = x
-	local textBlockY = 45
+	local textBlockY = 58
 
 	Button.draw(textBlockCanvas, textBlockX, textBlockY, textBlockWidth, textBlockHeight, 13, selectedRow == 'intro', TextBlocks.dicePacks)
 

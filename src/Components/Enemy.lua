@@ -30,16 +30,16 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 
 	-- draw the enemy
 	local canvas = enemyConfig.canvas
-	local enemyX, enemyY = 500, 70
+	local enemyX, enemyY = 500, 35
 	local enemyScale = 3
 	love.graphics.draw(canvas, enemyX, enemyY, 0, enemyScale, enemyScale)
 
 	-- draw the canvas
-	Nameplate.draw(enemyX - 50, 240, enemyConfig.name, isSelected)
+	Nameplate.draw(enemyX - 50, enemyY + 170, enemyConfig.name, isSelected)
 
 	-- draw the heart and health
-	Heart.draw(enemyX + 180, 50, hp)
-	Shield.draw(enemyX + 188, 150, block)
+	Heart.draw(enemyX + 180, 15, hp)
+	Shield.draw(enemyX + 188, 115, block)
 
 	if nextActions then
 		for index, action in ipairs(nextActions) do

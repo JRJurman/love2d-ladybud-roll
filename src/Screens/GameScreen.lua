@@ -321,7 +321,7 @@ function GameScreen.draw()
 
 	-- draw the dice tray
 	local diceTrayX = getXForWidth(diceTrayWidth) - 10
-	local diceTrayY = 330
+	local diceTrayY = 345
 	DiceTray.draw(gameDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
 
 	-- draw the confirmation button
