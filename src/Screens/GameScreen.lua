@@ -326,7 +326,7 @@ function GameScreen.draw()
 
 	-- draw the confirmation button
 	local confirmButtonX, confirmButtonY = 575, 510
-	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, selectedRow == 'confirm', 'Confirm')
+	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, confirmButtonHeight, 0, selectedRow == 'confirm', 'Confirm')
 end
 
 return GameScreen

@@ -5,7 +5,7 @@ local StageProgress = {}
 function StageProgress.draw()
 	local pathWidth = 700
 	local pathX = getXForWidth(pathWidth)
-	local pathY = 60
+	local pathY = 30
 	local maxStages = 13
 
 	-- draw the path we are going

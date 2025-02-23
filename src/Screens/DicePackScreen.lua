@@ -51,6 +51,9 @@ local dicePackCanvas = nil
 local skipButtonWidth, skipButtonHeight = 170, 50
 local skipButtonCanvas = Button.createCanvas(skipButtonWidth, skipButtonHeight)
 
+-- text block canvas
+local textBlockWidth, textBlockHeight = 730, 115
+local textBlockCanvas = Button.createCanvas(textBlockWidth, textBlockHeight)
 
 function DicePackScreen.load()
 	screen = DicePackScreen.screen
@@ -169,13 +172,13 @@ function DicePackScreen.draw()
 	local width = 730
 	local x = getXForWidth(width)
 
-	local textBlockY = 100
-	local textBlockHeight = 85
+	local textBlockX = x
+	local textBlockY = 45
 
-	TextArea.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.dicePacks, 0)
+	Button.draw(textBlockCanvas, textBlockX, textBlockY, textBlockWidth, textBlockHeight, 13, selectedRow == 'intro', TextBlocks.dicePacks)
 
 	local trayX = x
-	local trayY = textBlockY + textBlockHeight + 5
+	local trayY = 210
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 0, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 125, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 250, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
@@ -183,7 +186,7 @@ function DicePackScreen.draw()
 	local skipButtonX = 600
 	local skipButtonY = 525
 	local skipButtonWidth = 180
-	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, selectedRow == 'skip', 'Skip')
+	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, skipButtonHeight, 0, selectedRow == 'skip', 'Skip')
 end
 
 return DicePackScreen

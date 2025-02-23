@@ -106,16 +106,15 @@ function IntroScreen.draw()
 	local width = 730
 	local x = getXForWidth(width)
 
-	local textBlockHeight = 240
 	local textBlockY = 90
-	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, selectedRow == 'intro', TextBlocks.introLore)
+	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, titleTextHeight, 40, selectedRow == 'intro', TextBlocks.introLore)
 
 	local diceTrayX = getXForWidth(diceTrayWidth)
 	local diceTrayY = 365
 	DiceTray.draw(introDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	local confirmButtonX, confirmButtonY = 580, 510
-	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, selectedRow == 'begin', 'Begin')
+	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, confirmButtonHeight, 0, selectedRow == 'begin', 'Begin')
 end
 
 return IntroScreen

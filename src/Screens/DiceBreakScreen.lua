@@ -20,6 +20,10 @@ local diceBreakCanvas = nil
 local skipButtonWidth, skipButtonHeight = 170, 50
 local skipButtonCanvas = Button.createCanvas(skipButtonWidth, skipButtonHeight)
 
+-- text block canvas
+local textBlockWidth, textBlockHeight = 730, 115
+local textBlockCanvas = Button.createCanvas(textBlockWidth, textBlockHeight)
+
 function DiceBreakScreen.load()
 	screen = DiceBreakScreen.screen
 	selectedRow = 'intro'
@@ -116,16 +120,17 @@ function DiceBreakScreen.draw()
 	local width = 730
 	local x = getXForWidth(width)
 
-	local textBlockHeight = 240
-	local textBlockY = 110
-	TextArea.draw(x, textBlockY, width, textBlockHeight, {1,1,1}, selectedRow == 'intro', TextBlocks.diceBreak, 330)
+	local textBlockX = x
+	local textBlockY = 45
+
+	Button.draw(textBlockCanvas, textBlockX, textBlockY, textBlockWidth, textBlockHeight, 13, selectedRow == 'intro', TextBlocks.diceBreak)
 
 	local diceTrayX = x
 	local diceTrayY = 365
 	DiceTray.draw(diceBreakCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	local skipButtonX, skipButtonY = 580, 510
-	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, selectedRow == 'skip', 'Skip')
+	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, skipButtonHeight, 0, selectedRow == 'skip', 'Skip')
 end
 
 return DiceBreakScreen

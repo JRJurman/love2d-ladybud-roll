@@ -45,7 +45,7 @@ function love.update(dt)
 		repeatingText = repeatingText - dt
 		if repeatingText <= 0 then
 			repeatingText = 0
-			print('tts: '..ttsText)
+			printTTS()
 		end
 	end
 

@@ -4,6 +4,11 @@ local tts = {}
 ttsText = ''
 repeatingText = 0
 
+function printTTS()
+	local text = ttsText:gsub("\n", " ")
+	print('tts: '..text)
+end
+
 function indexToPlace(index)
 	if index == 1 then
 		return '1st'
@@ -33,7 +38,7 @@ end
 -- title screen
 function tts.readTitleScreen()
 	ttsText = 'Lady-Bud Roll, created by Jesse Jurman. Press any button to start.'
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 -- intro screen
@@ -41,13 +46,13 @@ end
 function tts.readIntroLore()
 	local instructions = 'Press down to preview dice.'
 	ttsText = TextBlocks.introLore..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readIntroDiceTray()
 	local diceReadout = 'Your starting '..#diceBag..' dice. Press right to learn more about each die. Press down to begin your adventure.'
 	ttsText = diceReadout
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readSelectedDiceConfig(dieConfig)
@@ -58,13 +63,13 @@ function tts.readSelectedDiceConfig(dieConfig)
 		dieConfigBuff = 'In combat, this die '..dieConfig.buff
 	end
 	ttsText = dieConfigTitle..dieConfigMinMax..dieConfigBuff
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readBeginButton()
 	local beginReadout = 'Begin Button, Press X key to start.'
 	ttsText = beginReadout
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 -- dice pack screen
@@ -72,7 +77,7 @@ end
 function tts.readDicePackIntro()
 	local instructions = 'There are three bags, each with three dice. Press down to preview the dice, and press X on one bag to add it to your own.'
 	ttsText = TextBlocks.dicePacks..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readPackSummary(selectedPackOptions, packIndex)
@@ -87,12 +92,12 @@ function tts.readPackSummary(selectedPackOptions, packIndex)
 		instructions = instructions..'There are two more packs to choose from, you can press down to check other options, or go to the bottom to skip.'
 	end
 	ttsText = packText..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readSkipButton()
 	ttsText = 'skip button, press X to skip and go to the next battle'
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 -- dice break screen
@@ -100,13 +105,13 @@ end
 function tts.readDiceBreakIntro()
 	local instructions = 'Press down to look at your dice and the different buffs.'
 	ttsText = TextBlocks.diceBreak..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readBreakDiceTray()
 	local diceReadout = 'Your '..#diceBag..' dice. Press right to learn what breaking the die would do. Press down if you want to skip destroying a die.'
 	ttsText = diceReadout
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readSelectedDiceConfigAndBreakBuff(dieConfig)
@@ -122,18 +127,18 @@ function tts.readSelectedDiceConfigAndBreakBuff(dieConfig)
 		instructions = 'Press X to destroy this die and get this buff, or right to scan more dice. '
 	end
 	ttsText = dieConfigTitle..dieConfigBuff..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.breakSelectedDice(dieConfig)
 	ttsText = 'Breaking '..dieConfig.label..'. '
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 -- game screen
 function tts.rollingDice()
 	ttsText = 'Rolling dice'
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readCharactersPreview()
@@ -163,7 +168,7 @@ function tts.readCharactersPreview()
 
 	local instructions = 'Press down to view your dice.'
 	ttsText = enemyStatus..enemyActionText..enemyActionHotKey..playerStatus..playerHotKey..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.enemyPreview()
@@ -187,13 +192,13 @@ function tts.enemyPreview()
 
 	local enemyActionText = 'They are planning to '..actionText..'. '
 	ttsText = enemyStatus..enemyActionText
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.playerPreview()
 	local playerStatus = 'You have '..playerHP..' health, and '..playerBLK..' block. '
 	ttsText = playerStatus
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 hasHeardPlayerVisualDescription = false
@@ -208,7 +213,7 @@ function tts.readPlayerStatus()
 	local playerStatus = 'Currently '..playerHP..' health '..'and '..playerBLK..' block. '
 
 	ttsText = playerDescription..playerStatus
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 hasHeardEnemyVisualDescription = false
@@ -222,7 +227,7 @@ function tts.readEnemyStatus()
 	end
 	local enemyStatus = 'Currently '..enemyHP..' health and '..enemyBLK..' block. '
 	ttsText = enemyDescription..enemyStatus
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readCharactersUpdate()
@@ -246,7 +251,7 @@ function tts.readCharactersUpdate()
 
 	local instructions = 'Press down to view your dice and continue the fight.'
 	ttsText = enemyStatus..enemyActionText..playerStatus..instructions
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readDiceTrayPreview()
@@ -259,7 +264,7 @@ function tts.readDiceTrayPreview()
 		end
 	end
 	ttsText = 'Your dice tray - You have rolled '..#activeDice..' dice;'..diceOptions..'. Press right to scan and assign these dice. Press down after assigning dice to confirm your selection and attack!'
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readDiceAssignment()
@@ -289,7 +294,7 @@ function tts.readDiceAssignment()
 	end
 
 	ttsText = 'Confirm Button, You are attacking with '..assignedAttackDiceText..' and are defending with '..assignedDefenseDiceText..'. Press X to confirm.'
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readSelectedDie()
@@ -309,7 +314,7 @@ function tts.readSelectedDie()
 		dieDescription = dieDescription..'Not currently assigned. Press A to use for Attacking, D to use for Defending, and C to clear the assignment and save the die.'
 	end
 	ttsText = dieSlot..' Die, a '..dieDescription
-	print('tts: '..ttsText)
+	printTTS()
 end
 
 function tts.readAssignmentResult()

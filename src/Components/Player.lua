@@ -1,4 +1,3 @@
-local Button = require('../Components/Button')
 local Nameplate = require('../Components/Nameplate')
 local Heart = require('../Components/Heart')
 local Shield = require('../Components/Shield')
