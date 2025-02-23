@@ -37,7 +37,7 @@ end
 
 -- title screen
 function tts.readTitleScreen()
-	ttsText = 'Lady-Bud Roll, created by Jesse Jurman. Press any button to start.'
+	ttsText = 'Lady-Bud Roll, created by Jesse Jurman, art by Ethan Jurman. Press X key to start.'
 	printTTS()
 end
 
@@ -132,6 +132,36 @@ end
 
 function tts.breakSelectedDice(dieConfig)
 	ttsText = 'Breaking '..dieConfig.label..'. '
+	printTTS()
+end
+
+-- game over screen
+function tts.readGameOverScreen()
+	local enemyResult = 'You were defeated by the '..enemyConfig.name..'. '
+	local instructions = 'Press X to restart the game. '
+	ttsText = 'Game Over. '..enemyResult..instructions
+	printTTS()
+end
+
+-- victory screen
+function tts.readVictoryScreen()
+	local instructions = 'Press down to review your final dice, and start again. '
+	ttsText = TextBlocks.victory..instructions
+	printTTS()
+end
+
+function tts.readDiceTray()
+	local diceText = 'Your final dice bag: '
+	for index, dieConfig in ipairs(diceBag) do
+		diceText = diceText..' a '..dieConfig.label..', '
+	end
+	local instructions = 'Press down to start a new game.'
+	ttsText = diceText..instructions
+	printTTS()
+end
+
+function tts.readPlayAgainButton()
+	ttsText = 'New Run button, press X to start again from the beginning'
 	printTTS()
 end
 

@@ -9,8 +9,6 @@ screenLoaded = false
 advanceStage = false
 
 function TransitionScreen.next()
-	print('next stage: '..stage + 1)
-	print('screen: ', ScreenOrder[stage + 1])
 	local nextScreenConfig = ScreenOrder[stage + 1]
 	TransitionScreen.load(nextScreenConfig, true)
 end
