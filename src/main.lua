@@ -80,6 +80,10 @@ function love.keypressed(key)
 	if (key == 'r') then
 		tts.repeatText()
 	end
+	-- if they press f, swap the font
+	if (key == 'f') then
+		swapFont()
+	end
 end
 
 function love.mousepressed(x, y)

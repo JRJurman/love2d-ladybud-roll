@@ -12,7 +12,6 @@ end
 
 Nameplate.canvas = Nameplate.createCanvas()
 
-local font = buildWhackyFont(36)
 function Nameplate.draw(x, y, text, selected)
 	Button.draw(Nameplate.canvas, x, y, namePlateWidth, namePlateHeight, 0, selected, text)
 end

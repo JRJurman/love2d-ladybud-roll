@@ -27,8 +27,6 @@ function Button.createCanvas(width, height)
 	return canvas
 end
 
-local fontSize = 36
-local font = buildWhackyFont(fontSize)
 function Button.draw(canvas, x, y, width, height, padding, isSelected, text)
 	if isSelected then
 		setLospecColor(29)
@@ -37,7 +35,7 @@ function Button.draw(canvas, x, y, width, height, padding, isSelected, text)
 	end
 	love.graphics.draw(canvas, x, y, 0, canvasMult, canvasMult)
 
-	love.graphics.setFont(font)
+	love.graphics.setFont(getFont(36))
 
 	setLospecColor(2)
 	local xOffset = 0
