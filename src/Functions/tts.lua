@@ -347,9 +347,60 @@ function tts.readSelectedDie()
 	printTTS()
 end
 
-function tts.readAssignmentResult()
-	-- should probably just be a sound effect
-	print('tts: Assigned!')
+function tts.readAssignmentResult(type)
+	ttsText = 'Assigned for '..(type == 'ATK' and 'attacking' or 'defending')
+	printTTS()
+end
+
+function tts.readClearAssignment()
+	ttsText = 'Cleared assignment for die'
+	printTTS()
+end
+
+function tts.readEnemyActionStart()
+	ttsText = enemyConfig.name.."'s turn."
+	printTTS()
+end
+
+function tts.readEnemyDefeated()
+	ttsText = 'You defeated '..enemyConfig.name
+	printTTS()
+end
+
+function tts.readAttack(die)
+	local nextTtsText = die.value..' damage!'
+	if ttsText == nextTtsText then
+		nextTtsText = 'another '..nextTtsText
+	end
+	ttsText = nextTtsText
+	printTTS()
+end
+
+function tts.readBlock(die)
+	local nextTtsText = die.value..' guard!'
+	if ttsText == nextTtsText then
+		nextTtsText = 'another '..nextTtsText
+	end
+	ttsText = nextTtsText
+	printTTS()
+end
+
+function tts.readEnemyAttack(action)
+	local nextTtsText = action.value..' damage!'
+	if ttsText == nextTtsText then
+		nextTtsText = 'another '..nextTtsText
+	end
+	ttsText = nextTtsText
+	printTTS()
+end
+
+function tts.readEnemyGuard(action)
+	local nextTtsText = action.value..' guard!'
+	if ttsText == nextTtsText then
+		nextTtsText = 'another '..nextTtsText
+	end
+	ttsText = nextTtsText
+	printTTS()
 end
 
 return tts

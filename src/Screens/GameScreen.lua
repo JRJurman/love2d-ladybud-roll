@@ -26,6 +26,9 @@ enemyActions = nil
 enemyConfig = nil
 round = nil
 
+local rollingSpeed = 0.3
+local resolutionSpeed = 1
+
 function loadEnemyConfig(newEnemyConfig)
 	enemyConfig = newEnemyConfig
 	enemyHP = enemyConfig.startingHP
@@ -122,27 +125,7 @@ function GameScreen.update(dt)
 
 	-- if we are resolving an enemy attack, wait for the timer and then apply effects
 	if phase == 'resolvingEnemyAction' then
-		if animationTimer > 0.6 then
-			local currentAction = table.remove(enemyActions, 1)
-			-- if the enemy is attacking
-			if currentAction.type == 'ATK' then
-				-- we have enough damage to go through block
-				if currentAction.value - playerBLK > 0 then
-					playerHP = math.max(playerHP - (currentAction.value - playerBLK), 0)
-					playerBLK = 0
-				else
-					playerBLK = playerBLK - currentAction.value
-				end
-			end
-
-			-- if the enemy is doing something else
-			if currentAction.type == 'DEF' then
-				enemyBLK = enemyBLK + currentAction.value
-			end
-
-			-- reset the timer and set the dice to be rolling now
-			animationTimer = 0
-
+		if animationTimer > resolutionSpeed then
 			-- if the enemy is done attacking
 			if #enemyActions == 0 then
 				-- if the player died, go to resolving
@@ -156,13 +139,35 @@ function GameScreen.update(dt)
 					selectedRow = 'characters'
 					tts.readCharactersUpdate()
 				end
+			else
+				local currentAction = table.remove(enemyActions, 1)
+				-- if the enemy is attacking
+				if currentAction.type == 'ATK' then
+					-- we have enough damage to go through block
+					if currentAction.value - playerBLK > 0 then
+						playerHP = math.max(playerHP - (currentAction.value - playerBLK), 0)
+						playerBLK = 0
+					else
+						playerBLK = playerBLK - currentAction.value
+					end
+					tts.readEnemyAttack(currentAction)
+				end
+
+				-- if the enemy is doing something else
+				if currentAction.type == 'DEF' then
+					enemyBLK = enemyBLK + currentAction.value
+					tts.readEnemyGuard(currentAction)
+				end
 			end
+
+			-- reset the timer and set the dice to be rolling now
+			animationTimer = 0
 		end
 	end
 
 	-- if we are actively adding new dice, roll new ones
 	if phase == 'rollingDice' then
-		if animationTimer > 0.3 then
+		if animationTimer > rollingSpeed then
 			-- draw the top die from our available dice and reset the timer
 			local newValue = rollDiceFromBag()
 			table.insert(activeDice, 1, newValue)
@@ -177,50 +182,54 @@ function GameScreen.update(dt)
 	if phase == 'removingDice' then
 		local assignedDice = getAssignedDiceIndexes(activeDice)
 
-		if animationTimer > 0.3 then
-			local dieToRemove = activeDice[assignedDice[1]]
-			local dieConfig = dieToRemove.dieConfig
-			if dieConfig.resolveAssignment then
-				dieConfig.resolveAssignment(dieToRemove)
-			end
+		if animationTimer > resolutionSpeed then
+			-- if we've finished resolving all our dice
+			if #assignedDice == 0 then
+				-- apply all onSave effects to remaining dice
+				for index, die in ipairs(activeDice) do
+					if die.dieConfig.onSave then
+						die.dieConfig.onSave(die)
+					end
+				end
 
-			-- if this is an attack die, remove block, then hp from enemy
-			if dieToRemove.assignment == 'ATK' then
-				-- we have enough damage to go through block
-				if dieToRemove.value - enemyBLK > 0 then
-					enemyHP = math.max(enemyHP - (dieToRemove.value - enemyBLK), 0)
-					enemyBLK = 0
+				-- check if the enemy has been defeated
+				if enemyHP == 0 then
+					phase = 'resolveBattle'
+					tts.readEnemyDefeated()
 				else
-					enemyBLK = enemyBLK - dieToRemove.value
+					phase = 'resolvingEnemyAction'
+					tts.readEnemyActionStart()
 				end
-			end
-
-			-- if this is a block die, add that to players block
-			if dieToRemove.assignment == 'DEF' then
-				playerBLK = playerBLK + dieToRemove.value
-			end
-
-			-- pop an element, and reset the timer
-			table.remove(activeDice, assignedDice[1])
-			putDiceInBag({dieToRemove.diceBagIndex})
-			animationTimer = 0
-		end
-
-		-- if we've finished resolving all our dice
-		if #assignedDice == 0 then
-			-- apply all onSave effects to remaining dice
-			for index, die in ipairs(activeDice) do
-				if die.dieConfig.onSave then
-					die.dieConfig.onSave(die)
-				end
-			end
-
-			-- check if the enemy has been defeated
-			if enemyHP == 0 then
-				phase = 'resolveBattle'
 			else
-				phase = 'resolvingEnemyAction'
+				local dieToRemove = activeDice[assignedDice[1]]
+				local dieConfig = dieToRemove.dieConfig
+				if dieConfig.resolveAssignment then
+					dieConfig.resolveAssignment(dieToRemove)
+				end
+
+				-- if this is an attack die, remove block, then hp from enemy
+				if dieToRemove.assignment == 'ATK' then
+					-- we have enough damage to go through block
+					if dieToRemove.value - enemyBLK > 0 then
+						enemyHP = math.max(enemyHP - (dieToRemove.value - enemyBLK), 0)
+						enemyBLK = 0
+					else
+						enemyBLK = enemyBLK - dieToRemove.value
+					end
+					tts.readAttack(dieToRemove)
+				end
+
+				-- if this is a block die, add that to players block
+				if dieToRemove.assignment == 'DEF' then
+					playerBLK = playerBLK + dieToRemove.value
+					tts.readBlock(dieToRemove)
+				end
+
+				-- pop an element, and reset the timer
+				table.remove(activeDice, assignedDice[1])
+				putDiceInBag({dieToRemove.diceBagIndex})
 			end
+			animationTimer = 0
 		end
 	end
 
@@ -324,20 +333,21 @@ function GameScreen.keypressed(key)
 		if selectedDie then
 			if key == 'a' then
 				selectedDie.assignment = 'ATK'
-				tts.readAssignmentResult()
+				tts.readAssignmentResult('ATK')
 
 				validKey = true
 				-- assignAtkSFX()
 			end
 			if key == 'd' then
 				selectedDie.assignment = 'DEF'
-				tts.readAssignmentResult()
+				tts.readAssignmentResult('DEF')
 
 				validKey = true
 				-- assignDefSFX()
 			end
 			if key == 'c' then
 				selectedDie.assignment = nil
+				tts.readClearAssignment()
 
 				validKey = true
 				-- assignClearSFX()
