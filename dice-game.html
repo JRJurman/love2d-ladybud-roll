@@ -9,7 +9,7 @@
     <!-- Load custom style sheet -->
     <link rel="stylesheet" type="text/css" href="theme/love.css">
   </head>
-  <body>
+  <body style="background: black">
     <main id="container" role="application" aria-live="false">
       <div id="loveReadout" aria-label="screen reader output" aria-live="assertive" role="presentation">Loading...</div>
       <canvas id="loadingCanvas" oncontextmenu="event.preventDefault()" width="800" height="600"></canvas>
@@ -92,7 +92,6 @@
     <style>
       /* styling of the container to lay out loveReadout correctly */
       #container {
-
         display: grid;
         height: 100vh;
         width: 100vw;
@@ -103,12 +102,13 @@
           '. canvas    .'
           '. readout   .';
 
-        #canvas {
+        #canvas, #loadingCanvas {
           grid-area: canvas;
-        }
-
-        #loadingCanvas {
-          grid-area: canvas;
+          width: 100vw;
+          height: 100vh;
+          max-height: calc(100vw* 3 / 4);
+          max-width: calc(100vh* 4 / 3);
+          margin: auto;
         }
 
         #loveReadout {
@@ -117,17 +117,8 @@
       }
 
       #loveReadout {
-        font-size: 0.01em;
+        font-size: 0.001px;
         opacity: 0;
-
-        color: white;
-        background: black;
-
-        text-align: center;
-        margin: auto;
-        width: 800px;
-        padding: 0.2em;
-        height: 100%;
       }
     </style>
 

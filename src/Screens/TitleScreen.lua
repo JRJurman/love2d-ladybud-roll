@@ -65,17 +65,18 @@ function TitleScreen.draw()
 	if screen ~= TitleScreen.screen then return end
 
 	local winWidth, winHeight = love.graphics.getDimensions()
-	love.graphics.setFont(getFont(40))
+	love.graphics.setFont(getFont(60))
 	love.graphics.setColor(1, 1, 1)
 
-	local startHeight = (winHeight/2) - 80
-	love.graphics.printf('LADYBUD ROLL', 0, startHeight, winWidth, 'center')
+	love.graphics.printf('LADYBUD ROLL', 0, 70, winWidth, 'center')
 
 	love.graphics.setFont(getFont(30))
 
-	love.graphics.printf('Created by Jesse Jurman', 0, startHeight + 50, winWidth, 'center')
-	love.graphics.printf('Art by Ethan Jurman', 0, startHeight + 80, winWidth, 'center')
-	love.graphics.printf('Press X key to Start', 0, startHeight + 130, winWidth, 'center')
+	love.graphics.printf('Created by Jesse Jurman', 0, 200, winWidth, 'center')
+	love.graphics.printf('Art by Ethan Jurman', 0, 230, winWidth, 'center')
+	love.graphics.printf('Press X key to Start', 0, 300, winWidth, 'center')
+	love.graphics.printf('Press F key to Swap Fonts', 0, 450, winWidth, 'center')
+	love.graphics.printf('Press 0 - 9 to adjust Volume', 0, 485, winWidth, 'center')
 end
 
 return TitleScreen
