@@ -16,6 +16,20 @@
       <canvas id="canvas" aria-label="Game Canvas" oncontextmenu="event.preventDefault()" tabindex="1"></canvas>
     </main>
 
+    <script>
+      // trap the events that get attached to the canvas - if we try to add a "wheel" one,
+      // disable it - we need that event listener off to support pinch-zoom interactions
+      const realAddEventListener = canvas.addEventListener;
+
+      canvas.addEventListener = function (type, ...args) {
+        if (type === 'wheel') {
+          // do nothing
+          return;
+        }
+        return realAddEventListener.call(this, type, ...args);
+      }
+    </script>
+
     <script type='text/javascript'>
       var loadingContext = document.getElementById('loadingCanvas').getContext('2d');
       function drawLoadingText(text) {
