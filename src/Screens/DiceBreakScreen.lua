@@ -56,15 +56,23 @@ end
 function DiceBreakScreen.keypressed(key)
 	if screen ~= DiceBreakScreen.screen then return end
 
+	local validKey = false
+
 	-- change which set of elements we are selecting
 	if key == 'up' then
 		if selectedRow == 'dice' then
 			selectedRow = 'intro'
 			tts.readDiceBreakIntro()
+
+			validKey = true
+      selectBackSFX()
 		elseif selectedRow == 'skip' then
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readBreakDiceTray()
+
+			validKey = true
+      selectBackSFX()
 		end
 	end
 
@@ -73,20 +81,32 @@ function DiceBreakScreen.keypressed(key)
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readBreakDiceTray()
+
+			validKey = true
+      selectSFX()
 		elseif selectedRow == 'dice' then
 			selectedRow = 'skip'
 			tts.readSkipButton()
+
+			validKey = true
+      selectSFX()
 		end
 	end
 
 	if selectedRow == 'dice' then
-		if key == 'left' then
+		if key == 'left' and selectedDiceIndex > 1 then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
 			tts.readSelectedDiceConfigAndBreakBuff(diceBag[selectedDiceIndex])
+
+			validKey = true
+      selectBackSFX()
 		end
-		if key == 'right' then
+		if key == 'right' and selectedDiceIndex < #dice then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #dice)
 			tts.readSelectedDiceConfigAndBreakBuff(diceBag[selectedDiceIndex])
+
+			validKey = true
+      selectSFX()
 		end
 	end
 
@@ -102,13 +122,21 @@ function DiceBreakScreen.keypressed(key)
 
 			table.remove(diceBag, selectedDiceIndex)
 			TransitionScreen.next()
+			validKey = true
 		end
 	end
 
 	if selectedRow == 'skip' then
 		if key == 'x' then
 			TransitionScreen.next()
+			validKey = true
 		end
+	end
+
+	-- if we didn't have a valid key, repeat possible options
+	if not validKey then
+		invalidSelectSFX()
+		-- TODO per-row
 	end
 end
 

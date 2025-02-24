@@ -17,9 +17,14 @@ playerDiceFloorBonus = nil
 enemyStartingBLKBonus = nil
 diceBag = nil
 
+local readoutDelay = nil
+
 function TitleScreen.load()
 	screen = TitleScreen.screen
-	tts.readTitleScreen()
+
+	-- the screen reader isn't always immediately ready
+	-- so, wait some amount of time before updating the aria readout
+	readoutDelay = 1
 
 	playerConfig = PlayerConfig.Ladybud
 	playerHP = playerConfig.startingHP
@@ -36,6 +41,14 @@ end
 function TitleScreen.update(dt)
 	if screen ~= TitleScreen.screen then return end
 	seed = seed + dt*1000
+
+	if readoutDelay > 0 then
+		readoutDelay = readoutDelay - dt
+		if readoutDelay <= 0 then
+			readoutDelay = 0
+			tts.readTitleScreen()
+		end
+	end
 end
 
 function TitleScreen.keypressed(key)

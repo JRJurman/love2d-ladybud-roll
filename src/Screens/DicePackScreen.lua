@@ -86,23 +86,37 @@ end
 function DicePackScreen.keypressed(key)
 	if screen ~= DicePackScreen.screen then return end
 
+	local validKey = false
+
 	-- change which set of elements we are selecting
 	if key == 'up' then
 		if selectedRow == 'pack1' then
 			selectedRow = 'intro'
 			tts.readDicePackIntro()
+
+			validKey = true
+      selectBackSFX()
 		elseif selectedRow == 'pack2' then
 			selectedDiceIndex = 0
 			selectedRow = 'pack1'
 			tts.readPackSummary(packOptions1, 1)
+
+			validKey = true
+      selectBackSFX()
 		elseif selectedRow == 'pack3' then
 			selectedDiceIndex = 0
 			selectedRow = 'pack2'
 			tts.readPackSummary(packOptions2, 2)
+
+			validKey = true
+      selectBackSFX()
 		elseif selectedRow == 'skip' then
 			selectedDiceIndex = 0
 			selectedRow = 'pack3'
 			tts.readPackSummary(packOptions3, 3)
+
+			validKey = true
+      selectBackSFX()
 		end
 	end
 
@@ -111,17 +125,29 @@ function DicePackScreen.keypressed(key)
 			selectedDiceIndex = 0
 			selectedRow = 'pack1'
 			tts.readPackSummary(packOptions1, 1)
+
+			validKey = true
+      selectSFX()
 		elseif selectedRow == 'pack1' then
 			selectedDiceIndex = 0
 			selectedRow = 'pack2'
 			tts.readPackSummary(packOptions2, 2)
+
+			validKey = true
+      selectSFX()
 		elseif selectedRow == 'pack2' then
 			selectedDiceIndex = 0
 			selectedRow = 'pack3'
 			tts.readPackSummary(packOptions3, 3)
+
+			validKey = true
+      selectSFX()
 		elseif selectedRow == 'pack3' then
 			selectedRow = 'skip'
 			tts.readSkipButton()
+
+			validKey = true
+      selectSFX()
 		end
 	end
 
@@ -137,30 +163,44 @@ function DicePackScreen.keypressed(key)
 		selectedRow == 'pack3' and 3 or nil
 
 	if selectedPackOptions then
-		if key == 'left' then
+		if key == 'left' and selectedDiceIndex > 0 then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 0)
 			if selectedDiceIndex == 0 then
 				tts.readPackSummary(selectedPackOptions, packIndex)
 			else
 				tts.readSelectedDiceConfig(selectedPackOptions[selectedDiceIndex].dieConfig)
 			end
+
+			validKey = true
+      selectBackSFX()
 		end
-		if key == 'right' then
+		if key == 'right' and selectedDiceIndex < #selectedPackOptions then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #selectedPackOptions)
 			tts.readSelectedDiceConfig(selectedPackOptions[selectedDiceIndex].dieConfig)
+
+			validKey = true
+      selectSFX()
 		end
 		if key == 'x' then
 			for index, die in ipairs(selectedPackOptions) do
 				table.insert(diceBag, 1, die.dieConfig)
 			end
 			TransitionScreen.next()
+			validKey = true
 		end
 	end
 
 	if selectedRow == 'skip' then
 		if key == 'x' then
 			TransitionScreen.next()
+			validKey = true
 		end
+	end
+
+	-- if we didn't have a valid key, repeat possible options
+	if not validKey then
+		invalidSelectSFX()
+		-- TODO per-row
 	end
 end
 
