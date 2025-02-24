@@ -4,6 +4,7 @@ require('Functions/PositionFunctions')
 require('Functions/FontFunctions')
 require('Functions/PaletteFunctions')
 require('Functions/SFXFunctions')
+require('Functions/MusicFunctions')
 
 -- load screens
 TitleScreen = require('Screens/TitleScreen')
@@ -24,6 +25,12 @@ local LightForest = require('../Backgrounds/LightForest')
 -- so we're assigning them here, and they'll be used everywhere else
 selectedRow = nil
 selectedDiceIndex = nil
+
+-- master volume control for SFX and Music
+masterVolume = 1
+musicVolume = 1
+sfxVolume = 1
+music = nil
 
 function love.load()
 	TitleScreen.load()
@@ -83,6 +90,16 @@ function love.keypressed(key)
 	-- if they press f, swap the font
 	if (key == 'f') then
 		swapFont()
+	end
+	-- if they press m, mute the music
+	if (key == 'm') then
+		musicVolume = 0
+		updateMusicVolume()
+	end
+	-- if they press 0 - 9, set the master volume
+	if (tonumber(key)) then
+		masterVolume = tonumber(key)/9
+		updateMusicVolume()
 	end
 end
 

@@ -47,6 +47,7 @@ function TitleScreen.update(dt)
 		if readoutDelay <= 0 then
 			readoutDelay = 0
 			tts.readTitleScreen()
+			introMusic()
 		end
 	end
 end
@@ -72,11 +73,12 @@ function TitleScreen.draw()
 
 	love.graphics.setFont(getFont(30))
 
-	love.graphics.printf('Created by Jesse Jurman', 0, 200, winWidth, 'center')
+	love.graphics.printf('Created by Jesse Jurman', 0, 199, winWidth, 'center')
 	love.graphics.printf('Art by Ethan Jurman', 0, 230, winWidth, 'center')
 	love.graphics.printf('Press X key to Start', 0, 300, winWidth, 'center')
 	love.graphics.printf('Press F key to Swap Fonts', 0, 450, winWidth, 'center')
-	love.graphics.printf('Press 0 - 9 to adjust Volume', 0, 485, winWidth, 'center')
+	love.graphics.printf('Press 0 - 9 to Adjust Volume', 0, 485, winWidth, 'center')
+	love.graphics.printf('Press M key to Mute Music', 0, 520, winWidth, 'center')
 end
 
 return TitleScreen
