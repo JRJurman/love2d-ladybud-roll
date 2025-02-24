@@ -14,6 +14,7 @@ function TransitionScreen.next()
 end
 
 function TransitionScreen.load(next, shouldAdvanceStage)
+	transitionSFX()
 	nextScreen = next
 	loading = loadingDelay
 	screenLoaded = false

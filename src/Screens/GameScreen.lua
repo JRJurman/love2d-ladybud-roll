@@ -241,8 +241,11 @@ end
 function GameScreen.keypressed(key)
 	if screen ~= GameScreen.screen then return end
 
+	local validKey = false
+
 	-- don't allow key actions if we are in the middle of resolving a phase
 	if phase ~= '' then
+		invalidSelectSFX()
 		return
 	end
 
@@ -253,10 +256,15 @@ function GameScreen.keypressed(key)
 			selectedRow = 'characters'
 			tts.readCharactersPreview()
 
+			validKey = true
+			selectBackSFX()
 		elseif selectedRow == 'confirm' then
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readDiceTrayPreview()
+
+			validKey = true
+			selectBackSFX()
 		end
 	end
 
@@ -265,33 +273,51 @@ function GameScreen.keypressed(key)
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readDiceTrayPreview()
+
+			validKey = true
+			selectSFX()
 		elseif selectedRow == 'dice' then
 			selectedRow = 'confirm'
 			tts.readDiceAssignment()
+
+			validKey = true
+			selectSFX()
 		end
 	end
 
 	-- change which character we are looking at
 	if selectedRow == 'characters' then
-		if key == 'left' then
+		if key == 'left' and selectedCharacter ~= 'player' then
 			selectedCharacter = 'player'
 			tts.readPlayerStatus()
+
+			validKey = true
+			selectSFX()
 		end
-		if key == 'right' then
+		if key == 'right' and selectedCharacter ~= 'enemy' then
 			selectedCharacter = 'enemy'
 			tts.readEnemyStatus()
+
+			validKey = true
+			selectSFX()
 		end
 	end
 
 	-- change which die is selected
 	if selectedRow == 'dice' then
-		if key == 'left' then
+		if key == 'left' and selectedDiceIndex > 1 then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
 			tts.readSelectedDie()
+
+			validKey = true
+			selectBackSFX()
 		end
-		if key == 'right' then
+		if key == 'right' and selectedDiceIndex < #activeDice then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #activeDice)
 			tts.readSelectedDie()
+
+			validKey = true
+			selectSFX()
 		end
 
 		local selectedDie = activeDice[selectedDiceIndex]
@@ -299,13 +325,22 @@ function GameScreen.keypressed(key)
 			if key == 'a' then
 				selectedDie.assignment = 'ATK'
 				tts.readAssignmentResult()
+
+				validKey = true
+				-- assignAtkSFX()
 			end
 			if key == 'd' then
 				selectedDie.assignment = 'DEF'
 				tts.readAssignmentResult()
+
+				validKey = true
+				-- assignDefSFX()
 			end
 			if key == 'c' then
 				selectedDie.assignment = nil
+
+				validKey = true
+				-- assignClearSFX()
 			end
 		end
 	end
@@ -313,15 +348,28 @@ function GameScreen.keypressed(key)
 	if selectedRow == 'confirm' then
 		if key == 'x' then
 			confirmAttack()
+
+			validKey = true
+			-- confirmAttackSFX()
 		end
 	end
 
 	-- hotkeys for getting player / enemy status
 	if key == 'e' then
 		tts.enemyPreview()
+
+		validKey = true
 	end
 	if key == 'q' then
 		tts.playerPreview()
+
+		validKey = true
+	end
+
+	-- if we didn't have a valid key, repeat possible options
+	if not validKey then
+		invalidSelectSFX()
+		-- TODO per-row
 	end
 end
 

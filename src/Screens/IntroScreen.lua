@@ -56,16 +56,23 @@ end
 
 function IntroScreen.keypressed(key)
 	if screen ~= IntroScreen.screen then return end
+	local validKey = false
 
 	-- change which set of elements we are selecting
 	if key == 'up' then
 		if selectedRow == 'dice' then
 			selectedRow = 'intro'
 			tts.readIntroLore()
+
+			validKey = true
+			selectBackSFX()
 		elseif selectedRow == 'begin' then
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readIntroDiceTray()
+
+			validKey = true
+			selectBackSFX()
 		end
 	end
 
@@ -74,27 +81,46 @@ function IntroScreen.keypressed(key)
 			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readIntroDiceTray()
+
+			validKey = true
+			selectSFX()
 		elseif selectedRow == 'dice' then
 			selectedRow = 'begin'
 			tts.readBeginButton()
+
+			validKey = true
+			selectSFX()
 		end
 	end
 
 	if selectedRow == 'dice' then
-		if key == 'left' then
+		if key == 'left' and selectedDiceIndex > 1 then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
 			tts.readSelectedDiceConfig(diceBag[selectedDiceIndex])
+
+			validKey = true
+			selectBackSFX()
 		end
-		if key == 'right' then
+		if key == 'right' and selectedDiceIndex < #dice then
 			selectedDiceIndex = math.min(selectedDiceIndex + 1, #dice)
 			tts.readSelectedDiceConfig(diceBag[selectedDiceIndex])
+
+			validKey = true
+			selectSFX()
 		end
 	end
 
 	if selectedRow == 'begin' then
 		if key == 'x' then
 			TransitionScreen.next()
+			validKey = true
 		end
+	end
+
+	-- if we didn't have a valid key, repeat possible options
+	if not validKey then
+		invalidSelectSFX()
+		-- TODO per-row
 	end
 end
 
