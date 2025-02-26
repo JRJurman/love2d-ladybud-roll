@@ -40,8 +40,8 @@ function Player.draw(isSelected, hp, block)
 	Nameplate.draw(100, 205, playerConfig.name, isSelected)
 
 	-- draw the heart and health
-	Heart.draw(55, 15, hp)
-	Shield.draw(60, 115, block)
+	Heart.draw(55, 15, hp, 96)
+	Shield.draw(60, 115, block, 80)
 end
 
 return Player

@@ -93,7 +93,11 @@ function love.keypressed(key)
 	end
 	-- if they press m, mute the music
 	if (key == 'm') then
-		musicVolume = 0
+		if musicVolume == 0 then
+			musicVolume = 1
+		else
+			musicVolume = 0
+		end
 		updateMusicVolume()
 	end
 	-- if they press 0 - 9, set the master volume

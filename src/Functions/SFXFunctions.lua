@@ -3,6 +3,7 @@ local SFX = {
 	selectBackSFX = love.audio.newSource('Assets/sfx-select-back.wav', 'static'),
 	invalidSelectSFX = love.audio.newSource('Assets/sfx-invalid-select.wav', 'static'),
 	transitionSFX = love.audio.newSource('Assets/sfx-transition.wav', 'static'),
+	attackSFX = love.audio.newSource('Assets/sfx-attack.wav', 'static'),
 }
 
 function selectSFX()
@@ -23,4 +24,9 @@ end
 function transitionSFX()
 	SFX.transitionSFX:setVolume(masterVolume * sfxVolume)
 	love.audio.play(SFX.transitionSFX)
+end
+
+function attackSFX()
+	SFX.attackSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.attackSFX)
 end

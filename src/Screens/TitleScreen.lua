@@ -21,6 +21,7 @@ local readoutDelay = nil
 
 function TitleScreen.load()
 	screen = TitleScreen.screen
+	introMusic()
 
 	-- the screen reader isn't always immediately ready
 	-- so, wait some amount of time before updating the aria readout
@@ -47,7 +48,6 @@ function TitleScreen.update(dt)
 		if readoutDelay <= 0 then
 			readoutDelay = 0
 			tts.readTitleScreen()
-			introMusic()
 		end
 	end
 end

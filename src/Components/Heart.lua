@@ -25,8 +25,7 @@ end
 
 Heart.canvas = Heart.createCanvas()
 
-function Heart.draw(x, y, value)
-	size = 96
+function Heart.draw(x, y, value, size)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Heart.canvas, x, y, 0, size / heartAssetSize, size / heartAssetSize)
 	setLospecColor(01)

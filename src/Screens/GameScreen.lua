@@ -26,13 +26,17 @@ enemyActions = nil
 enemyConfig = nil
 round = nil
 
+-- last action results
+playerTotalATK = nil
+playerTotalDEF = nil
+
 local rollingSpeed = 0.3
 local resolutionSpeed = 1
 
 function loadEnemyConfig(newEnemyConfig)
 	enemyConfig = newEnemyConfig
-	enemyHP = enemyConfig.startingHP
-	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus, 0)
+	enemyHP = enemyConfig.startingHP + stage*3
+	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + stage*3, 0)
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
 	hasHeardEnemyVisualDescription = false
 end
@@ -77,6 +81,8 @@ function confirmAttack()
 	phase = 'removingDice'
 	animationTimer = 0
 	selectedDiceIndex = 0
+	playerTotalATK = 0
+	playerTotalDEF = 0
 end
 
 -- dice tray canvas variables (which we only want to create on load)
@@ -150,6 +156,7 @@ function GameScreen.update(dt)
 					else
 						playerBLK = playerBLK - currentAction.value
 					end
+					attackSFX()
 					tts.readEnemyAttack(currentAction)
 				end
 
@@ -216,12 +223,15 @@ function GameScreen.update(dt)
 					else
 						enemyBLK = enemyBLK - dieToRemove.value
 					end
+					playerTotalATK = playerTotalATK + dieToRemove.value
+					attackSFX()
 					tts.readAttack(dieToRemove)
 				end
 
 				-- if this is a block die, add that to players block
 				if dieToRemove.assignment == 'DEF' then
 					playerBLK = playerBLK + dieToRemove.value
+					playerTotalDEF = playerTotalDEF + dieToRemove.value
 					tts.readBlock(dieToRemove)
 				end
 

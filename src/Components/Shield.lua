@@ -25,8 +25,7 @@ end
 
 Shield.canvas = Shield.createCanvas()
 
-function Shield.draw(x, y, value)
-	size = 80
+function Shield.draw(x, y, value, size)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Shield.canvas, x, y, 0, size / shieldAssetSize, size / shieldAssetSize)
 	setLospecColor(01)

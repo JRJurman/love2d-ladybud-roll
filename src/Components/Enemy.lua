@@ -38,8 +38,8 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 	Nameplate.draw(enemyX - 50, enemyY + 170, enemyConfig.name, isSelected)
 
 	-- draw the heart and health
-	Heart.draw(enemyX + 180, 15, hp)
-	Shield.draw(enemyX + 188, 115, block)
+	Heart.draw(enemyX + 180, 15, hp, 96)
+	Shield.draw(enemyX + 188, 115, block, 80)
 
 	if nextActions then
 		for index, action in ipairs(nextActions) do
