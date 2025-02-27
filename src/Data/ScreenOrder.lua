@@ -3,12 +3,13 @@ local ScreenOrder = {
 	GameScreen, -- Mantis
 	DicePackScreen,
 	GameScreen, -- Moth
-	DicePackScreen,
-	GameScreen, -- Beetle
 	DiceBreakScreen,
-	GameScreen, -- Spider
+	GameScreen, -- Beetle
 	DicePackScreen,
+	GameScreen, -- Spider
+	DiceBreakScreen,
 	GameScreen, -- Centipede
+	DicePackScreen,
 	DiceBreakScreen,
 	GameScreen, -- LadyBeetle
 	VictoryScreen

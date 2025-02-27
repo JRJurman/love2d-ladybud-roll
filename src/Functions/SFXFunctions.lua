@@ -6,6 +6,7 @@ local SFX = {
 	attackSFX = love.audio.newSource('Assets/sfx-attack.wav', 'static'),
 	blockSFX = love.audio.newSource('Assets/sfx-block.wav', 'static'),
 	specialActionSFX = love.audio.newSource('Assets/sfx-special-action.wav', 'static'),
+	rollSFX = love.audio.newSource('Assets/sfx-roll.wav', 'static'),
 }
 
 function selectSFX()
@@ -41,4 +42,9 @@ end
 function specialActionSFX()
 	SFX.specialActionSFX:setVolume(masterVolume * sfxVolume)
 	love.audio.play(SFX.specialActionSFX)
+end
+
+function rollSFX()
+	SFX.rollSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.rollSFX)
 end

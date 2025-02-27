@@ -178,6 +178,7 @@ function GameScreen.update(dt)
 		if animationTimer > rollingSpeed then
 			-- draw the top die from our available dice and reset the timer
 			local newValue = rollDiceFromBag()
+			rollSFX()
 			table.insert(activeDice, 1, newValue)
 			animationTimer = 0
 		end

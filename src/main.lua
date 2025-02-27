@@ -28,7 +28,7 @@ selectedDiceIndex = nil
 
 -- master volume control for SFX and Music
 masterVolume = 1
-musicVolume = 1
+musicVolume = 0
 sfxVolume = 1
 music = nil
 

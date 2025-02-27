@@ -6,7 +6,7 @@ local EnemyOrder = {
 	[6] = EnemyConfig.Beetle,
 	[8] = EnemyConfig.Spider,
 	[10] = EnemyConfig.Centipede,
-	[12] = EnemyConfig.LadyBeetle,
+	[13] = EnemyConfig.LadyBeetle,
 }
 
 return EnemyOrder
