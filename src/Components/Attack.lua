@@ -25,8 +25,7 @@ end
 
 Attack.canvas = Attack.createCanvas()
 
-function Attack.draw(x, y, value)
-	size = 100
+function Attack.draw(x, y, value, size)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Attack.canvas, x, y, 0, size / attackAssetSize, size / attackAssetSize)
 	setLospecColor(01)

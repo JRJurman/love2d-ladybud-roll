@@ -25,12 +25,12 @@ end
 
 Shield.canvas = Shield.createCanvas()
 
-function Shield.draw(x, y, value, size)
+function Shield.draw(x, y, value, size, padding)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(Shield.canvas, x, y, 0, size / shieldAssetSize, size / shieldAssetSize)
 	setLospecColor(01)
 	love.graphics.setFont(getFont(40))
-	love.graphics.printf(value, x, y + 8, size, 'center')
+	love.graphics.printf(value, x, y + padding, size, 'center')
 end
 
 return Shield

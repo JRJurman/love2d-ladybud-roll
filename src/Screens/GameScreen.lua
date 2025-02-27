@@ -163,6 +163,7 @@ function GameScreen.update(dt)
 				-- if the enemy is doing something else
 				if currentAction.type == 'DEF' then
 					enemyBLK = enemyBLK + currentAction.value
+					blockSFX()
 					tts.readEnemyGuard(currentAction)
 				end
 			end
@@ -232,6 +233,7 @@ function GameScreen.update(dt)
 				if dieToRemove.assignment == 'DEF' then
 					playerBLK = playerBLK + dieToRemove.value
 					playerTotalDEF = playerTotalDEF + dieToRemove.value
+					blockSFX()
 					tts.readBlock(dieToRemove)
 				end
 

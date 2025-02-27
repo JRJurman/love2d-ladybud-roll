@@ -44,7 +44,7 @@ function DiceTray.draw(canvas, height, x, y, dice, selectedIndex)
 	local diceSize = height
 
 	if selectedIndex == 0 then
-		setLospecColor(29)
+		setLospecColor(42)
 	else
 		setLospecColor(15)
 	end

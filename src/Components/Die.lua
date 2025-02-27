@@ -40,7 +40,7 @@ end
 function Die.draw(canvas, dieConfig, x, y, size, selected)
 	-- If selected, draw a border
 	if selected then
-		setLospecColor(29)
+		setLospecColor(42)
 		love.graphics.rectangle('fill', x - 5, y - 5, size * 1.125, size * 1.125, 5, 5)
 	end
 

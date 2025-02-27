@@ -41,7 +41,7 @@ function Player.draw(isSelected, hp, block)
 
 	-- draw the heart and health
 	Heart.draw(55, 15, hp, 96)
-	Shield.draw(60, 115, block, 80)
+	Shield.draw(60, 115, block, 80, 8)
 end
 
 return Player

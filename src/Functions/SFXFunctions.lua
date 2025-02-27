@@ -4,6 +4,8 @@ local SFX = {
 	invalidSelectSFX = love.audio.newSource('Assets/sfx-invalid-select.wav', 'static'),
 	transitionSFX = love.audio.newSource('Assets/sfx-transition.wav', 'static'),
 	attackSFX = love.audio.newSource('Assets/sfx-attack.wav', 'static'),
+	blockSFX = love.audio.newSource('Assets/sfx-block.wav', 'static'),
+	specialActionSFX = love.audio.newSource('Assets/sfx-special-action.wav', 'static'),
 }
 
 function selectSFX()
@@ -29,4 +31,14 @@ end
 function attackSFX()
 	SFX.attackSFX:setVolume(masterVolume * sfxVolume)
 	love.audio.play(SFX.attackSFX)
+end
+
+function blockSFX()
+	SFX.blockSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.blockSFX)
+end
+
+function specialActionSFX()
+	SFX.specialActionSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.specialActionSFX)
 end

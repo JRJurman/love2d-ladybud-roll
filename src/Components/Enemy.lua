@@ -39,11 +39,18 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 
 	-- draw the heart and health
 	Heart.draw(enemyX + 180, 15, hp, 96)
-	Shield.draw(enemyX + 188, 115, block, 80)
+	Shield.draw(enemyX + 188, 115, block, 80, 8)
 
+	local actionY = -60
 	if nextActions then
 		for index, action in ipairs(nextActions) do
-			Attack.draw(425, 60 + (30 * index), action.value)
+			if action.type == 'ATK' then
+				Attack.draw(425, actionY + (80 * index), action.value, 100)
+			elseif action.type == 'DEF' then
+				Shield.draw(445, actionY + (80 * index), action.value, 60, -4)
+			elseif action.type == 'STA' then
+				Attack.draw(425, actionY + (80 * index), '!', 100)
+			end
 		end
 	end
 end

@@ -59,7 +59,7 @@ local GreenDie = {
 local WhiteDie = {
 	label="White Die",
 	shortLabel="White",
-	min=2, max=4,
+	min=1, max=4,
 	color=lospecColors[41],
 
 }

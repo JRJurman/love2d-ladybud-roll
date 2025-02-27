@@ -29,7 +29,7 @@ end
 
 function Button.draw(canvas, x, y, width, height, padding, isSelected, text)
 	if isSelected then
-		setLospecColor(29)
+		setLospecColor(42)
 	else
 		setLospecColor(15)
 	end
