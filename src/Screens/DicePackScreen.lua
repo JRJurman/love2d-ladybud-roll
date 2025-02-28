@@ -1,4 +1,4 @@
-local StageProgress = require('../Components/StageProgress')
+local KeyInstruction = require('../Components/KeyInstruction')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
 local Button = require('../Components/Button')
@@ -200,9 +200,6 @@ end
 function DicePackScreen.draw()
 	if screen ~= DicePackScreen.screen then return end
 
-	-- hiding this until there is a more complete implementation and SR support
-	-- StageProgress.draw()
-
 	local width = 730
 	local x = getXForWidth(width)
 
@@ -216,6 +213,32 @@ function DicePackScreen.draw()
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 0, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 125, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 250, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)
+
+	local selectedPackOptions =
+		selectedRow == 'pack1' and packOptions1 or
+		selectedRow == 'pack2' and packOptions2 or
+		selectedRow == 'pack3' and packOptions3 or nil
+
+	local keyInstructionX = 45
+	local keyInstructionY = 525
+	local keyInstructionWidth = 566
+	if selectedRow == 'intro' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Preview Packs', true)
+	elseif selectedPackOptions then
+		if (frame % 12) < 4 then
+			if selectedRow == 'pack3' then
+				KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Skip', true)
+			else
+				KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Preview More', true)
+			end
+		elseif (frame % 12) < 8 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'Q', 'to Scan Dice', true)
+		else
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Select Pack', true)
+		end
+	elseif selectedRow == 'skip' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Skip', true)
+	end
 
 	local skipButtonX = 600
 	local skipButtonY = 525

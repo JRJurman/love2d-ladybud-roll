@@ -1,3 +1,4 @@
+local KeyInstruction = require('../Components/KeyInstruction')
 local StageProgress = require('../Components/StageProgress')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
@@ -143,13 +144,30 @@ function DiceBreakScreen.draw()
 	local x = getXForWidth(width)
 
 	local textBlockX = x
-	local textBlockY = 45
+	local textBlockY = 0
 
 	Button.draw(textBlockCanvas, textBlockX, textBlockY, textBlockWidth, textBlockHeight, 13, selectedRow == 'intro', TextBlocks.diceBreak)
 
 	local diceTrayX = x
-	local diceTrayY = 365
+	local diceTrayY = 320
 	DiceTray.draw(diceBreakCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+
+	local keyInstructionX = 45
+	local keyInstructionY = 525
+	local keyInstructionWidth = 485
+	if selectedRow == 'intro' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Scan Dice', true)
+	elseif selectedDiceIndex then
+		if (frame % 12) < 4 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Skip', true)
+		elseif (frame % 12) < 8 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'Q', 'to Scan Dice', true)
+		else
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Break Die', true)
+		end
+	elseif selectedRow == 'skip' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Skip', true)
+	end
 
 	local skipButtonX, skipButtonY = 580, 510
 	Button.draw(skipButtonCanvas, skipButtonX, skipButtonY, skipButtonWidth, skipButtonHeight, 0, selectedRow == 'skip', 'Skip')

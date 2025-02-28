@@ -5,16 +5,16 @@ local Beetle = {
 	name='Beetle',
 	canvas=Enemy.createCanvas(beetleGraphic),
 	visualDescription='an insect with a large front horn and wings.',
-	startingHP=20, startingBLK=20,
+	startingHP=12, startingBLK=10,
 	ready=function(round, hp, blk)
 		if blk == 0 then
 			return {
-				{ type='ATK', value=8 + math.random(0, 4) },
+				{ type='ATK', value=4 + math.random(0, 4) },
 				{ type='DEF', value=8 + math.random(0, 4) },
 			}
 		end
 		return {
-			{ type='ATK', value=4 + math.random(0, 4) }
+			{ type='ATK', value=3 + math.random(0, 4) }
 		}
 	end
 }
@@ -24,9 +24,9 @@ local Centipede = {
 	name='Centipede',
 	canvas=Enemy.createCanvas(centipedeGraphic),
 	visualDescription='an insect with many segments poised and ready to attack.',
-	startingHP=20, startingBLK=10,
+	startingHP=12, startingBLK=6,
 	ready=function(round, hp, blk)
-		return {{ type='ATK', value=4 + math.random(0, 4) }}
+		return {{ type='ATK', value=3 + math.random(0, 4) }}
 	end
 }
 
@@ -35,10 +35,10 @@ local LadyBeetle = {
 	name='LadyBeetle',
 	canvas=Enemy.createCanvas(ladyBeetleGraphic),
 	visualDescription='an insect with large wings covered in red spots and splotches.',
-	startingHP=20, startingBLK=10,
+	startingHP=12, startingBLK=6,
 	ready=function(round, hp, blk)
 		if round == 1 then
-			return {{ type='ATK', value=4 + math.random(0, 4) }}
+			return {{ type='ATK', value=2 + math.random(0, 4) }}
 		else
 			return {
 				{ type='ATK', value=playerDMG },
@@ -53,10 +53,10 @@ local Mantis = {
 	name='Mantis',
 	canvas=Enemy.createCanvas(mantisGraphic),
 	visualDescription="an insect with a long body and thin legs, it's arms ready to extend and attack.",
-	startingHP=15, startingBLK=0,
+	startingHP=04, startingBLK=0,
 	ready=function(round, hp, blk)
 		return {
-			{ type='ATK', value=4 + math.random(0, 4) },
+			{ type='ATK', value=2 + math.random(0, 4) },
 		}
 	end
 }
@@ -66,7 +66,7 @@ local Moth = {
 	name='Moth',
 	canvas=Enemy.createCanvas(mothGraphic),
 	visualDescription='an insect floating with giant round wings, with red ring patterns.',
-	startingHP=15, startingBLK=0,
+	startingHP=08, startingBLK=0,
 	ready=function(round, hp, blk)
 		if round % 2 == 0 then
 			return {{ type='ATK', value=4 + math.random(0, 2) }}
@@ -84,7 +84,7 @@ local Spider = {
 	name='Spider',
 	canvas=Enemy.createCanvas(spiderGraphic),
 	visualDescription='a fat insect with many thin legs and many red eyes.',
-	startingHP=15, startingBLK=5,
+	startingHP=8, startingBLK=2,
 	ready=function(round, hp, blk)
 		return {
 			{ type='ATK', value=4 + math.random(0, 4) },

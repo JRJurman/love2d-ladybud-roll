@@ -19,6 +19,7 @@ function GameOverScreen.keypressed(key)
 	if screen ~= GameOverScreen.screen then return end
 
 	if key == 'x' then
+		validKey = true
 		TransitionScreen.load(TitleScreen, false)
 	end
 end
