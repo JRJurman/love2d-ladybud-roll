@@ -213,12 +213,12 @@ function DicePackScreen.draw()
 	local x = getXForWidth(width)
 
 	local textBlockX = x
-	local textBlockY = 58
+	local textBlockY = 0
 
 	Button.draw(textBlockCanvas, textBlockX, textBlockY, textBlockWidth, textBlockHeight, 13, selectedRow == 'intro', TextBlocks.dicePacks)
 
 	local trayX = x
-	local trayY = 210
+	local trayY = 150
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 0, packOptions1, selectedRow == 'pack1' and selectedDiceIndex or nil)
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 125, packOptions2, selectedRow == 'pack2' and selectedDiceIndex or nil)
 	DiceTray.draw(dicePackCanvas, diceTrayHeight, trayX, trayY + 250, packOptions3, selectedRow == 'pack3' and selectedDiceIndex or nil)

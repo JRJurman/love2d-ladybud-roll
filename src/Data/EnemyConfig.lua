@@ -57,7 +57,6 @@ local Mantis = {
 	ready=function(round, hp, blk)
 		return {
 			{ type='ATK', value=4 + math.random(0, 4) },
-			{ type='DEF', value=4 },
 		}
 	end
 }

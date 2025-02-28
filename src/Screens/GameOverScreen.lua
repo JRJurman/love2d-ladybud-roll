@@ -1,3 +1,5 @@
+local KeyInstruction = require('../Components/KeyInstruction')
+
 local GameOverScreen = {}
 GameOverScreen.screen = 8
 
@@ -31,7 +33,11 @@ function GameOverScreen.draw()
 	love.graphics.setFont(getFont(30))
 
 	love.graphics.printf('You were defeated by the '..enemyConfig.name, 0, startHeight + 50, winWidth, 'center')
-	love.graphics.printf('Press X key to Play Again', 0, startHeight + 130, winWidth, 'center')
+
+	local startWidth = 500
+	local startX = getXForWidth(startWidth)
+	local startY = 330
+	KeyInstruction.draw(startX, startY, startWidth, 'x', 'to Play Again', true)
 end
 
 return GameOverScreen

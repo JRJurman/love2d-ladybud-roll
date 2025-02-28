@@ -37,7 +37,7 @@ end
 
 -- title screen
 function tts.readTitleScreen()
-	ttsText = 'Lady-Bud Roll, created by Jesse Jurman, art by Ethan Jurman. Press X key to start. Press R key to repeat screen reader text. Press M key to mute music. Press 0 through 9 keys to adjust volume. Press F key to swap fonts. Press T key to reduce animations. Press R key at any time to repeat screen reader text.'
+	ttsText = 'Lady-Bud Roll, created by Jesse Jurman, art by Ethan Jurman. Press X key to start. Press R key to repeat screen reader text. Press M key to mute music. Press 0 through 9 keys to adjust volume. Press F key to swap fonts. Press T key to disable animations. Press R key at any time to repeat screen reader text.'
 	printTTS()
 end
 
