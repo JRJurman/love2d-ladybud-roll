@@ -5,6 +5,9 @@ GameOverScreen.screen = 8
 
 function GameOverScreen.load()
 	screen = GameOverScreen.screen
+
+	breakMusic()
+
 	tts.readGameOverScreen()
 end
 

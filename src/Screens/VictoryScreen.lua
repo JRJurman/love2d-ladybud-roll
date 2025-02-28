@@ -56,8 +56,6 @@ end
 function VictoryScreen.keypressed(key)
 	if screen ~= VictoryScreen.screen then return end
 
-	local validKey = false
-
 	-- change which set of elements we are selecting
 	if key == 'up' then
 		if selectedRow == 'dice' then
@@ -98,12 +96,6 @@ function VictoryScreen.keypressed(key)
 			TransitionScreen.load(TitleScreen, false)
 			validKey = true
 		end
-	end
-
-	-- if we didn't have a valid key, repeat possible options
-	if not validKey then
-		invalidSelectSFX()
-		-- TODO per-row
 	end
 end
 

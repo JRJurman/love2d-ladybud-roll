@@ -28,9 +28,12 @@ selectedDiceIndex = nil
 
 -- master volume control for SFX and Music
 masterVolume = 1
-musicVolume = 0
+musicVolume = 0.7
 sfxVolume = 1
 music = nil
+
+-- valid key tracker (that we might update across screens)
+validKey = false
 
 -- animation counter
 prefersReducedAnimation = false
@@ -73,6 +76,8 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
+	validKey = false
+
 	-- if we are in the middle of transitioning
 	-- don't handle any keypresses
 	if loading > 0 then
@@ -91,29 +96,45 @@ function love.keypressed(key)
 	-- key binding we want everywhere,
 	-- if they press r, repeat whatever the tts text is
 	if (key == 'r') then
+		selectSFX()
 		tts.repeatText()
+		validKey = true
 	end
 	-- if they press f, swap the font
 	if (key == 'f') then
+		selectSFX()
 		swapFont()
+		validKey = true
 	end
 	-- if they press m, mute the music
 	if (key == 'm') then
+		selectSFX()
 		if musicVolume == 0 then
-			musicVolume = 1
+			musicVolume = 0.7
 		else
 			musicVolume = 0
 		end
 		updateMusicVolume()
+		validKey = true
 	end
 	-- if they press 0 - 9, set the master volume
 	if (tonumber(key)) then
 		masterVolume = tonumber(key)/9
+		selectSFX()
 		updateMusicVolume()
+		validKey = true
 	end
 	-- if they press t, toggle animation preference
 	if (key == 't') then
+		selectSFX()
 		prefersReducedAnimation = not prefersReducedAnimation
+		validKey = true
+	end
+
+	-- if we didn't have a valid key, repeat possible options
+	if not validKey then
+		print('validkey', validKey)
+		invalidSelectSFX()
 	end
 end
 

@@ -96,6 +96,8 @@ local confirmButtonCanvas = Button.createCanvas(confirmButtonWidth, confirmButto
 function GameScreen.load()
 	screen = GameScreen.screen
 
+	battleMusic()
+
 	diceIndexBag = {}
 	activeDice = {}
 	for index, dieConfig in ipairs(diceBag) do
@@ -262,8 +264,6 @@ end
 function GameScreen.keypressed(key)
 	if screen ~= GameScreen.screen then return end
 
-	local validKey = false
-
 	-- don't allow key actions if we are in the middle of resolving a phase
 	if phase ~= '' then
 		invalidSelectSFX()
@@ -387,12 +387,6 @@ function GameScreen.keypressed(key)
 		tts.playerPreview()
 
 		validKey = true
-	end
-
-	-- if we didn't have a valid key, repeat possible options
-	if not validKey then
-		invalidSelectSFX()
-		-- TODO per-row
 	end
 end
 

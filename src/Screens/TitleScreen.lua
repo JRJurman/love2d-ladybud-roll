@@ -58,7 +58,7 @@ function TitleScreen.keypressed(key)
 	if screen ~= TitleScreen.screen then return end
 
 	if key == 'x' then
-		print('seed: '..seed)
+		validKey = true
 		math.randomseed(seed)
 		TransitionScreen.load(IntroScreen, false)
 	end

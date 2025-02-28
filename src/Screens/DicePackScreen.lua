@@ -57,6 +57,8 @@ local textBlockCanvas = Button.createCanvas(textBlockWidth, textBlockHeight)
 function DicePackScreen.load()
 	screen = DicePackScreen.screen
 
+	breakMusic()
+
 	-- build sets of dice that the player can choose from
 	possibleDiceOptions = {
 		1, 1,
@@ -84,8 +86,6 @@ end
 
 function DicePackScreen.keypressed(key)
 	if screen ~= DicePackScreen.screen then return end
-
-	local validKey = false
 
 	-- change which set of elements we are selecting
 	if key == 'up' then
@@ -194,12 +194,6 @@ function DicePackScreen.keypressed(key)
 			TransitionScreen.next()
 			validKey = true
 		end
-	end
-
-	-- if we didn't have a valid key, repeat possible options
-	if not validKey then
-		invalidSelectSFX()
-		-- TODO per-row
 	end
 end
 
