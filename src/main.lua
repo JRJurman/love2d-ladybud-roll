@@ -133,7 +133,6 @@ function love.keypressed(key)
 
 	-- if we didn't have a valid key, repeat possible options
 	if not validKey then
-		print('validkey', validKey)
 		invalidSelectSFX()
 	end
 end

@@ -34,8 +34,8 @@ local resolutionSpeed = 1
 
 function loadEnemyConfig(newEnemyConfig)
 	enemyConfig = newEnemyConfig
-	enemyHP = enemyConfig.startingHP + stage*3
-	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + stage*3, 0)
+	enemyHP = enemyConfig.startingHP + stage*2
+	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + stage*2, 0)
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
 	hasHeardEnemyVisualDescription = false
 end

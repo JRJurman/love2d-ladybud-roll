@@ -70,9 +70,9 @@ local YellowDie = {
 	min=1, max=3,
 	color=lospecColors[9],
 
-	buff="gets +2 when left unassigned",
+	buff="gets +4 when left unassigned",
 	onSave=function(die)
-		die.value = math.min(die.value + 2, 6)
+		die.value = math.min(die.value + 4, 6)
 		die.canvas = Die.createCanvas(die.value)
 	end,
 

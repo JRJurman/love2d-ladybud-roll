@@ -38,8 +38,8 @@ function Button.draw(canvas, x, y, width, height, padding, isSelected, text)
 	love.graphics.setFont(getFont(36))
 
 	setLospecColor(2)
-	local xOffset = 0
-	local yOffset = 8 + padding + (isSelected and 4 or 0)
+	local xOffset = 2
+	local yOffset = 10 + padding + (isSelected and 4 or 0)
 	love.graphics.printf(text, x + xOffset, y + yOffset, width + (6*canvasMult) + 8, 'center')
 end
 

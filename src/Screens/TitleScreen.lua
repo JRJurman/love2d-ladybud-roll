@@ -23,6 +23,7 @@ local readoutDelay = nil
 
 function TitleScreen.load()
 	screen = TitleScreen.screen
+	stage = 0
 	introMusic()
 
 	-- the screen reader isn't always immediately ready
@@ -60,7 +61,7 @@ function TitleScreen.keypressed(key)
 	if key == 'x' then
 		validKey = true
 		math.randomseed(seed)
-		TransitionScreen.load(IntroScreen, false)
+		TransitionScreen.next()
 	end
 end
 
