@@ -1,3 +1,4 @@
+local KeyInstruction = require('../Components/KeyInstruction')
 local StageProgress = require('../Components/StageProgress')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
@@ -139,6 +140,21 @@ function IntroScreen.draw()
 	local diceTrayX = getXForWidth(diceTrayWidth)
 	local diceTrayY = 365
 	DiceTray.draw(introDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+
+	local keyInstructionX = 45
+	local keyInstructionY = 525
+	local keyInstructionWidth = 536
+	if selectedRow == 'intro' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F',  'to Preview Dice',true)
+	elseif selectedRow == 'dice' then
+		if (frame % 6) < 3 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'Q', 'to Scan Dice', true)
+		else
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Begin',true)
+		end
+	elseif selectedRow == 'begin' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Begin', true)
+	end
 
 	local confirmButtonX, confirmButtonY = 580, 510
 	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, confirmButtonHeight, 0, selectedRow == 'begin', 'Begin')

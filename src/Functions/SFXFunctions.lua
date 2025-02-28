@@ -7,6 +7,10 @@ local SFX = {
 	blockSFX = love.audio.newSource('Assets/sfx-block.wav', 'static'),
 	specialActionSFX = love.audio.newSource('Assets/sfx-special-action.wav', 'static'),
 	rollSFX = love.audio.newSource('Assets/sfx-roll.wav', 'static'),
+	assignAttackSFX = love.audio.newSource('Assets/sfx-assign-attack.wav', 'static'),
+	assignBlockSFX = love.audio.newSource('Assets/sfx-assign-block.wav', 'static'),
+	assignClearSFX = love.audio.newSource('Assets/sfx-assign-clear.wav', 'static'),
+	confirmSFX = love.audio.newSource('Assets/sfx-confirm.wav', 'static'),
 }
 
 function selectSFX()
@@ -47,4 +51,24 @@ end
 function rollSFX()
 	SFX.rollSFX:setVolume(masterVolume * sfxVolume)
 	love.audio.play(SFX.rollSFX)
+end
+
+function assignAttackSFX()
+	SFX.assignAttackSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.assignAttackSFX)
+end
+
+function assignBlockSFX()
+	SFX.assignBlockSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.assignBlockSFX)
+end
+
+function assignClearSFX()
+	SFX.assignClearSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.assignClearSFX)
+end
+
+function confirmSFX()
+	SFX.confirmSFX:setVolume(masterVolume * sfxVolume)
+	love.audio.play(SFX.confirmSFX)
 end

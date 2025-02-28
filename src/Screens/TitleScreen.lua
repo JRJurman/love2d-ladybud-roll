@@ -81,13 +81,13 @@ function TitleScreen.draw()
 	-- instructions
 	local startWidth = 415
 	local startX = getXForWidth(startWidth)
-	KeyInstruction.draw(startX, 300, startWidth, 'Start', 'x', not prefersReducedAnimation)
+	KeyInstruction.draw(startX, 300, startWidth, 'x', 'to Start', not prefersReducedAnimation)
 
-	KeyInstruction.draw(40, 380, winWidth - 80, 'Repeat Screen Reader', 'r', false)
-	KeyInstruction.draw(40, 420, winWidth - 80, 'Swap Fonts', 'f', false)
-	KeyInstruction.draw(40, 460, winWidth - 80, 'Reduce Animations', 't', false)
-	KeyInstruction.drawKeyRange(40, 500, winWidth - 80, 'Adjust Volume', '0', '9', false)
-	KeyInstruction.draw(40, 540, winWidth - 80, 'Mute Music', 'm', false)
+	KeyInstruction.draw(40, 380, winWidth - 80, 'r', 'to Repeat Screen Reader',  false)
+	KeyInstruction.draw(40, 420, winWidth - 80, 'f', 'to Swap Fonts', false)
+	KeyInstruction.draw(40, 460, winWidth - 80, 't', 'to Reduce Animations', false)
+	KeyInstruction.drawKeyRange(40, 500, winWidth - 80, '0', '9', 'to Adjust Volume',  false)
+	KeyInstruction.draw(40, 540, winWidth - 80, 'm', 'to Mute Music', false)
 end
 
 return TitleScreen

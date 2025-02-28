@@ -1,5 +1,4 @@
-local PositionFunctions = require('../Functions/PositionFunctions')
-
+local KeyInstruction = require('../Components/KeyInstruction')
 local DiceTray = require('../Components/DiceTray')
 local FatRect = require('../Components/FatRect')
 local Button = require('../Components/Button')
@@ -349,21 +348,21 @@ function GameScreen.keypressed(key)
 				tts.readAssignmentResult('ATK')
 
 				validKey = true
-				-- assignAtkSFX()
+				assignAttackSFX()
 			end
 			if key == 'd' then
 				selectedDie.assignment = 'DEF'
 				tts.readAssignmentResult('DEF')
 
 				validKey = true
-				-- assignDefSFX()
+				assignBlockSFX()
 			end
 			if key == 'c' then
 				selectedDie.assignment = nil
 				tts.readClearAssignment()
 
 				validKey = true
-				-- assignClearSFX()
+				assignClearSFX()
 			end
 		end
 	end
@@ -373,7 +372,8 @@ function GameScreen.keypressed(key)
 			confirmAttack()
 
 			validKey = true
-			-- confirmAttackSFX()
+			animationTimer = resolutionSpeed / 2
+			confirmSFX()
 		end
 	end
 
@@ -411,6 +411,27 @@ function GameScreen.draw()
 	local diceTrayX = getXForWidth(diceTrayWidth) - 10
 	local diceTrayY = 345
 	DiceTray.draw(gameDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, activeDice, selectedRow == 'dice' and selectedDiceIndex or nil, 4)
+
+	local keyInstructionX = 45
+	local keyInstructionY = 525
+	local keyInstructionWidth = 536
+	if selectedRow == 'characters' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Select Dice', true)
+	elseif selectedRow == 'dice' and selectedDiceIndex == 0 then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'Q', 'to Select Dice', true)
+	elseif selectedRow == 'dice' and selectedDiceIndex > 0 then
+		if (frame % 16) < 4 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'a', 'for Attacking', true)
+		elseif (frame % 16) < 8 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'd', 'for Defending', true)
+		elseif (frame % 16) < 12 then
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'c', 'to Clear', true)
+		else
+			KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Confirm', true)
+		end
+	elseif selectedRow == 'confirm' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Confirm', true)
+	end
 
 	-- draw the confirmation button
 	local confirmButtonX, confirmButtonY = 575, 510
