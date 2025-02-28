@@ -1,5 +1,4 @@
 local StageProgress = require('../Components/StageProgress')
-local TextArea = require('../Components/TextArea')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
 local Button = require('../Components/Button')

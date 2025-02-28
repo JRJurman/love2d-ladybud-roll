@@ -32,11 +32,17 @@ musicVolume = 0
 sfxVolume = 1
 music = nil
 
+-- animation counter
+prefersReducedAnimation = false
+frame = 0
+
 function love.load()
 	TitleScreen.load()
 end
 
 function love.update(dt)
+	frame = frame + dt
+
 	DebuggingScreen.update(dt)
 
 	TransitionScreen.update(dt)
@@ -104,6 +110,10 @@ function love.keypressed(key)
 	if (tonumber(key)) then
 		masterVolume = tonumber(key)/9
 		updateMusicVolume()
+	end
+	-- if they press t, toggle animation preference
+	if (key == 't') then
+		prefersReducedAnimation = not prefersReducedAnimation
 	end
 end
 

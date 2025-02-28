@@ -1,4 +1,6 @@
 local PlayerConfig = require('../Data/PlayerConfig')
+local KeyInstruction = require('../Components/KeyInstruction')
+
 local TitleScreen = {}
 
 TitleScreen.screen = 0
@@ -75,10 +77,17 @@ function TitleScreen.draw()
 
 	love.graphics.printf('Created by Jesse Jurman', 0, 199, winWidth, 'center')
 	love.graphics.printf('Art by Ethan Jurman', 0, 230, winWidth, 'center')
-	love.graphics.printf('Press X key to Start', 0, 300, winWidth, 'center')
-	love.graphics.printf('Press F key to Swap Fonts', 0, 450, winWidth, 'center')
-	love.graphics.printf('Press 0 - 9 to Adjust Volume', 0, 485, winWidth, 'center')
-	love.graphics.printf('Press M key to Mute Music', 0, 520, winWidth, 'center')
+
+	-- instructions
+	local startWidth = 415
+	local startX = getXForWidth(startWidth)
+	KeyInstruction.draw(startX, 300, startWidth, 'Start', 'x', not prefersReducedAnimation)
+
+	KeyInstruction.draw(40, 380, winWidth - 80, 'Repeat Screen Reader', 'r', false)
+	KeyInstruction.draw(40, 420, winWidth - 80, 'Swap Fonts', 'f', false)
+	KeyInstruction.draw(40, 460, winWidth - 80, 'Reduce Animations', 't', false)
+	KeyInstruction.drawKeyRange(40, 500, winWidth - 80, 'Adjust Volume', '0', '9', false)
+	KeyInstruction.draw(40, 540, winWidth - 80, 'Mute Music', 'm', false)
 end
 
 return TitleScreen
