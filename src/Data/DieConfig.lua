@@ -6,7 +6,7 @@ local BlueDie = {
 	min=1, max=3,
 	color=lospecColors[28],
 
-	buff="gets +2 when assigned for Defending",
+	buff="gets +2 when assigned for Block",
 	resolveAssignment=function(die)
 		if die.assignment == 'DEF' then
 			die.value = die.value + 2
@@ -25,7 +25,7 @@ local RedDie = {
 	min=1, max=3,
 	color=lospecColors[5],
 
-	buff="gets +2 when assigned for Attacking",
+	buff="gets +2 when assigned for Attack",
 	resolveAssignment=function(die)
 		if die.assignment == 'ATK' then
 			die.value = die.value + 2

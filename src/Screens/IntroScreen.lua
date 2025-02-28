@@ -1,4 +1,5 @@
 local KeyInstruction = require('../Components/KeyInstruction')
+local DieInstruction = require('../Components/DieInstruction')
 local StageProgress = require('../Components/StageProgress')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
@@ -129,6 +130,13 @@ function IntroScreen.draw()
 
 	local textBlockY = 45
 	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, titleTextHeight, 20, selectedRow == 'intro', TextBlocks.introLore)
+
+	local dieInstructionY = 290
+	local dieInstructionWidth = 600
+	local dieInstructionX = getXForWidth(dieInstructionWidth)
+	if selectedDiceIndex > 0 then
+		DieInstruction.draw(dieInstructionX, dieInstructionY, dieInstructionWidth, dice[selectedDiceIndex], true, 'buff')
+	end
 
 	local diceTrayX = getXForWidth(diceTrayWidth)
 	local diceTrayY = 365
