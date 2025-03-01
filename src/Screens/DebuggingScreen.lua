@@ -17,10 +17,11 @@ function DebuggingScreen.update(dt)
 end
 
 function DebuggingScreen.keypressed(key)
-	if key == 'b' then
-		debugging = not debugging
-		points = {}
-	end
+	-- disabled for production release
+	-- if key == 'b' then
+	-- 	debugging = not debugging
+	-- 	points = {}
+	-- end
 end
 
 function DebuggingScreen.mousepressed(x, y)

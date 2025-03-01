@@ -38,7 +38,6 @@ function loadEnemyConfig(newEnemyConfig)
 	enemyHP = enemyConfig.startingHP + stage*2
 	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + stage*2, 0)
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
-	hasHeardEnemyVisualDescription = false
 end
 
 function getAssignedDiceIndexes(dice)
@@ -165,7 +164,7 @@ function GameScreen.update(dt)
 
 				-- if the enemy is doing something else
 				if currentAction.type == 'DEF' then
-					enemyBLK = enemyBLK + currentAction.value
+					enemyBLK = math.min(enemyBLK + currentAction.value, 99)
 					blockSFX()
 					tts.readEnemyGuard(currentAction)
 				end
@@ -235,7 +234,7 @@ function GameScreen.update(dt)
 
 				-- if this is a block die, add that to players block
 				if dieToRemove.assignment == 'DEF' then
-					playerBLK = playerBLK + dieToRemove.value
+					playerBLK = math.min(playerBLK + dieToRemove.value, 99)
 					playerTotalDEF = playerTotalDEF + dieToRemove.value
 					blockSFX()
 					tts.readBlock(dieToRemove)
@@ -328,6 +327,13 @@ function GameScreen.keypressed(key)
 
 	-- change which die is selected
 	if selectedRow == 'dice' then
+		if key == 'left' and selectedDiceIndex == 1 then
+			selectedDiceIndex = 0
+			tts.readDiceTrayPreview()
+
+			validKey = true
+			selectBackSFX()
+		end
 		if key == 'left' and selectedDiceIndex > 1 then
 			selectedDiceIndex = math.max(selectedDiceIndex - 1, 1)
 			tts.readSelectedDie()
@@ -407,7 +413,7 @@ function GameScreen.draw()
 	local dieInstructionWidth = 600
 	local dieInstructionHeight = 50
 	local dieInstructionX = getXForWidth(dieInstructionWidth)
-	if selectedDiceIndex > 0 and activeDice[selectedDiceIndex].dieConfig.buff then
+	if selectedRow == 'dice' and selectedDiceIndex > 0 and activeDice[selectedDiceIndex].dieConfig.buff then
 		DieInstruction.draw(dieInstructionX, dieInstructionY, dieInstructionWidth, dieInstructionHeight, activeDice[selectedDiceIndex], false, 'buff')
 	end
 

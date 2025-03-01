@@ -75,7 +75,7 @@ end
 -- dice pack screen
 
 function tts.readDicePackIntro()
-	local instructions = 'There are three bags, each with three dice. Press down to preview the dice, and press X on one bag to add it to your own.'
+	local instructions = 'There are three packs, each with three dice. Press down to preview the dice, and press X on one pack to add it to your own.'
 	ttsText = TextBlocks.dicePacks..instructions
 	printTTS()
 end
@@ -87,7 +87,7 @@ function tts.readPackSummary(selectedPackOptions, packIndex)
 	end
 	packText = packText..'. '
 
-	local instructions = 'Press X to select this bag, or right to get more details on each die. '
+	local instructions = 'Press X to select this pack, or right to get more details on each die. '
 	if packIndex == 1 then
 		instructions = instructions..'There are two more packs to choose from, you can press down to check other options, or go to the bottom to skip.'
 	end
@@ -236,30 +236,18 @@ function tts.playerPreview()
 	printTTS()
 end
 
-hasHeardPlayerVisualDescription = false
 function tts.readPlayerStatus()
 	local playerDescription = 'Your character, '..playerConfig.name
-	if hasHeardPlayerVisualDescription then
-		playerDescription = playerDescription..'. '
-	else
-		hasHeardPlayerVisualDescription = true
-		playerDescription = playerDescription..', '..playerConfig.visualDescription..' '
-	end
+	playerDescription = playerDescription..', '..playerConfig.visualDescription..' '
 	local playerStatus = 'Currently '..playerHP..' health '..'and '..playerBLK..' block. '
 
 	ttsText = playerDescription..playerStatus
 	printTTS()
 end
 
-hasHeardEnemyVisualDescription = false
 function tts.readEnemyStatus()
 	local enemyDescription = 'Your opponent, '..enemyConfig.name
-	if hasHeardenemyVisualDescription then
-		enemyDescription = enemyDescription..'. '
-	else
-		hasHeardEnemyVisualDescription = true
-		enemyDescription = enemyDescription..', '..enemyConfig.visualDescription..' '
-	end
+	enemyDescription = enemyDescription..', '..enemyConfig.visualDescription..' '
 	local enemyStatus = 'Currently '..enemyHP..' health and '..enemyBLK..' block. '
 	ttsText = enemyDescription..enemyStatus
 	printTTS()

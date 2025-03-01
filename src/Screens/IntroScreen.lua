@@ -135,7 +135,7 @@ function IntroScreen.draw()
 	local dieInstructionWidth = 600
 	local dieInstructionHeight = 50
 	local dieInstructionX = getXForWidth(dieInstructionWidth)
-	if selectedDiceIndex > 0 then
+	if selectedRow == 'dice' and selectedDiceIndex > 0 then
 		DieInstruction.draw(dieInstructionX, dieInstructionY, dieInstructionWidth, dieInstructionHeight, dice[selectedDiceIndex], true, 'buff')
 	end
 
