@@ -1,3 +1,4 @@
+local DieInstruction = require('../Components/DieInstruction')
 local KeyInstruction = require('../Components/KeyInstruction')
 local TextBlocks = require('../Data/TextBlocks')
 local DiceTray = require('../Components/DiceTray')
@@ -184,6 +185,7 @@ function DicePackScreen.keypressed(key)
 			for index, die in ipairs(selectedPackOptions) do
 				table.insert(diceBag, 1, die.dieConfig)
 			end
+			tts.packSelected()
 			TransitionScreen.next()
 			validKey = true
 		end
@@ -218,6 +220,15 @@ function DicePackScreen.draw()
 		selectedRow == 'pack1' and packOptions1 or
 		selectedRow == 'pack2' and packOptions2 or
 		selectedRow == 'pack3' and packOptions3 or nil
+
+	local dieInstructionX = 270
+	local dieInstructionY = 160
+	local dieInstructionWidth = 500
+	local dieInstructionHeight = 83
+	if selectedPackOptions then
+		DieInstruction.draw(dieInstructionX, dieInstructionY, dieInstructionWidth, dieInstructionHeight, selectedPackOptions[1], true, 'buff')
+		DieInstruction.draw(dieInstructionX, dieInstructionY + 90, dieInstructionWidth, dieInstructionHeight, selectedPackOptions[2], true, 'buff')
+	end
 
 	local keyInstructionX = 45
 	local keyInstructionY = 525

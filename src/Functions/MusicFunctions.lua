@@ -12,7 +12,6 @@ function introMusic()
 	if music then music:stop() end
 	music = Music.introMusic
 	Music.introMusic:setLooping(true)
-	print(masterVolume * musicVolume)
 	Music.introMusic:setVolume(masterVolume * musicVolume)
 	music:play()
 end

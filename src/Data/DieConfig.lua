@@ -62,6 +62,8 @@ local WhiteDie = {
 	min=1, max=4,
 	color=lospecColors[41],
 
+	buff="has no extra effects",
+	brokenBuff="gives no benefits"
 }
 
 local YellowDie = {

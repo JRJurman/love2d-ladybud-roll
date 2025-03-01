@@ -100,6 +100,11 @@ function tts.readSkipButton()
 	printTTS()
 end
 
+function tts.packSelected()
+	ttsText = 'Pack Selected'
+	printTTS()
+end
+
 -- dice break screen
 
 function tts.readDiceBreakIntro()

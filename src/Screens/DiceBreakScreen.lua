@@ -1,3 +1,4 @@
+local DieInstruction = require('../Components/DieInstruction')
 local KeyInstruction = require('../Components/KeyInstruction')
 local StageProgress = require('../Components/StageProgress')
 local TextBlocks = require('../Data/TextBlocks')
@@ -148,13 +149,21 @@ function DiceBreakScreen.draw()
 
 	Button.draw(textBlockCanvas, textBlockX, textBlockY, textBlockWidth, textBlockHeight, 13, selectedRow == 'intro', TextBlocks.diceBreak)
 
+	local dieInstructionY = 195
+	local dieInstructionWidth = 600
+	local dieInstructionHeight = 80
+	local dieInstructionX = getXForWidth(dieInstructionWidth)
+	if selectedDiceIndex > 0 then
+		DieInstruction.draw(dieInstructionX, dieInstructionY, dieInstructionWidth, dieInstructionHeight, dice[selectedDiceIndex], false, 'brokenBuff')
+	end
+
 	local diceTrayX = x
 	local diceTrayY = 320
 	DiceTray.draw(diceBreakCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
 
 	local keyInstructionX = 45
 	local keyInstructionY = 525
-	local keyInstructionWidth = 485
+	local keyInstructionWidth = 500
 	if selectedRow == 'intro' then
 		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Scan Dice', true)
 	elseif selectedDiceIndex then

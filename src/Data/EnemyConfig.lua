@@ -10,7 +10,7 @@ local Beetle = {
 		if blk == 0 then
 			return {
 				{ type='ATK', value=4 + math.random(0, 4) },
-				{ type='DEF', value=8 + math.random(0, 4) },
+				{ type='DEF', value=9 },
 			}
 		end
 		return {
@@ -41,8 +41,8 @@ local LadyBeetle = {
 			return {{ type='ATK', value=2 + math.random(0, 4) }}
 		else
 			return {
-				{ type='ATK', value=playerDMG },
-				{ type='DEF', value=playerBLK },
+				{ type='ATK', value=math.min(playerTotalATK/2, 9) },
+				{ type='DEF', value=math.min(playerTotalDEF/2, 9) },
 			}
 		end
 	end

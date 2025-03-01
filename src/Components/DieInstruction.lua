@@ -3,11 +3,10 @@ local Die = require('../Components/Die')
 
 local DieInstruction = {}
 
-local rectHeight = 50
 local xPadding = 10
 
-function DieInstruction.draw(x, y, width, die, includeSides, buffType)
-	FatRect.draw(x, y, width, rectHeight, {1,1,1}, {0,0,0}, true)
+function DieInstruction.draw(x, y, width, height, die, includeSides, buffType)
+	FatRect.draw(x, y, width, height, {1,1,1}, {0,0,0}, true)
 
 	love.graphics.setColor({1,1,1})
 
@@ -22,7 +21,9 @@ function DieInstruction.draw(x, y, width, die, includeSides, buffType)
 	if die.dieConfig[buffType] then
 		buffText = buffText..die.dieConfig[buffType]
 	end
-	love.graphics.printf(buffText, x + (xPadding*2) + diceSize, y + 10, width, 'left')
+
+	local textX = x + (xPadding*2) + diceSize
+	love.graphics.printf(buffText, textX, y + 10, width - (textX / 3), 'left')
 end
 
 return DieInstruction

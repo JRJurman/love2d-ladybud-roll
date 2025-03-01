@@ -1,3 +1,4 @@
+local DieInstruction = require('../Components/DieInstruction')
 local KeyInstruction = require('../Components/KeyInstruction')
 local DiceTray = require('../Components/DiceTray')
 local FatRect = require('../Components/FatRect')
@@ -98,13 +99,6 @@ function GameScreen.load()
 
 	battleMusic()
 
-	diceIndexBag = {}
-	activeDice = {}
-	for index, dieConfig in ipairs(diceBag) do
-		putDiceInBag({index})
-	end
-	loadEnemyConfig(EnemyOrder[stage])
-
 	-- reset values
 	round = 1
 	playerBLK = playerStartingBLK
@@ -113,6 +107,13 @@ function GameScreen.load()
 	selectedRow = 'characters'
 	animationTimer = 0
 	phase = 'rollingDice'
+	diceIndexBag = {}
+	activeDice = {}
+
+	for index, dieConfig in ipairs(diceBag) do
+		putDiceInBag({index})
+	end
+	loadEnemyConfig(EnemyOrder[stage])
 
 	-- build tray canvas for the intro screen
 	diceTrayWidth = 600
@@ -400,6 +401,14 @@ function GameScreen.draw()
 	-- player and enemy window
 	Player.draw(selectedRow == 'characters' and selectedCharacter ~= 'enemy', playerHP, playerBLK)
 	Enemy.draw(enemyConfig, selectedRow == 'characters' and selectedCharacter ~= 'player', enemyHP, enemyBLK, enemyActions)
+
+	local dieInstructionY = 290
+	local dieInstructionWidth = 600
+	local dieInstructionHeight = 50
+	local dieInstructionX = getXForWidth(dieInstructionWidth)
+	if selectedDiceIndex > 0 and activeDice[selectedDiceIndex].dieConfig.buff then
+		DieInstruction.draw(dieInstructionX, dieInstructionY, dieInstructionWidth, dieInstructionHeight, activeDice[selectedDiceIndex], false, 'buff')
+	end
 
 	-- draw the dice tray
 	local diceTrayX = getXForWidth(diceTrayWidth) - 10
