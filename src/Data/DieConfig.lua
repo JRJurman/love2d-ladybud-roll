@@ -13,9 +13,9 @@ local BlueDie = {
 		end
 	end,
 
-	brokenBuff="gives you +5 starting block on every match",
+	brokenBuff="gives you +6 starting block on every match",
 	onBreaking=function()
-		playerStartingBLK = playerStartingBLK + 5
+		playerStartingBLK = playerStartingBLK + 6
 	end
 }
 

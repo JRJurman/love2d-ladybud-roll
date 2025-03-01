@@ -26,7 +26,27 @@ local Centipede = {
 	visualDescription='an insect with many segments poised and ready to attack.',
 	startingHP=12, startingBLK=6,
 	ready=function(round, hp, blk)
-		return {{ type='ATK', value=3 + math.random(0, 4) }}
+		if round % 4 == 1 then
+			return {
+				{ type='ATK', value=5 + math.random(0, 4) },
+				{ type='DEF', value=1 + math.random(0, 4) },
+			}
+		elseif round % 4 == 2 then
+			return {
+				{ type='ATK', value=4 + math.random(0, 4) },
+				{ type='DEF', value=2 + math.random(0, 4) },
+			}
+		elseif round % 4 == 3 then
+			return {
+				{ type='ATK', value=3 + math.random(0, 4) },
+				{ type='DEF', value=3 + math.random(0, 4) },
+			}
+		else
+			return {
+				{ type='ATK', value=2 + math.random(0, 4) },
+				{ type='DEF', value=4 + math.random(0, 4) },
+			}
+		end
 	end
 }
 
@@ -37,12 +57,15 @@ local LadyBeetle = {
 	visualDescription='an insect with large wings covered in red spots and splotches.',
 	startingHP=12, startingBLK=6,
 	ready=function(round, hp, blk)
-		if round == 1 then
-			return {{ type='ATK', value=2 + math.random(0, 4) }}
+		if playerTotalATK > playerTotalDEF then
+			return {
+				{ type='ATK', value=4 + math.random(0, 4) },
+				{ type='DEF', value=3 + math.random(0, 4) },
+			}
 		else
 			return {
-				{ type='ATK', value=math.min(playerTotalATK/2, 9) },
-				{ type='DEF', value=math.min(playerTotalDEF/2, 9) },
+				{ type='ATK', value=3 + math.random(0, 4) },
+				{ type='DEF', value=4 + math.random(0, 4) },
 			}
 		end
 	end
@@ -68,12 +91,17 @@ local Moth = {
 	visualDescription='an insect floating with giant round wings, with red ring patterns.',
 	startingHP=08, startingBLK=0,
 	ready=function(round, hp, blk)
+		if round == 1 then
+			return {
+				{ type='DEF', value=8 + math.random(0, 2) },
+			}
+		end
 		if round % 2 == 0 then
 			return {{ type='ATK', value=4 + math.random(0, 2) }}
 		else
 			return {
-				{ type='ATK', value=2 + math.random(0, 2) },
-				-- { type='STA', value="FLY" }
+				{ type='ATK', value=3 + math.random(0, 2) },
+				{ type='DEF', value=3 + math.random(0, 2) }
 			}
 		end
 	end
@@ -86,10 +114,22 @@ local Spider = {
 	visualDescription='a fat insect with many thin legs and many red eyes.',
 	startingHP=8, startingBLK=2,
 	ready=function(round, hp, blk)
-		return {
-			{ type='ATK', value=4 + math.random(0, 4) },
-			-- { type='STA', value="DISABLE" }
-		}
+		if round == 1 then
+			return {
+				{ type='ATK', value=7 + math.random(0, 2) },
+			}
+		end
+		if playerTotalATK > playerTotalDEF then
+			return {
+				{ type='ATK', value=4 + math.random(0, 2) },
+				{ type='DEF', value=3 + math.random(0, 2) },
+			}
+		else
+			return {
+				{ type='ATK', value=3 + math.random(0, 2) },
+				{ type='DEF', value=4 + math.random(0, 2) },
+			}
+		end
 	end
 }
 
