@@ -49,7 +49,7 @@ local GreenDie = {
 		playerHP = math.min(playerHP + 1, playerMaxHP)
 	end,
 
-	brokenBuff="heals you by +10 (increases max hp)",
+	brokenBuff="increases max HP and health by 10",
 	onBreaking=function()
 		playerMaxHP = playerMaxHP + 10
 		playerHP = playerHP + 10

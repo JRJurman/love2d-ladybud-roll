@@ -24,27 +24,27 @@ local Centipede = {
 	name='Centipede',
 	canvas=Enemy.createCanvas(centipedeGraphic),
 	visualDescription='an insect with many segments poised and ready to attack.',
-	startingHP=12, startingBLK=6,
+	startingHP=6, startingBLK=0,
 	ready=function(round, hp, blk)
 		if round % 4 == 1 then
 			return {
-				{ type='ATK', value=5 + math.random(0, 4) },
-				{ type='DEF', value=1 + math.random(0, 4) },
+				{ type='ATK', value=5 + math.random(0, 2) },
+				{ type='DEF', value=1 + math.random(0, 2) },
 			}
 		elseif round % 4 == 2 then
 			return {
-				{ type='ATK', value=4 + math.random(0, 4) },
-				{ type='DEF', value=2 + math.random(0, 4) },
+				{ type='ATK', value=4 + math.random(0, 2) },
+				{ type='DEF', value=2 + math.random(0, 2) },
 			}
 		elseif round % 4 == 3 then
 			return {
-				{ type='ATK', value=3 + math.random(0, 4) },
-				{ type='DEF', value=3 + math.random(0, 4) },
+				{ type='ATK', value=3 + math.random(0, 2) },
+				{ type='DEF', value=3 + math.random(0, 2) },
 			}
 		else
 			return {
-				{ type='ATK', value=2 + math.random(0, 4) },
-				{ type='DEF', value=4 + math.random(0, 4) },
+				{ type='ATK', value=2 + math.random(0, 2) },
+				{ type='DEF', value=4 + math.random(0, 2) },
 			}
 		end
 	end
@@ -55,17 +55,17 @@ local LadyBeetle = {
 	name='LadyBeetle',
 	canvas=Enemy.createCanvas(ladyBeetleGraphic),
 	visualDescription='an insect with large wings covered in red spots and splotches.',
-	startingHP=12, startingBLK=6,
+	startingHP=6, startingBLK=0,
 	ready=function(round, hp, blk)
 		if playerTotalATK > playerTotalDEF then
 			return {
-				{ type='ATK', value=4 + math.random(0, 4) },
-				{ type='DEF', value=3 + math.random(0, 4) },
+				{ type='ATK', value=4 + math.random(0, 3) },
+				{ type='DEF', value=3 + math.random(0, 3) },
 			}
 		else
 			return {
-				{ type='ATK', value=3 + math.random(0, 4) },
-				{ type='DEF', value=4 + math.random(0, 4) },
+				{ type='ATK', value=3 + math.random(0, 3) },
+				{ type='DEF', value=4 + math.random(0, 3) },
 			}
 		end
 	end

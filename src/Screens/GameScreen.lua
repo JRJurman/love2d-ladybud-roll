@@ -83,6 +83,7 @@ function confirmAttack()
 	selectedDiceIndex = 0
 	playerTotalATK = 0
 	playerTotalDEF = 0
+	selectedCharacter = nil
 end
 
 -- dice tray canvas variables (which we only want to create on load)
