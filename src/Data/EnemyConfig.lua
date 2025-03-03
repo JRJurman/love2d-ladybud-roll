@@ -14,7 +14,7 @@ local Beetle = {
 			}
 		end
 		return {
-			{ type='ATK', value=3 + math.random(0, 4) }
+			{ type='ATK', value=4 + math.random(0, 4) }
 		}
 	end
 }
@@ -59,13 +59,13 @@ local LadyBeetle = {
 	ready=function(round, hp, blk)
 		if playerTotalATK > playerTotalDEF then
 			return {
-				{ type='ATK', value=4 + math.random(0, 3) },
-				{ type='DEF', value=3 + math.random(0, 3) },
+				{ type='ATK', value=5 + math.random(0, 3) },
+				{ type='DEF', value=4 + math.random(0, 3) },
 			}
 		else
 			return {
-				{ type='ATK', value=3 + math.random(0, 3) },
-				{ type='DEF', value=4 + math.random(0, 3) },
+				{ type='ATK', value=4 + math.random(0, 3) },
+				{ type='DEF', value=5 + math.random(0, 3) },
 			}
 		end
 	end
@@ -93,11 +93,11 @@ local Moth = {
 	ready=function(round, hp, blk)
 		if round == 1 then
 			return {
-				{ type='DEF', value=8 + math.random(0, 2) },
+				{ type='DEF', value=7 + math.random(0, 2) },
 			}
 		end
-		if round % 2 == 0 then
-			return {{ type='ATK', value=4 + math.random(0, 2) }}
+		if round % 3 == 0 then
+			return {{ type='ATK', value=6 + math.random(0, 2) }}
 		else
 			return {
 				{ type='ATK', value=3 + math.random(0, 2) },
@@ -121,13 +121,13 @@ local Spider = {
 		end
 		if playerTotalATK > playerTotalDEF then
 			return {
-				{ type='ATK', value=4 + math.random(0, 2) },
+				{ type='ATK', value=5 + math.random(0, 2) },
 				{ type='DEF', value=3 + math.random(0, 2) },
 			}
 		else
 			return {
 				{ type='ATK', value=3 + math.random(0, 2) },
-				{ type='DEF', value=4 + math.random(0, 2) },
+				{ type='DEF', value=5 + math.random(0, 2) },
 			}
 		end
 	end

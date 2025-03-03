@@ -44,7 +44,7 @@ local GreenDie = {
 	min=1, max=3,
 	color=lospecColors[19],
 
-	buff="heals the player's health by 2 when assigned",
+	buff="heals the player's health by 1 when assigned",
 	resolveAssignment=function(die)
 		playerHP = math.min(playerHP + 1, playerMaxHP)
 	end,
