@@ -18,6 +18,7 @@ playerDiceCapBonus = nil
 playerDiceFloorBonus = nil
 enemyStartingBLKBonus = nil
 diceBag = nil
+brokenDiceBag = nil
 
 local readoutDelay = nil
 
@@ -39,6 +40,7 @@ function TitleScreen.load()
 	playerDiceFloorBonus = 0
 	enemyStartingBLKBonus = 0
 	diceBag = {}
+	brokenDiceBag = {}
 	for index, dieConfig in ipairs(playerConfig.diceBag) do table.insert(diceBag, dieConfig) end
 end
 

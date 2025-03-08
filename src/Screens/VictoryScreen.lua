@@ -27,7 +27,7 @@ local titleTextCanvas = Button.createCanvas(titleTextWidth, titleTextHeight)
 function VictoryScreen.load()
 	screen = VictoryScreen.screen
 	selectedRow = 'intro'
-	selectedDiceIndex = 0
+	introMusic()
 
 	dice = {}
 	for index, dieConfig in ipairs(diceBag) do
@@ -41,10 +41,27 @@ function VictoryScreen.load()
 		table.insert(dice, newDie)
 	end
 
+	brokenDice = {}
+	for index, dieConfig in ipairs(brokenDiceBag) do
+		local newDie = {
+			value = 0,
+			assignment = nil,
+			diceBagIndex = index,
+			dieConfig = dieConfig,
+			canvas = Die.createCanvas(0)
+		}
+		table.insert(brokenDice, newDie)
+	end
+
 	-- build tray canvas for the victory screen
 	diceTrayWidth = 620
 	diceTrayHeight = DiceTray.getHeight(diceTrayWidth, #dice)
 	introDiceTrayCanvas = DiceTray.createCanvas(diceTrayWidth, diceTrayHeight, false)
+
+	-- build broken dice tray canvas
+	brokenDiceTrayWidth = 290
+	brokenDiceTrayHeight = DiceTray.getHeight(brokenDiceTrayWidth, #brokenDice)
+	brokenDiceTrayCanvas = DiceTray.createCanvas(brokenDiceTrayWidth, brokenDiceTrayHeight, false)
 
 	-- read out the first intro box selection
 	tts.readVictoryScreen()
@@ -59,14 +76,19 @@ function VictoryScreen.keypressed(key)
 
 	-- change which set of elements we are selecting
 	if key == 'up' then
-		if selectedRow == 'dice' then
+		if selectedRow == 'broken' then
 			selectedRow = 'intro'
 			tts.readVictoryScreen()
 
 			validKey = true
       selectBackSFX()
+		elseif selectedRow == 'dice' then
+			selectedRow = 'broken'
+			tts.readBrokenDiceTray()
+
+			validKey = true
+      selectBackSFX()
 		elseif selectedRow == 'again' then
-			selectedDiceIndex = 0
 			selectedRow = 'dice'
 			tts.readDiceTray()
 
@@ -77,7 +99,12 @@ function VictoryScreen.keypressed(key)
 
 	if key == 'down' then
 		if selectedRow == 'intro' then
-			selectedDiceIndex = 0
+			selectedRow = 'broken'
+			tts.readBrokenDiceTray()
+
+			validKey = true
+      selectSFX()
+		elseif selectedRow == 'broken' then
 			selectedRow = 'dice'
 			tts.readDiceTray()
 
@@ -112,14 +139,20 @@ function VictoryScreen.draw()
 	local textBlockY = 45
 	Button.draw(titleTextCanvas, x, textBlockY, titleTextWidth, titleTextHeight, 20, selectedRow == 'intro', TextBlocks.victory)
 
+	local brokenDiceTrayX = getXForWidth(brokenDiceTrayWidth)
+	local brokenDiceTrayY = 285
+	DiceTray.draw(brokenDiceTrayCanvas, brokenDiceTrayHeight, brokenDiceTrayX, brokenDiceTrayY, brokenDice, selectedRow == 'broken' and 0)
+
 	local diceTrayX = getXForWidth(diceTrayWidth)
-	local diceTrayY = 365
-	DiceTray.draw(introDiceTrayCanvas, diceTrayHeight, diceTrayX, diceTrayY, dice, selectedRow == 'dice' and selectedDiceIndex or nil)
+	local activeDiceTrayY = 400
+	DiceTray.draw(introDiceTrayCanvas, diceTrayHeight, diceTrayX, activeDiceTrayY, dice, selectedRow == 'dice' and 0)
 
 	local keyInstructionX = 45
 	local keyInstructionY = 525
 	local keyInstructionWidth = 536
 	if selectedRow == 'intro' then
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F',  'to Preview Dice',true)
+	elseif selectedRow == 'broken' then
 		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F',  'to Preview Dice',true)
 	elseif selectedRow == 'dice' then
 		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Restart',true)

@@ -13,9 +13,9 @@ local BlueDie = {
 		end
 	end,
 
-	brokenBuff="gives you +6 starting block on every match",
+	brokenBuff="gives you +12 block at the start of the match",
 	onBreaking=function()
-		playerStartingBLK = playerStartingBLK + 6
+		playerStartingBLK = playerStartingBLK + 12
 	end
 }
 
@@ -32,9 +32,9 @@ local RedDie = {
 		end
 	end,
 
-	brokenBuff="reduces the enemy starting block by 10",
+	brokenBuff="reduces the enemy block by 12 at the start of the match",
 	onBreaking=function()
-		enemyStartingBLKBonus = enemyStartingBLKBonus - 10
+		enemyStartingBLKBonus = enemyStartingBLKBonus - 12
 	end
 }
 
@@ -49,10 +49,10 @@ local GreenDie = {
 		playerHP = math.min(playerHP + 1, playerMaxHP)
 	end,
 
-	brokenBuff="increases max HP and health by 10",
+	brokenBuff="heal and increases max HP by 10",
 	onBreaking=function()
 		playerMaxHP = playerMaxHP + 10
-		playerHP = playerHP + 10
+		playerHP = playerMaxHP
 	end
 }
 
@@ -63,7 +63,11 @@ local WhiteDie = {
 	color=lospecColors[41],
 
 	buff="has no extra effects",
-	brokenBuff="gives no benefits"
+
+	brokenBuff="restores health to max",
+	onBreaking=function()
+		playerHP = playerMaxHP
+	end
 }
 
 local YellowDie = {

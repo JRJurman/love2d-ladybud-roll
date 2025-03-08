@@ -9,6 +9,8 @@ local pipAssets = {
 	love.graphics.newImage('Assets/6-pip.png'),
 }
 
+local breakAsset = love.graphics.newImage('Assets/die-break.png')
+
 local dieAsset = love.graphics.newImage('Assets/die-white.png')
 local dieAssetSize = 32
 
@@ -25,6 +27,10 @@ function Die.createCanvas(value)
 	-- Draw pips
 	if value > 0 and value < 7 then
 		love.graphics.draw(pipAssets[value], 0, 0)
+	end
+
+	if value == 0 then
+		love.graphics.draw(breakAsset, 0, 0)
 	end
 
 	-- Reset canvas

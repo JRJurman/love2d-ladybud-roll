@@ -183,6 +183,16 @@ function tts.readDiceTray()
 	printTTS()
 end
 
+function tts.readBrokenDiceTray()
+	local diceText = 'The Dice you broke: '
+	for index, dieConfig in ipairs(brokenDiceBag) do
+		diceText = diceText..' a '..dieConfig.label..', '
+	end
+	ttsInstructions = 'Press down to preview your dice.'
+	ttsText = diceText..ttsInstructions
+	printTTS()
+end
+
 function tts.readPlayAgainButton()
 	ttsText = 'New Run button: press X to start again from the beginning'
 	ttsInstructions = ttsText

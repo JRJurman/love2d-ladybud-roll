@@ -121,6 +121,7 @@ function DiceBreakScreen.keypressed(key)
 				diceBag[selectedDiceIndex].onBreaking()
 			end
 
+			table.insert(brokenDiceBag, diceBag[selectedDiceIndex])
 			table.remove(diceBag, selectedDiceIndex)
 			TransitionScreen.next()
 			validKey = true
