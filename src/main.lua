@@ -106,28 +106,53 @@ function love.keypressed(key)
 		swapFont()
 		validKey = true
 	end
-	-- if they press m, mute the music
+	-- if they press m, update the music volume
 	if (key == 'm') then
-		selectSFX()
-		if musicVolume == 0 then
-			musicVolume = 0.7
+		print('musicVolume', musicVolume)
+		if love.keyboard.isDown( 'lshift' ) or love.keyboard.isDown( 'rshift' ) then
+			musicVolume = math.min(musicVolume + 0.1, 1)
 		else
-			musicVolume = 0
+			musicVolume = math.max(musicVolume - 0.1, 0)
 		end
+		print('musicVolume', musicVolume)
+		print('masterVolume', masterVolume)
 		updateMusicVolume()
+		selectSFX()
 		validKey = true
 	end
-	-- if they press 0 - 9, set the master volume
+
+	-- if they press n, update the SFX volume
+	if (key == 'n') then
+		if love.keyboard.isDown( 'lshift' ) or love.keyboard.isDown( 'rshift' ) then
+			sfxVolume = math.min(sfxVolume + 0.1, 1)
+		else
+			sfxVolume = math.max(sfxVolume - 0.1, 0)
+		end
+		print('sfxVolume', sfxVolume)
+		print('masterVolume', masterVolume)
+		selectSFX()
+		validKey = true
+	end
+
+	-- if they press 0 - 9, update the master volume
 	if (tonumber(key)) then
 		masterVolume = tonumber(key)/9
+		print('masterVolume', masterVolume)
 		selectSFX()
 		updateMusicVolume()
 		validKey = true
 	end
+
 	-- if they press t, toggle animation preference
 	if (key == 't') then
 		selectSFX()
 		prefersReducedAnimation = not prefersReducedAnimation
+		validKey = true
+	end
+	-- if they press z, repeat current instructions
+	if (key == 'z') then
+		selectSFX()
+		tts.repeatInstructions()
 		validKey = true
 	end
 

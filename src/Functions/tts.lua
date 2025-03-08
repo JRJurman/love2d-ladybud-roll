@@ -2,6 +2,7 @@ local TextBlocks = require('Data/TextBlocks')
 
 local tts = {}
 ttsText = ''
+ttsInstructions = ''
 repeatingText = 0
 
 function printTTS()
@@ -35,23 +36,35 @@ function tts.repeatText()
 	repeatingText = 0.5
 end
 
+-- repeat instructions at any time
+function tts.repeatInstructions()
+	if ttsText == ttsInstructions then
+		tts.repeatText()
+	else
+		ttsText = ttsInstructions
+		printTTS()
+	end
+end
+
 -- title screen
 function tts.readTitleScreen()
 	ttsText = 'Lady-Bud Roll, created by Jesse Jurman, art by Ethan Jurman. Press X key to start. Press R key to repeat screen reader text. Press M key to mute music. Press 0 through 9 keys to adjust volume. Press F key to swap fonts. Press T key to disable animations. Press R key at any time to repeat screen reader text.'
+	ttsInstructions = 'Press X key to start'
 	printTTS()
 end
 
 -- intro screen
 
 function tts.readIntroLore()
-	local instructions = 'Press down to preview dice.'
-	ttsText = TextBlocks.introLore..instructions
+	ttsInstructions = ' Press down to preview dice.'
+	ttsText = TextBlocks.introLore..ttsInstructions
 	printTTS()
 end
 
 function tts.readIntroDiceTray()
-	local diceReadout = 'Your starting '..#diceBag..' dice. Press right to learn more about each die. Press down to begin your adventure.'
-	ttsText = diceReadout
+	local diceReadout = 'Your starting '..#diceBag..' dice. '
+	ttsInstructions = 'Press right to learn more about each die. Press down to begin your adventure.'
+	ttsText = diceReadout..ttsInstructions
 	printTTS()
 end
 
@@ -67,16 +80,17 @@ function tts.readSelectedDiceConfig(dieConfig)
 end
 
 function tts.readBeginButton()
-	local beginReadout = 'Begin Button, Press X key to start.'
-	ttsText = beginReadout
+	ttsInstructions = 'Begin Button: Press X key to start.'
+	ttsText = ttsInstructions
 	printTTS()
 end
 
 -- dice pack screen
 
 function tts.readDicePackIntro()
-	local instructions = 'There are three packs, each with three dice. Press down to preview the dice, and press X on one pack to add it to your own.'
-	ttsText = TextBlocks.dicePacks..instructions
+	local packIntro = ' There are three packs, each with two dice. '
+	ttsInstructions = 'Press down to preview the dice, and press X on one pack to add it to your own.'
+	ttsText = TextBlocks.dicePacks..packIntro..ttsInstructions
 	printTTS()
 end
 
@@ -91,12 +105,14 @@ function tts.readPackSummary(selectedPackOptions, packIndex)
 	if packIndex == 1 then
 		instructions = instructions..'There are two more packs to choose from, you can press down to check other options, or go to the bottom to skip.'
 	end
-	ttsText = packText..instructions
+	ttsInstructions = instructions
+	ttsText = packText..ttsInstructions
 	printTTS()
 end
 
 function tts.readSkipButton()
-	ttsText = 'skip button, press X to skip and go to the next battle'
+	ttsInstructions = 'Skip Button: press X to skip and go to the next battle'
+	ttsText = ttsInstructions
 	printTTS()
 end
 
@@ -108,14 +124,15 @@ end
 -- dice break screen
 
 function tts.readDiceBreakIntro()
-	local instructions = 'Press down to look at your dice and the different buffs.'
-	ttsText = TextBlocks.diceBreak..instructions
+	ttsInstructions = ' Press down to look at your dice and the different buffs.'
+	ttsText = TextBlocks.diceBreak..ttsInstructions
 	printTTS()
 end
 
 function tts.readBreakDiceTray()
-	local diceReadout = 'Your '..#diceBag..' dice. Press right to learn what breaking the die would do. Press down if you want to skip destroying a die.'
-	ttsText = diceReadout
+	local diceReadout = 'Your '..#diceBag..' dice. '
+	ttsInstructions = 'Press right to learn what breaking the die would do. Press down if you want to skip destroying a die.'
+	ttsText = diceReadout..ttsInstructions
 	printTTS()
 end
 
@@ -130,6 +147,7 @@ function tts.readSelectedDiceConfigAndBreakBuff(dieConfig)
 	local instructions = ''
 	if selectedDiceIndex == 1 then
 		instructions = 'Press X to destroy this die and get this buff, or right to scan more dice. '
+		ttsInstructions = instructions
 	end
 	ttsText = dieConfigTitle..dieConfigBuff..instructions
 	printTTS()
@@ -143,15 +161,15 @@ end
 -- game over screen
 function tts.readGameOverScreen()
 	local enemyResult = 'You were defeated by the '..enemyConfig.name..'. '
-	local instructions = 'Press X to restart the game. '
-	ttsText = 'Game Over. '..enemyResult..instructions
+	ttsInstructions = 'Press X to restart the game. '
+	ttsText = 'Game Over. '..enemyResult..ttsInstructions
 	printTTS()
 end
 
 -- victory screen
 function tts.readVictoryScreen()
-	local instructions = 'Press down to review your final dice, and start again. '
-	ttsText = TextBlocks.victory..instructions
+	ttsInstructions = ' Press down to review your final dice, and start again. '
+	ttsText = TextBlocks.victory..ttsInstructions
 	printTTS()
 end
 
@@ -160,13 +178,14 @@ function tts.readDiceTray()
 	for index, dieConfig in ipairs(diceBag) do
 		diceText = diceText..' a '..dieConfig.label..', '
 	end
-	local instructions = 'Press down to start a new game.'
-	ttsText = diceText..instructions
+	ttsInstructions = 'Press down to start a new game.'
+	ttsText = diceText..ttsInstructions
 	printTTS()
 end
 
 function tts.readPlayAgainButton()
-	ttsText = 'New Run button, press X to start again from the beginning'
+	ttsText = 'New Run button: press X to start again from the beginning'
+	ttsInstructions = ttsText
 	printTTS()
 end
 
@@ -201,8 +220,8 @@ function tts.readCharactersPreview()
 	local playerStatus = 'You have '..playerHP..' health, and '..playerBLK..' block. '
 	local playerHotKey = 'You can press Q at any time to hear your own stats. '
 
-	local instructions = 'Press down to view your dice.'
-	ttsText = enemyStatus..enemyActionText..enemyActionHotKey..playerStatus..playerHotKey..instructions
+	ttsInstructions = 'Press down to view your dice.'
+	ttsText = enemyStatus..enemyActionText..enemyActionHotKey..playerStatus..playerHotKey..ttsInstructions
 	printTTS()
 end
 
@@ -272,8 +291,8 @@ function tts.readCharactersUpdate()
 
 	local playerStatus = 'You have '..playerHP..' health, and '..playerBLK..' block. '
 
-	local instructions = 'Press down to view your dice and continue the fight.'
-	ttsText = enemyStatus..enemyActionText..playerStatus..instructions
+	ttsInstructions = 'Press down to view your dice and continue the fight.'
+	ttsText = enemyStatus..enemyActionText..playerStatus..ttsInstructions
 	printTTS()
 end
 
@@ -286,7 +305,8 @@ function tts.readDiceTrayPreview()
 			diceOptions = diceOptions..' (assigned)'
 		end
 	end
-	ttsText = 'Your dice tray - You have rolled '..#activeDice..' dice;'..diceOptions..'. Press right to scan and assign these dice. Press down after assigning dice to confirm your selection and attack!'
+	ttsInstructions = 'Press right to scan and assign these dice. Press down after assigning dice to confirm your selection and attack!'
+	ttsText = 'Your dice tray: You have rolled '..#activeDice..' dice;'..diceOptions..'. '..ttsInstructions
 	printTTS()
 end
 
@@ -316,7 +336,10 @@ function tts.readDiceAssignment()
 		assignedDefenseDiceText = 'no dice'
 	end
 
-	ttsText = 'Confirm Button, You are attacking with '..assignedAttackDiceText..' and are defending with '..assignedDefenseDiceText..'. Press X to confirm.'
+	unassignedCount = 4 - #assignedDice
+
+	ttsInstructions = 'Press X to confirm actions.'
+	ttsText = 'Confirm Button: You are attacking with '..assignedAttackDiceText..'; are defending with '..assignedDefenseDiceText..'; and have '..unassignedCount..' unassigned dice. '..ttsInstructions
 	printTTS()
 end
 
@@ -334,7 +357,8 @@ function tts.readSelectedDie()
 	if selectedDie.assignment then
 		dieDescription = dieDescription..'Assigned for '..(selectedDie.assignment == 'ATK' and 'attacking' or 'defending')..'. '
 	elseif selectedDiceIndex == 1 then
-		dieDescription = dieDescription..'Not currently assigned. Press A to use for Attacking, D to use for Defending, and C to clear the assignment and save the die.'
+		ttsInstructions = 'Press A to use for Attacking, D to use for Defending, and C to clear the assignment and save the die.'
+		dieDescription = dieDescription..'Not currently assigned. '..ttsInstructions
 	end
 	ttsText = dieSlot..' Die, a '..dieDescription
 	printTTS()

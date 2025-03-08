@@ -42,7 +42,7 @@ local GreenDie = {
 	label="Green Die",
 	shortLabel="Green",
 	min=1, max=3,
-	color=lospecColors[19],
+	color=lospecColors[20],
 
 	buff="heals the player's health by 1 when assigned",
 	resolveAssignment=function(die)
