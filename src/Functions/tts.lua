@@ -95,9 +95,21 @@ function tts.readDicePackIntro()
 end
 
 function tts.readPackSummary(selectedPackOptions, packIndex)
-	local packText = 'The '..indexToPlace(packIndex)..' pack'
+	local packText = 'The '..indexToPlace(packIndex)..' pack: '
+	-- note - the join here is in-part expecting packs of two dice;
+	-- changes would need to be made and tested for larger dice packs
 	for index, die in ipairs(selectedPackOptions) do
-		packText = packText..', a '..die.dieConfig.label
+		if index > 1 then
+			previousDieLabel = selectedPackOptions[index - 1].dieConfig.label
+			-- if this is the same as the last die, add 'another' to the readout
+			if previousDieLabel == die.dieConfig.label then
+				packText = packText..' and another '..die.dieConfig.label
+			else
+				packText = packText..' and a '..die.dieConfig.label
+			end
+		else
+			packText = packText..'a '..die.dieConfig.label
+		end
 	end
 	packText = packText..'. '
 
