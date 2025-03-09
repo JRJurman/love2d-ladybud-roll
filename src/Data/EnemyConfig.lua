@@ -60,12 +60,12 @@ local LadyBeetle = {
 		if playerTotalATK > playerTotalDEF then
 			return {
 				{ type='ATK', value=5 + math.random(0, 3) },
-				{ type='DEF', value=4 + math.random(0, 3) },
+				{ type='DEF', value=3 + math.random(0, 3) },
 			}
 		else
 			return {
 				{ type='ATK', value=4 + math.random(0, 3) },
-				{ type='DEF', value=5 + math.random(0, 3) },
+				{ type='DEF', value=3 + math.random(0, 3) },
 			}
 		end
 	end
@@ -127,7 +127,7 @@ local Spider = {
 		else
 			return {
 				{ type='ATK', value=3 + math.random(0, 2) },
-				{ type='DEF', value=4 + math.random(0, 2) },
+				{ type='DEF', value=3 + math.random(0, 2) },
 			}
 		end
 	end

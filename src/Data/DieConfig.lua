@@ -32,9 +32,9 @@ local RedDie = {
 		end
 	end,
 
-	brokenBuff="reduces the enemy block by 12 at the start of the match",
+	brokenBuff="reduces the enemy block by 15 at the start of the match",
 	onBreaking=function()
-		enemyStartingBLKBonus = enemyStartingBLKBonus - 12
+		enemyStartingBLKBonus = enemyStartingBLKBonus - 15
 	end
 }
 
