@@ -360,7 +360,7 @@ function tts.readSelectedDie()
 	local dieSlot = indexToPlace(selectedDiceIndex)
 
 	local dieDescription = ''
-	dieDescription = dieDescription..dieConfig.label..' with '..selectedDie.value..' face up. '
+	dieDescription = dieDescription..dieConfig.label..', rolled '..selectedDie.value..'. '
 	if dieConfig.buff then
 		dieDescription = dieDescription..'A '..dieConfig.label..' '..dieConfig.buff..'. '
 	end

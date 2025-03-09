@@ -27,9 +27,9 @@ selectedRow = nil
 selectedDiceIndex = nil
 
 -- master volume control for SFX and Music
-masterVolume = 1
-musicVolume = 0.7
-sfxVolume = 1
+masterVolume = 0.7
+musicVolume = 0.6
+sfxVolume = 0.7
 music = nil
 
 -- valid key tracker (that we might update across screens)
@@ -100,36 +100,23 @@ function love.keypressed(key)
 		tts.repeatText()
 		validKey = true
 	end
+
 	-- if they press f, swap the font
 	if (key == 'f') then
 		selectSFX()
 		swapFont()
 		validKey = true
 	end
+
 	-- if they press m, update the music volume
 	if (key == 'm') then
-		print('musicVolume', musicVolume)
-		if love.keyboard.isDown( 'lshift' ) or love.keyboard.isDown( 'rshift' ) then
-			musicVolume = math.min(musicVolume + 0.1, 1)
+		if musicVolume == 0 then
+			musicVolume = 0.7
 		else
-			musicVolume = math.max(musicVolume - 0.1, 0)
+			musicVolume = 0
 		end
-		print('musicVolume', musicVolume)
-		print('masterVolume', masterVolume)
-		updateMusicVolume()
-		selectSFX()
-		validKey = true
-	end
 
-	-- if they press n, update the SFX volume
-	if (key == 'n') then
-		if love.keyboard.isDown( 'lshift' ) or love.keyboard.isDown( 'rshift' ) then
-			sfxVolume = math.min(sfxVolume + 0.1, 1)
-		else
-			sfxVolume = math.max(sfxVolume - 0.1, 0)
-		end
-		print('sfxVolume', sfxVolume)
-		print('masterVolume', masterVolume)
+		updateMusicVolume()
 		selectSFX()
 		validKey = true
 	end
