@@ -78,16 +78,17 @@ function TitleScreen.draw()
 
 	love.graphics.setFont(getFont(30))
 
-	love.graphics.printf('Created by Jesse Jurman', 0, 199, winWidth, 'center')
-	love.graphics.printf('Art by Ethan Jurman', 0, 230, winWidth, 'center')
+	love.graphics.printf('Created by Jesse Jurman', 0, 180, winWidth, 'center')
+	love.graphics.printf('Art by Ethan Jurman', 0, 210, winWidth, 'center')
 
 	-- instructions
 	local startWidth = 415
 	local startX = getXForWidth(startWidth)
-	local startY = 300
+	local startY = 280
 	KeyInstruction.draw(startX, startY, startWidth, 'x', 'to Start', true)
 
-	KeyInstruction.draw(40, 380, winWidth - 80, 'r', 'to Repeat Screen Reader',  false)
+	KeyInstruction.draw(40, 340, winWidth - 80, 'r', 'to Repeat Screen Reader',  false)
+	KeyInstruction.draw(40, 380, winWidth - 80, 'z', 'to Repeat Instructions',  false)
 	KeyInstruction.draw(40, 420, winWidth - 80, 'f', 'to Swap Fonts', false)
 	KeyInstruction.draw(40, 460, winWidth - 80, 't', 'to Disable Animations', false)
 	KeyInstruction.drawKeyRange(40, 500, winWidth - 80, '0', '9', 'to Adjust Volume',  false)
