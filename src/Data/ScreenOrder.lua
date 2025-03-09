@@ -1,17 +1,15 @@
 local ScreenOrder = {
 	IntroScreen,
-	GameScreen, -- Mantis
+	GameScreen, -- 2, Mantis
 	DicePackScreen,
-	GameScreen, -- Moth
+	GameScreen, -- 4, Moth
 	DiceBreakScreen,
-	GameScreen, -- Beetle
+	GameScreen, -- 6, Beetle
 	DicePackScreen,
-	GameScreen, -- Spider
-	DiceBreakScreen,
-	GameScreen, -- Centipede
+	GameScreen, -- 8, Centipede
 	DicePackScreen,
 	DiceBreakScreen,
-	GameScreen, -- LadyBeetle
+	GameScreen, -- 11, LadyBeetle
 	VictoryScreen
 }
 

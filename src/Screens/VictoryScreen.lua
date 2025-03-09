@@ -17,7 +17,7 @@ local diceTrayHeight = nil
 local introDiceTrayCanvas = nil
 
 -- confirm button canvas
-local confirmButtonWidth, confirmButtonHeight = 170, 50
+local confirmButtonWidth, confirmButtonHeight = 195, 50
 local confirmButtonCanvas = Button.createCanvas(confirmButtonWidth, confirmButtonHeight)
 
 -- Title Text canvas
@@ -59,8 +59,8 @@ function VictoryScreen.load()
 	introDiceTrayCanvas = DiceTray.createCanvas(diceTrayWidth, diceTrayHeight, false)
 
 	-- build broken dice tray canvas
-	brokenDiceTrayWidth = 290
-	brokenDiceTrayHeight = DiceTray.getHeight(brokenDiceTrayWidth, #brokenDice)
+	brokenDiceTrayWidth = 360
+	brokenDiceTrayHeight = DiceTray.getHeight(brokenDiceTrayWidth, math.max(#brokenDice, 4))
 	brokenDiceTrayCanvas = DiceTray.createCanvas(brokenDiceTrayWidth, brokenDiceTrayHeight, false)
 
 	-- read out the first intro box selection
@@ -121,7 +121,7 @@ function VictoryScreen.keypressed(key)
 
 	if selectedRow == 'again' then
 		if key == 'x' then
-			TransitionScreen.load(TitleScreen, false)
+			TransitionScreen.load(IntroScreen, false)
 			validKey = true
 		end
 	end
@@ -155,13 +155,13 @@ function VictoryScreen.draw()
 	elseif selectedRow == 'broken' then
 		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F',  'to Preview Dice',true)
 	elseif selectedRow == 'dice' then
-		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Restart',true)
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'F', 'to Continue',true)
 	elseif selectedRow == 'again' then
-		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Restart', true)
+		KeyInstruction.draw(keyInstructionX, keyInstructionY, keyInstructionWidth, 'x', 'to Continue', true)
 	end
 
-	local confirmButtonX, confirmButtonY = 580, 510
-	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, confirmButtonHeight, 0, selectedRow == 'again', 'Restart')
+	local confirmButtonX, confirmButtonY = 575, 510
+	Button.draw(confirmButtonCanvas, confirmButtonX, confirmButtonY, confirmButtonWidth, confirmButtonHeight, 0, selectedRow == 'again', 'Continue')
 end
 
 return VictoryScreen

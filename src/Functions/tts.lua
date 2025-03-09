@@ -206,17 +206,12 @@ function tts.readBrokenDiceTray()
 end
 
 function tts.readPlayAgainButton()
-	ttsText = 'New Run button: press X to start again from the beginning'
+	ttsText = 'Continue button: press X to start from the first stage with your dice'
 	ttsInstructions = ttsText
 	printTTS()
 end
 
 -- game screen
-function tts.rollingDice()
-	ttsText = 'Rolling dice'
-	printTTS()
-end
-
 function tts.readCharactersPreview()
 	local actionText = ''
 	for index, action in ipairs(enemyActions) do

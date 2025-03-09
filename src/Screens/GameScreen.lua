@@ -34,9 +34,10 @@ local rollingSpeed = 0.3
 local resolutionSpeed = 1
 
 function loadEnemyConfig(newEnemyConfig)
+	battles = battles + 1
 	enemyConfig = newEnemyConfig
-	enemyHP = enemyConfig.startingHP + stage*2
-	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + stage*2, 0)
+	enemyHP = enemyConfig.startingHP + battles*5
+	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + battles*5, 0)
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
 end
 
