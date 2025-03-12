@@ -30,7 +30,7 @@ jobs:
           # Package manager to use (`pnpm | yarn | npm`)
           package_manager: 'npm'
           # GitHub authentication token
-          # github_token: 
+          github_token: ${{ secrets.github_token }}
           # Base64-encoded code signing certificate for macOS
           # mac_certs: # optional
           # Password for decrypting `mac_certs`
@@ -50,7 +50,7 @@ jobs:
           # Whether to run `electron-builder` using the Vue CLI plugin instead of calling the command directly
           # use_vue_cli: # optional
           # Other arguments to pass to the `electron-builder` command, e.g. configuration overrides
-          # args: # optional, default is 
+          # args: # optional, default is
           # Maximum number of attempts for completing the build and release step
           # max_attempts: # optional, default is 1
           # Directory where `electron-builder` commands should be run
