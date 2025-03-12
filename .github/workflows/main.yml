@@ -14,7 +14,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [windows-latest]
 
     steps:
       - name: Checkout repository
@@ -25,6 +26,7 @@ jobs:
         with:
           node-version: 23  # Adjust to match your project
 
+      # Build doesn't work on windows because of how the script is written
       # - name: Build Project
       #   run: npm run build
 
@@ -34,20 +36,11 @@ jobs:
       - name: Package Project
         run: npm run package
 
-      - name: Make Electron App (Windows)
-        if: matrix.os == 'windows-latest'
-        run: npm run make:win32
-
-      - name: Make Electron App (MacOS)
-        if: matrix.os == 'macos-latest'
-        run: npm run make:darwin
-
-      - name: Make Electron App (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        run: npm run make:linux
+      - name: Make Electron App
+        run: npm run make
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: electron-build-${{ matrix.os }}
-          path: DiceGame/out/make/  # Adjust if your builds go elsewhere
+          path: DiceGame/out/make/zip

@@ -1,14 +1,11 @@
 {
-  "name": "dicegame",
+  "name": "LadybudRoll",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make:win32": "electron-forge make --skip-package --platform=win32",
-    "make:darwin": "electron-forge make --skip-package --platform=darwin",
-    "make:linux": "electron-forge make --skip-package --platform=linux",
-    "make": "npm run package && npm run make:win32 && npm run make:darwin && npm run make:linux"
+    "make": "electron-forge make"
   },
   "keywords": [],
   "author": "",
