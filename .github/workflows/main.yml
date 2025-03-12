@@ -8,6 +8,10 @@ jobs:
   release:
     runs-on: ${{ matrix.os }}
 
+    defaults:
+      run:
+        working-directory: DiceGame
+
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
@@ -21,29 +25,24 @@ jobs:
         with:
           node-version: 23  # Adjust to match your project
 
-      - name: Build Project
-        run: npm run build
+      # - name: Build Project
+      #   run: npm run build
 
       - name: Install Dependencies
-        working-directory: DiceGame
         run: npm ci
 
       - name: Package Project
-        working-directory: DiceGame
         run: npm run package
 
       - name: Make Electron App (Windows)
-        working-directory: DiceGame
         if: matrix.os == 'windows-latest'
         run: npm run make:win32
 
       - name: Make Electron App (MacOS)
-        working-directory: DiceGame
         if: matrix.os == 'macos-latest'
         run: npm run make:darwin
 
       - name: Make Electron App (Linux)
-        working-directory: DiceGame
         if: matrix.os == 'ubuntu-latest'
         run: npm run make:linux
 
