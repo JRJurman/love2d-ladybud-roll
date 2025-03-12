@@ -25,20 +25,25 @@ jobs:
         run: npm run build
 
       - name: Install Dependencies
-        run: cd DiceGame && npm ci
+        working-directory: DiceGame
+        run: npm ci
 
       - name: Package Project
+        working-directory: DiceGame
         run: npm run package
 
       - name: Make Electron App (Windows)
+        working-directory: DiceGame
         if: matrix.os == 'windows-latest'
         run: npm run make:win32
 
       - name: Make Electron App (MacOS)
+        working-directory: DiceGame
         if: matrix.os == 'macos-latest'
         run: npm run make:darwin
 
       - name: Make Electron App (Linux)
+        working-directory: DiceGame
         if: matrix.os == 'ubuntu-latest'
         run: npm run make:linux
 
@@ -46,4 +51,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: electron-build-${{ matrix.os }}
-          path: out/make/  # Adjust if your builds go elsewhere
+          path: DiceGame/out/make/  # Adjust if your builds go elsewhere
