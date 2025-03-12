@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start:web": "serve DiceGame",
-    "start:electron": "electron DiceGame",
+    "start:app": "electron DiceGame",
     "build": "./build.sh DiceGame",
     "postbuild": "cd DiceGame && zip ../WebExport.zip game.data game.js index.html love.js love.wasm love.worker.js"
   },

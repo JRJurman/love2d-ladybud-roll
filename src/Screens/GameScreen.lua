@@ -266,9 +266,14 @@ end
 function GameScreen.keypressed(key)
 	if screen ~= GameScreen.screen then return end
 
-	-- don't allow key actions if we are in the middle of resolving a phase
+	-- don't allow normal key actions if we are in the middle of resolving a phase
 	if phase ~= '' then
-		invalidSelectSFX()
+		-- EXCEPT for pressing 'x' to speed up animations
+		if key == 'x' then
+			animationTimer = resolutionSpeed
+		else
+			invalidSelectSFX()
+		end
 		return
 	end
 
