@@ -121,6 +121,8 @@ function VictoryScreen.keypressed(key)
 
 	if selectedRow == 'again' then
 		if key == 'x' then
+			runs = runs + 1
+			playerHP = playerMaxHP
 			TransitionScreen.load(IntroScreen, false)
 			validKey = true
 		end

@@ -17,9 +17,14 @@ GameOverScreen = require('Screens/GameOverScreen')
 TransitionScreen = require('Screens/TransitionScreen')
 DebuggingScreen = require('Screens/DebuggingScreen')
 
-screen = 0
-
 local LightForest = require('../Backgrounds/LightForest')
+
+-- run information
+screen = 0
+stage = 0
+battles = 0
+seed = 0
+runs = 0
 
 -- there are some menu options that we'll use throughout multiple screens
 -- so we're assigning them here, and they'll be used everywhere else
@@ -135,6 +140,7 @@ function love.keypressed(key)
 		prefersReducedAnimation = not prefersReducedAnimation
 		validKey = true
 	end
+
 	-- if they press z, repeat current instructions
 	if (key == 'z') then
 		selectSFX()

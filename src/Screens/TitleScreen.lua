@@ -5,10 +5,6 @@ local TitleScreen = {}
 
 TitleScreen.screen = 0
 
-stage = 0
-battles = 0
-seed = 0
-
 -- initial character state
 playerConfig = nil
 playerHP = nil

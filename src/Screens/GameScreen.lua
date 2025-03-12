@@ -33,12 +33,23 @@ playerTotalDEF = nil
 local rollingSpeed = 0.3
 local resolutionSpeed = 1
 
+function addExtraEnemyActionsPerRun()
+	for i=1,runs do
+		if (round + runs) % 2 == 0 then
+			table.insert(enemyActions, { type='ATK', value=4 + math.random(0, 4) })
+		else
+			table.insert(enemyActions, { type='DEF', value=4 + math.random(0, 4) })
+		end
+	end
+end
+
 function loadEnemyConfig(newEnemyConfig)
 	battles = battles + 1
 	enemyConfig = newEnemyConfig
 	enemyHP = enemyConfig.startingHP + battles*5
 	enemyBLK = math.max(enemyConfig.startingBLK + enemyStartingBLKBonus + battles*5, 0)
 	enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+	addExtraEnemyActionsPerRun()
 end
 
 function getAssignedDiceIndexes(dice)
@@ -144,6 +155,7 @@ function GameScreen.update(dt)
 					phase = 'rollingDice'
 					round = round + 1
 					enemyActions = enemyConfig.ready(round, enemyHP, enemyBLK)
+					addExtraEnemyActionsPerRun()
 
 					selectedRow = 'characters'
 					tts.readCharactersUpdate()

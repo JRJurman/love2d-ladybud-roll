@@ -48,8 +48,6 @@ function Enemy.draw(enemyConfig, isSelected, hp, block, nextActions)
 				Attack.draw(425, actionY + (80 * index), action.value, 100)
 			elseif action.type == 'DEF' then
 				Shield.draw(445, actionY + (80 * index), action.value, 60, -4)
-			elseif action.type == 'STA' then
-				Attack.draw(425, actionY + (80 * index), '!', 100)
 			end
 		end
 	end

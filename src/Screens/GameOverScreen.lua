@@ -20,6 +20,8 @@ function GameOverScreen.keypressed(key)
 
 	if key == 'x' then
 		validKey = true
+		runs = 0
+		battles = 0
 		TransitionScreen.load(TitleScreen, false)
 	end
 end
