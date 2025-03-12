@@ -124,7 +124,6 @@ function love.keypressed(key)
 	-- if they press 0 - 9, update the master volume
 	if (tonumber(key)) then
 		masterVolume = tonumber(key)/9
-		print('masterVolume', masterVolume)
 		selectSFX()
 		updateMusicVolume()
 		validKey = true

@@ -3,20 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "serve DiceGame",
-    "build:love": "cd src; zip ../dice-game.zip -r *; cd .. && mv dice-game.zip dice-game.love",
-    "build:js": "love.js dice-game.love DiceGame -t DiceGame -c",
-    "build:js:production": "love.js dice-game.love DiceGame -t DiceGame",
-    "build:template": "cp ./dice-game.html DiceGame/index.html",
-    "build": "npm run build:love && npm run build:js && npm run build:template",
-    "build:production": "npm run build:love && npm run build:js:production && npm run build:template",
-    "postbuild:production": "zip DiceGame.zip -r DiceGame"
+    "start:web": "serve DiceGame",
+    "start:electron": "electron DiceGame",
+    "build": "./build.sh DiceGame"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "electron": "^35.0.1",
     "love.js": "^11.4.1",
     "serve": "^14.2.4"
   }
