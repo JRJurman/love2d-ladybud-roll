@@ -12,7 +12,13 @@ Music and Sound Effects were created by Jesse Jurman using Pico-8.
 
 Color Palette is [Lospec500](https://lospec.com/palette-list/lospec500)
 
-This game uses the following fonts:
-* [Enter Input by VEXED](https://v3x3d.itch.io/enter-input)
-* [Whacky Joe by VEXED](https://v3x3d.itch.io/whacky-joe)
-* [Atkinson Hyperlegible by the Braille Institute](https://www.brailleinstitute.org/freefont/)
+## Font Attributions
+
+[Enter Input](https://v3x3d.itch.io/enter-input) by [VEXED](https://itch.io/profile/v3x3d)
+Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+[Whacky Joe](https://v3x3d.itch.io/whacky-joe) by [VEXED](https://itch.io/profile/v3x3d)
+Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+[Atkinson Hyperlegible](https://fonts.google.com/specimen/Atkinson+Hyperlegible) by [Braille Institute](https://www.brailleinstitute.org/freefont/)
+Licensed under [SIL Open Font License, Version 1.1](https://openfontlicense.org/open-font-license-official-text/)
