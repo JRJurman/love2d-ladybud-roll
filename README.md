@@ -1,6 +1,7 @@
 # Ladybud Roll
 
 itch.io page: https://jrjurman.itch.io/ladybud-roll
+direct link to game: http://jrjurman.com/love2d-ladybud-roll/
 
 Ladybud Roll was created by Jesse Jurman, with art done by Ethan Jurman. Special thanks to Ethan Jurman, Tina Howard, and Elijah Hogge for playtesting, and Patrícia Mendes for UX and Accessibility consultation.
 
