@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: DiceGame
+        working-directory: docs
 
     strategy:
       matrix:
@@ -43,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: electron-build-${{ matrix.os }}
-          path: DiceGame/out/make/zip
+          path: docs/out/make/zip

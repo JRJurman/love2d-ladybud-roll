@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:web": "serve DiceGame",
-    "start:app": "electron DiceGame",
-    "build": "./build.sh DiceGame",
-    "postbuild": "cd DiceGame && zip ../WebExport.zip game.data game.js index.html love.js love.wasm love.worker.js"
+    "start:web": "serve docs",
+    "start:app": "electron docs",
+    "build": "./build.sh docs",
+    "postbuild": "cd docs && zip ../WebExport.zip game.data game.js index.html love.js love.wasm love.worker.js"
   },
   "keywords": [],
   "author": "",

@@ -1,3 +1,5 @@
 node_modules
 DiceGame/node_modules
 DiceGame/out
+docs/node_modules
+docs/out
