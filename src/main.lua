@@ -80,8 +80,19 @@ function love.update(dt)
 	GameOverScreen.update(dt)
 end
 
+-- for unknown reasons, love.js can sometimes read the arrow keys in safari as the following
+-- https://github.com/JRJurman/love2d-a11y-template/issues/1
+local remap = {
+  kp8 = "up",
+  kp2 = "down",
+  kp4 = "left",
+  kp6 = "right",
+}
+
+
 function love.keypressed(key)
 	validKey = false
+  key = remap[key] or key
 
 	-- if we are in the middle of transitioning
 	-- don't handle any keypresses
